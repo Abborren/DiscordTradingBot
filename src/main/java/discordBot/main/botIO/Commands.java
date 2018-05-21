@@ -67,7 +67,6 @@ class Commands {
                     break outerLoop;
                 } else if (message[0].startsWith(channelCommand) && message[0].endsWith(String.valueOf(number))) {
                     if (attachments.CheckForAttachments(objMsg)){
-                        System.out.println("imageLogic Triggers");
                         imageLogic.compareImage(objChannel, objMsg);
                     }
 
