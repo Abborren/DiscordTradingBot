@@ -9,7 +9,6 @@ import net.dv8tion.jda.core.entities.*;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.Arrays;
 
 class Commands {
     private ImageLogic imageLogic = new ImageLogic();
@@ -32,63 +31,56 @@ class Commands {
             App.textChannels.get(4).sendMessage("printing in another channel!").queue();
 
         }
-      /*  if (objMsg.getContentRaw().equalsIgnoreCase(preFix + "image")) {
-                boolean b = Attachments.downloadRetainName(objMsg, true,"ImagesDownloaded/");
-                if (b) {
-                    objChannel.sendMessage("Saving worked! file has been saved!").queue();
-                } else {
-                    objChannel.sendMessage("Saving failed or something went wrong!").queue();
-                }
-        }*/
+
         if (objMsg.getContentRaw().equalsIgnoreCase(preFix + "sendTestImage")) {
             objChannel.sendFile(new File("ImagesDownloaded/test.png")).queue();
         }
 
-        if (objMsg.getContentRaw().equalsIgnoreCase(preFix+"testCompare")) {
-         imageLogic.compareImage(objChannel,objMsg);
-        }
+
     }
 
     void nonAdmin(User user, Message objMsg, MessageChannel objChannel) {
 
     }
     void serverWide(User objUser, Message objMsg, MessageChannel objChannel) {
-        String[] commands = {" ", " ", "input-channel"};
+        Attachments attachments = new Attachments();
+        boolean containsAttachment = false;
+        String[] message = new String[2];
         if (objMsg.getContentRaw().contains(" ")) {
-            String[] rollInput = objMsg.getContentRaw().split(" ");
-            if (rollInput[0].equalsIgnoreCase(preFix + "roll") && rollInput[1] != null) {
-                int rollValue = (int) Math.floor(Math.random() * Double.parseDouble(rollInput[1]))+1;
-                if (rollValue == 0) {
-                    rollValue +=1;
+            message = objMsg.getContentRaw().split(" ");
+        } else {
+            message[0] = objMsg.getContentRaw();
+            message[1] = "reee";
+        }
+
+
+        for (int i = 0; i < 2; i++) {
+            message[i] = message[i].toLowerCase();
+        }
+        if (attachments.CheckForAttachments(objMsg)) {
+        containsAttachment = true;
+        }
+        String[] channelCommandsArray = {"ba","ve","se","me","ca","va","ka","ar"};
+        int[] channelNumberArray ={1,2,3,4,5,6};
+        outerLoop:
+        for (String channelCommand : channelCommandsArray) {
+            for (int number : channelNumberArray) {
+                //if channel limit is met it will break
+                if (channelCommand.equals("ka") && number < 4 || channelCommand.equals("ar") && number < 1) {
+                    break outerLoop;
+                } else if (message[0].startsWith(channelCommand) && message[0].endsWith(String.valueOf(number))) {
+                    if (containsAttachment){
+                        System.out.println("imageLogic Triggers");
+                        imageLogic.compareImage(objChannel, objMsg);
+                    }
+
+                    break outerLoop;
                 }
-                objChannel.sendMessage("you rolled " + rollValue + "!").queue();
+
             }
-        } else if (objMsg.getContentRaw().equalsIgnoreCase(preFix + "roll")) {
-            int rollValue = (int) Math.floor(Math.random() * 99);
-            rollValue +=1;
-            objChannel.sendMessage("You rolled "+rollValue+"!").queue();
         }
 
-        if (objMsg.getContentRaw().equalsIgnoreCase(preFix+"hello")) {
-            objChannel.sendMessage("Hello, " + objUser.getAsMention() + "!").queue();
-        }
-
-        //this prints out server wide commands
-        if (objMsg.getContentRaw().equalsIgnoreCase(preFix+"Commands")) {
-            StringBuilder s = new StringBuilder();
-            s.append("```");
-            for (String command : commands) {
-                s.append(command).append("\r\n");
-            }
-            s.append("\r\n For channel specific ```");
-            objChannel.sendMessage(s).queue();
-        }
-        if (objMsg.getContentRaw().equalsIgnoreCase(preFix+commands[1])) {
-            objChannel.sendMessage(objChannel.getName()).queue();
-        }
-        if (objMsg.getContentRaw().startsWith("REE")) {
-            objChannel.sendFile(new File("ImagesDownloaded/REE.gif")).queue();
-        }
     }
+
 }
 
