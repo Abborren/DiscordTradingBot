@@ -40,6 +40,12 @@ public class Attachments {
         return null;
     }
     public boolean CheckForAttachments(Message message) {
-        return message.getAttachments() != null;
+        //return message.getAttachments() != null;
+        for(Message.Attachment attachment : message.getAttachments()) {
+            if(attachment.isImage()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
