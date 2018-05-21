@@ -22,7 +22,7 @@ public class ImageLogic {
              cropImage.createSubImages(inputImg);
              subImages = fileManager.loadRefs(new File("Images/Downloaded/Input/ref"));
             boolean[] output = checkMatches(new boolean[5],subImages,refs,0.05);
-            StringBuilder temp = buildOutputMessage(message,channel,output);
+            StringBuilder temp = buildOutputMessage(message,output);
             channel.sendMessage(temp).queue();
         }
     }
@@ -80,7 +80,7 @@ public class ImageLogic {
         }
         return false;
     }
-    private StringBuilder buildOutputMessage(Message message, MessageChannel channel, boolean[] output) {
+    private StringBuilder buildOutputMessage(Message message, boolean[] output) {
         String[] emojiArray = {":lacquerware:",":lamp:",":spice:",":saber:",":kite:"};
         StringBuilder outputString;
         outputString = new StringBuilder();
