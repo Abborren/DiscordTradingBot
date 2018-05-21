@@ -36,7 +36,7 @@ public class ImageLogic {
         boolean[] output = checkMatches(new boolean[5],subImages,refs,0.05);
         for (int i = 0; i < 3; i++) {
             if (output[i]) {
-                System.out.println("boolean " + i + " is true!");
+                //System.out.println("boolean " + i + " is true!");
             }
         }
     }
@@ -45,9 +45,9 @@ public class ImageLogic {
         for (int i=0; i < output.length;i++) {
             double temp = compare.findSubImageDouble(subImages[i],refs[i],matchLimit);
             if (temp < matchLimit) {
-                System.out.println("match % "+temp);
+                //System.out.println("match % "+temp);
                 output[i] = true;
-                System.out.println("Match at "+i);
+                //System.out.println("Match at "+i);
             }
             else {
                 System.out.println("No Match at " +i);
@@ -60,7 +60,7 @@ public class ImageLogic {
         if (tryDeletingOldFile(new File("Images/Downloaded/Input/inputRef.png"))) {
             File b = attachments.downloadChangeName(objMsg, true, new File("Images/Downloaded/Input/inputRef.png"));
             if (b != null) {
-                System.out.println("Saving worked! file has been saved!");
+                //System.out.println("Saving worked! file has been saved!");
                 return true;
             } else {
                 objChannel.sendMessage("Collection of file failed or something went wrong").queue();
