@@ -14,15 +14,17 @@ public class ImageLogic {
     private Attachments attachments = new Attachments();
     private Compare compare = new Compare();
 
-    public void compareImage(MessageChannel objChannel,Message message) {
+    public void compareImage(MessageChannel channel,Message message) {
         BufferedImage[] refs = fileManager.loadRefs(new File("Images/Downloaded/Refs/ref"));
-        BufferedImage[] subImages = new BufferedImage[5];
-        if (trySavingAttachment(objChannel,message)) {
+        BufferedImage[] subImages;
+        if (trySavingAttachment(channel,message)) {
              BufferedImage inputImg = fileManager.load(new File("Images/Downloaded/Input/inputRef.png"));
              cropImage.createSubImages(inputImg);
              subImages = fileManager.loadRefs(new File("Images/Downloaded/Input/ref"));
-         }
-        boolean[] output = checkMatches(new boolean[5],subImages,refs,0.05);
+            boolean[] output = checkMatches(new boolean[5],subImages,refs,0.05);
+            StringBuilder temp = buildOutputMessage(message,channel,output);
+            channel.sendMessage(temp).queue();
+        }
     }
     public void compareImageTest() {
         BufferedImage[] refs = fileManager.loadRefs(new File("Images/Downloaded/Refs/ref"));
@@ -77,5 +79,18 @@ public class ImageLogic {
             return false;
         }
         return false;
+    }
+    private StringBuilder buildOutputMessage(Message message, MessageChannel channel, boolean[] output) {
+        String[] emojiArray = {":lacquerware:",":lamp:",":spice:",":saber:",":kite:"};
+        StringBuilder outputString;
+        outputString = new StringBuilder();
+        String temp = message.getContentRaw().substring(0,3);
+                outputString.append(temp);
+            for (int i = 0; i < emojiArray.length;i++) {
+                if (output[i]) {
+                    outputString.append(" ").append(emojiArray[i]);
+                }
+            }
+            return outputString;
     }
 }
