@@ -39,4 +39,7 @@ public class Attachments {
         }
         return null;
     }
+    public boolean CheckForAttachments(Message message) {
+        return message.getAttachments() != null;
+    }
 }
