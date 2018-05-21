@@ -71,15 +71,11 @@ public class ImageLogic {
             if(file.delete()){
                 System.out.println(file.getName() + " is deleted!");
                 return true;
-            }else{
-
-                System.out.println("Delete operation is failed.");
-                return false;
             }
         }catch(Exception e){
             e.printStackTrace();
             return false;
         }
-
+        return false;
     }
 }
