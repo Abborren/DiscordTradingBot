@@ -33,8 +33,9 @@ public class Attachments {
     public File downloadChangeName(Message message, boolean filterImages, File file) {
         for(Message.Attachment attachment : message.getAttachments()) {
             if(!filterImages || attachment.isImage()) {
-                attachment.download(file);
-                return file;
+                if (attachment.download(file)) {
+                    return file;
+                }
             }
         }
         return null;
