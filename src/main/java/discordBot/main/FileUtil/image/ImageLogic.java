@@ -81,7 +81,7 @@ public class ImageLogic {
         return false;
     }
     private StringBuilder buildOutputMessage(Message message, boolean[] output) {
-        String[] emojiArray = {":lacquerware:",":lamp:",":spice:",":saber:",":kite:"};
+        String[] emojiArray = {"<:lacquerware:448213627405860864>","<:lamp:448213947984904202>","<:spice:448214072945541130>","<:saber:448402763509006343","<:kite:448399613683302411>"};
         StringBuilder outputString;
         outputString = new StringBuilder();
         String temp = message.getContentRaw().substring(0,3);
