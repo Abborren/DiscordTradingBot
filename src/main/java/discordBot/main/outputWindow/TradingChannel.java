@@ -4,9 +4,8 @@ public class TradingChannel {
     public String name;
     public String[][] items = new String[10][2];
     public String callCommand;
-    public TradingChannel(String name, String[][] items, String callCommand) {
+    public TradingChannel(String name, String callCommand) {
         this.name = name;
-        this.items = items;
         this.callCommand = callCommand;
         resetItemAmount();
     }
