@@ -4,7 +4,7 @@ package discordBot.main.outputWindow;
 import java.util.ArrayList;
 
 public class ChannelManager {
-    private ArrayList<TradingChannel> tradingChannels = new ArrayList<TradingChannel>();
+    public ArrayList<TradingChannelObject> tradingChannelObjects = new ArrayList<TradingChannelObject>();
     public void initiateTradingChannels() {
         String[] channelCallSigns = {"ba","ve","se","me","ca","va","ka","ar"};
         String[] channelName = {"Balenos","Velia","Serendia","Mediah","Calpheon","Valencia","kamasylvia","Arsha_PVP"};
@@ -14,22 +14,22 @@ public class ChannelManager {
                 if (channelName[i].equals(channelName[6]) && j >= 5 || channelName[i].equals(channelName[7]) && j >= 2) {
                     break;
                 } else {
-                    tradingChannels.add(new TradingChannel(channelName[i],channelCallSigns[i],j));
-                    System.out.println(tradingChannels.get(channelId).name+" "+j+ "\r\n");
+                    tradingChannelObjects.add(new TradingChannelObject(channelName[i],channelCallSigns[i],j));
+                    System.out.println(tradingChannelObjects.get(channelId).name+" "+j+ "\r\n");
                     channelId++;
                 }
             }
         }
     }
-    public TradingChannel getTradingChannelWithNameAndId(String channelName,int id) {
-        for (TradingChannel tradingChannel :tradingChannels) {
-            if (tradingChannel.name.equalsIgnoreCase(channelName) && tradingChannel.id == id) {
-                return tradingChannel;
+    public TradingChannelObject getTradingChannelWithNameAndId(String channelName, int id) {
+        for (TradingChannelObject tradingChannelObject : tradingChannelObjects) {
+            if (tradingChannelObject.name.equalsIgnoreCase(channelName) && tradingChannelObject.id == id) {
+                return tradingChannelObject;
             }
         }
         return null;
     }
-    public void addItems(String s,TradingChannel tradingChannel) {
+    public void addItems(String s,TradingChannelObject tradingChannelObject) {
         String[][] itemPairs = {{"<:lacquerware:365925547563286528>","<:cencer:365926188968968222>"},
                 {"<:lamp:365926091241816076>","<:ginseng:365926221122371586>"},
                 {"<:spice:365926064116989972>","<:slab:365926150561726465>"},
@@ -39,8 +39,8 @@ public class ChannelManager {
         for (int i = 0; i < itemPairs[0].length; i++) {
            for (int j = 0; j < 2; j++) {
                if (itemPairs[i][j].equalsIgnoreCase(s)) {
-                    tradingChannel.items[i][0] = itemPairs[i][0];
-                    tradingChannel.items[i][1] = itemPairs[i][1];
+                    tradingChannelObject.items[i][0] = itemPairs[i][0];
+                    tradingChannelObject.items[i][1] = itemPairs[i][1];
                     break outerLoop;
                }
            }
