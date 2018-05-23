@@ -26,12 +26,21 @@ public class ChannelManager {
         }
         return Integer.parseInt(null);
     }
-    public void addItems(String s) {
+    public void addItems(String s,TradingChannel tradingChannel) {
         String[][] itemPairs = {{"<:lacquerware:365925547563286528>","<:cencer:365926188968968222>"},
                 {"<:lamp:365926091241816076>","<:ginseng:365926221122371586>"},
                 {"<:spice:365926064116989972>","<:slab:365926150561726465>"},
                 {"<:saber:365926042180911114>","<:porcelain:365925475630972928>"},
                 {"<:kite:365926019254714369>","<:silk:365926117024202754>"}};
-
+        outerLoop:
+        for (int i = 0; i < itemPairs[0].length; i++) {
+           for (int j = 0; j < 2; j++) {
+               if (itemPairs[i][j].equalsIgnoreCase(s)) {
+                    tradingChannel.items[i][0] = itemPairs[i][0];
+                    tradingChannel.items[i][1] = itemPairs[i][1];
+                    break outerLoop;
+               }
+           }
+        }
     }
 }
