@@ -1,7 +1,7 @@
-package discordBot.main.FileUtil.image;
+package discordBot.main.fileUtil.image;
 
-import discordBot.main.FileUtil.Attachments;
-import discordBot.main.FileUtil.FileManager;
+import discordBot.main.fileUtil.Attachments;
+import discordBot.main.fileUtil.FileManager;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 

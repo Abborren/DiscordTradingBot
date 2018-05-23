@@ -1,4 +1,4 @@
-package discordBot.main.FileUtil.image;
+package discordBot.main.fileUtil.image;
 
 
 import java.awt.image.BufferedImage;

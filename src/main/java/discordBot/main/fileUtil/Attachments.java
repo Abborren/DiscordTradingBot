@@ -1,8 +1,7 @@
-package discordBot.main.FileUtil;
+package discordBot.main.fileUtil;
 
 import net.dv8tion.jda.core.entities.Message;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class Attachments {
