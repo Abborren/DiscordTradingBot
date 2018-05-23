@@ -4,27 +4,30 @@ package discordBot.main.outputWindow;
 import java.util.ArrayList;
 
 public class ChannelManager {
-    ArrayList<TradingChannel> tradingChannels = new ArrayList<TradingChannel>();
+    private ArrayList<TradingChannel> tradingChannels = new ArrayList<TradingChannel>();
     public void initiateTradingChannels() {
         String[] channelCallSigns = {"ba","ve","se","me","ca","va","ka","ar"};
         String[] channelName = {"Balenos","Velia","Serendia","Mediah","Calpheon","Valencia","kamasylvia","Arsha_PVP"};
+        int channelId = 0;
         for (int i = 0; i < channelName.length; i++) {
-            tradingChannels.add(new TradingChannel(channelName[i],channelCallSigns[i]));
-        }
-        for (TradingChannel tradingChannel : tradingChannels) {
-            if (tradingChannel.name.equals("Balenos")) {
-                System.out.println("Balenos exists");
+            for (int j = 1; j <= 6; j++) {
+                if (channelName[i].equals(channelName[6]) && j >= 5 || channelName[i].equals(channelName[7]) && j >= 2) {
+                    break;
+                } else {
+                    tradingChannels.add(new TradingChannel(channelName[i],channelCallSigns[i],j));
+                    System.out.println(tradingChannels.get(channelId).name+" "+j+ "\r\n");
+                    channelId++;
+                }
             }
-            System.out.println(tradingChannel.name + "\r\n");
         }
     }
-    private int tradingChannelAt(String s) {
-        for (int i = 0; i < tradingChannels.size(); i++) {
-            if (tradingChannels.get(i).name.equals(s)) {
-                return i;
+    public TradingChannel getTradingChannelWithNameAndId(String channelName,int id) {
+        for (TradingChannel tradingChannel :tradingChannels) {
+            if (tradingChannel.name.equalsIgnoreCase(channelName) && tradingChannel.id == id) {
+                return tradingChannel;
             }
         }
-        return Integer.parseInt(null);
+        return null;
     }
     public void addItems(String s,TradingChannel tradingChannel) {
         String[][] itemPairs = {{"<:lacquerware:365925547563286528>","<:cencer:365926188968968222>"},
