@@ -1,13 +1,10 @@
 package discordBot.main.botIO;
 
 import discordBot.main.App;
-import discordBot.main.FileUtil.Attachments;
-import discordBot.main.FileUtil.image.Compare;
-import discordBot.main.FileUtil.FileManager;
-import discordBot.main.FileUtil.image.ImageLogic;
+import discordBot.main.fileUtil.Attachments;
+import discordBot.main.fileUtil.image.ImageLogic;
 import net.dv8tion.jda.core.entities.*;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 
 class Commands {
