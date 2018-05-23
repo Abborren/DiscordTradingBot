@@ -26,20 +26,6 @@ public class ImageLogic {
             channel.sendMessage(temp).queue();
         }
     }
-    public void compareImageTest() {
-        BufferedImage[] refs = fileManager.loadRefs(new File("Images/Downloaded/Refs/ref"));
-        BufferedImage[] subImages;
-
-        BufferedImage inputImg = fileManager.load(new File("Images/Downloaded/Input/inputRef.png"));
-        cropImage.createSubImages(inputImg);
-        subImages = fileManager.loadRefs(new File("Images/Downloaded/Input/ref"));
-        boolean[] output = checkMatches(new boolean[5],subImages,refs,0.05);
-        for (int i = 0; i < 3; i++) {
-            if (output[i]) {
-                //System.out.println("boolean " + i + " is true!");
-            }
-        }
-    }
 
     private boolean[] checkMatches(boolean[] output, BufferedImage[] subImages, BufferedImage[] refs, Double matchLimit) {
         for (int i=0; i < output.length;i++) {
