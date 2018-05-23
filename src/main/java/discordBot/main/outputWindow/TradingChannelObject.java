@@ -1,11 +1,13 @@
 package discordBot.main.outputWindow;
 
-public class TradingChannel {
+public class TradingChannelObject {
     public String name;
+    public int id;
     public String[][] items = new String[10][2];
     public String callCommand;
-    public TradingChannel(String name, String callCommand) {
+    public TradingChannelObject(String name, String callCommand, int id) {
         this.name = name;
+        this.id = id;
         this.callCommand = callCommand;
         resetItemAmount();
     }
