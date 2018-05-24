@@ -16,7 +16,7 @@ public class ChannelManager {
                     break;
                 } else {
                     main.tradingChannelObjects.add(new TradingChannelObject(channelName[i],channelCallSigns[i],j));
-                    System.out.println(main.tradingChannelObjects.get(channelId).name+" "+j+ "\r\n");
+                    System.out.println(main.tradingChannelObjects.get(channelId).callSign +" "+main.tradingChannelObjects.get(channelId).id+ "\r\n");
                     channelId++;
                 }
             }
@@ -24,7 +24,8 @@ public class ChannelManager {
     }
     public TradingChannelObject getTradingChannelWithCallSignAndId(String channelCallSign, int id,App main) {
         for (TradingChannelObject tradingChannelObject : main.tradingChannelObjects) {
-            if (tradingChannelObject.callCommand.equalsIgnoreCase(channelCallSign) && tradingChannelObject.id == id) {
+            if (tradingChannelObject.callSign.equalsIgnoreCase(channelCallSign) && tradingChannelObject.id == id) {
+                System.out.println("Trading channel found called"+tradingChannelObject.name+tradingChannelObject.id);
                 return tradingChannelObject;
             }
         }
@@ -36,7 +37,7 @@ public class ChannelManager {
                 {"<:spice:365926064116989972>","<:slab:365926150561726465>"},
                 {"<:saber:365926042180911114>","<:porcelain:365925475630972928>"},
                 {"<:kite:365926019254714369>","<:silk:365926117024202754>"}};
-        System.out.println("before change "+ Arrays.deepToString(tradingChannelObject.items));
+        //System.out.println("before change "+ Arrays.deepToString(tradingChannelObject.items));
         outerLoop:
         for (int i = 0; i < itemPairs[0].length; i++) {
            for (int j = 0; j < 2; j++) {
