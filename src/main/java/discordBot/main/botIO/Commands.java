@@ -37,7 +37,10 @@ public class Commands {
     }
 
 
-    void tradingCommands(User objUser, Message objMsg, MessageChannel objChannel) {
+    void tradingCommands(User objUser, Message objMsg, MessageChannel objChannel, App main) {
+        //creates trading channels
+        main.channelManager.initiateTradingChannels(main);
+
         Attachments attachments = new Attachments();
         String[] message = new String[2];
         if (objMsg.getContentRaw().contains(" ")) {
@@ -62,7 +65,7 @@ public class Commands {
                     break outerLoop;
                 } else if (message[0].startsWith(channelCommand) && message[0].endsWith(String.valueOf(number))) {
                     if (attachments.CheckForAttachments(objMsg)){
-                        imageLogic.compareImage(objChannel, objMsg);
+                        imageLogic.compareImage(objChannel, objMsg,main);
                     }
 
                     break outerLoop;
