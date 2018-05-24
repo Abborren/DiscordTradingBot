@@ -1,12 +1,12 @@
 package discordBot.main.outputWindow;
 
 
-import java.util.ArrayList;
+import discordBot.main.App;
 import java.util.Arrays;
 
 public class ChannelManager {
-    public ArrayList<TradingChannelObject> tradingChannelObjects = new ArrayList<TradingChannelObject>();
-    public void initiateTradingChannels() {
+
+    public void initiateTradingChannels(App main) {
         String[] channelCallSigns = {"ba","ve","se","me","ca","va","ka","ar"};
         String[] channelName = {"Balenos","Velia","Serendia","Mediah","Calpheon","Valencia","kamasylvia","Arsha_PVP"};
         int channelId = 0;
@@ -15,15 +15,15 @@ public class ChannelManager {
                 if (channelName[i].equals(channelName[6]) && j >= 5 || channelName[i].equals(channelName[7]) && j >= 2) {
                     break;
                 } else {
-                    tradingChannelObjects.add(new TradingChannelObject(channelName[i],channelCallSigns[i],j));
-                    System.out.println(tradingChannelObjects.get(channelId).name+" "+j+ "\r\n");
+                    main.tradingChannelObjects.add(new TradingChannelObject(channelName[i],channelCallSigns[i],j));
+                    System.out.println(main.tradingChannelObjects.get(channelId).name+" "+j+ "\r\n");
                     channelId++;
                 }
             }
         }
     }
-    public TradingChannelObject getTradingChannelWithCallSignAndId(String channelCallSign, int id) {
-        for (TradingChannelObject tradingChannelObject : tradingChannelObjects) {
+    public TradingChannelObject getTradingChannelWithCallSignAndId(String channelCallSign, int id,App main) {
+        for (TradingChannelObject tradingChannelObject : main.tradingChannelObjects) {
             if (tradingChannelObject.callCommand.equalsIgnoreCase(channelCallSign) && tradingChannelObject.id == id) {
                 return tradingChannelObject;
             }
@@ -52,8 +52,8 @@ public class ChannelManager {
         }
         System.out.println("after change "+ Arrays.deepToString(tradingChannelObject.items));
     }
-    public void clearTradingChannels() {
-        tradingChannelObjects.clear();
-        initiateTradingChannels();
+    public void clearTradingChannels(App main) {
+        main.tradingChannelObjects.clear();
+        initiateTradingChannels(main);
     }
 }
