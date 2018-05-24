@@ -51,11 +51,9 @@ public class Commands {
         for (int i = 0; i < temp.length; i++) {
             temp[i] = temp[i].toLowerCase();
         }
-
         TradingInput tradingInput = new TradingInput();
         String[] items = tradingInput.returnItems(temp);
         String[] amount = tradingInput.returnAmount(temp);
-
         String[] channelCommandsArray = {"ba","ve","se","me","ca","va","ka","ar"};
         int[] channelNumberArray ={1,2,3,4,5,6};
 
@@ -66,14 +64,12 @@ public class Commands {
                 if (channelCommand.equals("ka") && number < 4 || channelCommand.equals("ar") && number < 1) {
                     break outerLoop;
                 } else if (message[0].startsWith(channelCommand) && message[0].endsWith(String.valueOf(number))) {
-                    if (attachments.CheckForAttachments(objMsg)){
+                    if (attachments.CheckForAttachments(objMsg)) {
                         imageLogic.compareImage(objChannel, objMsg,main);
                     }else {
                         TradingChannelObject tradingChannel = main.channelManager.getTradingChannelWithCallSignAndId(message[0].substring(0,2),Integer.parseInt(String.valueOf(message[0].charAt(2))),main);
                         for (int i= 0; i < items.length; i++) {
-                            if (items.length == amount.length) {
                                 main.channelManager.addItem(items[i], tradingChannel, amount[i]);
-                            }
                         }
                     }
                     break outerLoop;
