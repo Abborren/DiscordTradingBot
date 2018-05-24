@@ -37,18 +37,19 @@ public class ChannelManager {
                 {"<:saber:365926042180911114>","<:porcelain:365925475630972928>"},
                 {"<:kite:365926019254714369>","<:silk:365926117024202754>"}};
         for (int i = 0; i < itemPairs.length; i++) {
+
                if (itemPairs[i][0].equalsIgnoreCase(tradingItem)) {
-                    tradingChannelObject.items[i][0] = itemPairs[i][0];
-                    tradingChannelObject.items[i+1][0] = itemPairs[i][1];
-                    if (amount != null) {
+                    tradingChannelObject.items[((i+1)*2)-2][0] = itemPairs[i][0];
+                    tradingChannelObject.items[((i+1)*2)-1][0] = itemPairs[i][1];
+                    if (!amount.equals("N/A")) {
                         tradingChannelObject.items[i][1] = amount;
                     }
                     break;
                } else if (itemPairs[i][1].equalsIgnoreCase(tradingItem)) {
-                   tradingChannelObject.items[i][0] = itemPairs[i][1];
-                   tradingChannelObject.items[i-1][0] = itemPairs[i][0];
-                   if (amount != null) {
-                       tradingChannelObject.items[i-1][1] = amount;
+                   tradingChannelObject.items[((i+1)*2)-1][0] = itemPairs[i][0];
+                   tradingChannelObject.items[((i+1)*2)-2][0] = itemPairs[i][1];
+                   if (!amount.equals("N/A")) {
+                       tradingChannelObject.items[i+1][1] = amount;
                    }
                    break;
                }
