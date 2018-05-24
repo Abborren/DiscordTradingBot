@@ -3,13 +3,14 @@ package discordBot.main.botIO;
 import discordBot.main.App;
 import discordBot.main.fileUtil.Attachments;
 import discordBot.main.fileUtil.image.ImageLogic;
+import discordBot.main.outputWindow.ChannelManager;
 import net.dv8tion.jda.core.entities.*;
 
 import java.io.File;
 
-class Commands {
+public class Commands {
     private ImageLogic imageLogic = new ImageLogic();
-
+    public ChannelManager channelManager = new ChannelManager();
     private String preFix = ".";
     void serverAdmin(User user, Message objMsg, MessageChannel objChannel) {
         //Splits the command at spaces
@@ -64,7 +65,7 @@ class Commands {
                     break outerLoop;
                 } else if (message[0].startsWith(channelCommand) && message[0].endsWith(String.valueOf(number))) {
                     if (attachments.CheckForAttachments(objMsg)){
-                        imageLogic.compareImage(objChannel, objMsg);
+                        imageLogic.compareImage(objChannel, objMsg,this);
                     }
 
                     break outerLoop;
