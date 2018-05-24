@@ -16,7 +16,7 @@ public class ChannelManager {
                     break;
                 } else {
                     main.tradingChannelObjects.add(new TradingChannelObject(channelName[i],channelCallSigns[i],j));
-                    System.out.println(main.tradingChannelObjects.get(channelId).callSign +" "+main.tradingChannelObjects.get(channelId).id+ "\r\n");
+                    System.out.println(main.tradingChannelObjects.get(channelId).callSign +" "+main.tradingChannelObjects.get(channelId).id);
                     channelId++;
                 }
             }
@@ -57,6 +57,5 @@ public class ChannelManager {
     }
     public void clearTradingChannels(App main) {
         main.tradingChannelObjects.clear();
-        initiateTradingChannels(main);
     }
 }
