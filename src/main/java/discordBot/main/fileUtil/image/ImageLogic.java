@@ -23,7 +23,7 @@ public class ImageLogic {
              cropImage.createSubImages(inputImg);
              subImages = fileManager.loadRefs(new File("Images/Downloaded/Input/ref"));
             boolean[] output = checkMatches(new boolean[5],subImages,refs,0.05);
-            additemsToChannel(message,output,commands);
+            addItemsToChannel(message,output,commands);
 
         }
     }
@@ -67,7 +67,7 @@ public class ImageLogic {
         }
         return false;
     }
-    private void additemsToChannel(Message message, boolean[] output, Commands commands) {
+    private void addItemsToChannel(Message message, boolean[] output, Commands commands) {
         String[] emojiArray = {"<:lacquerware:448213627405860864>","<:lamp:448213947984904202>","<:spice:448214072945541130>","<:saber:448402763509006343","<:kite:448399613683302411>"};
         StringBuilder outputString;
         outputString = new StringBuilder();
@@ -75,7 +75,7 @@ public class ImageLogic {
                 outputString.append(temp);
             for (int i = 0; i < emojiArray.length;i++) {
                 if (output[i]) {
-                    commands.channelManager.addItems(emojiArray[i],commands.channelManager.getTradingChannelWithCallSignAndId(temp.substring(0,2),Integer.parseInt(temp.substring(3,3))),null);
+                    commands.channelManager.addItems(emojiArray[i],commands.channelManager.getTradingChannelWithCallSignAndId(temp.substring(0,2).toLowerCase(),Integer.parseInt(temp.substring(3,3))),null);
                 }
             }
     }
