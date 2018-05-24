@@ -69,7 +69,7 @@ public class Commands {
                     }else {
                         TradingChannelObject tradingChannel = main.channelManager.getTradingChannelWithCallSignAndId(message[0].substring(0,2),Integer.parseInt(String.valueOf(message[0].charAt(2))),main);
                         for (int i= 0; i < items.length; i++) {
-                                main.channelManager.addItem(items[i], tradingChannel, amount[i]);
+                            main.channelManager.addItem(items[i], tradingChannel, amount[i]);
                         }
                     }
                     break outerLoop;
