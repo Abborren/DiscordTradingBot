@@ -44,7 +44,7 @@ public class MessageReceived {
         }
         //for input tradingCommands in a specific channel in this case "input-channel"
         if (handler.checkChannel(thisChannel, "trading-Channel")) {
-            commands.tradingCommands(thisUser, thisMsg, thisChannel);
+            commands.tradingCommands(thisUser, thisMsg, thisChannel,main);
         }
 
 
