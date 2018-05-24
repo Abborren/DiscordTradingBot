@@ -26,7 +26,7 @@ public class App extends ListenerAdapter {
         //Initializes the bot
         JDA jdaBot = new JDABuilder(AccountType.BOT).setToken(tokenUtil.loadToken()).buildBlocking();
         jdaBot.addEventListener(new App());
-        jdaBot.getPresence().setGame(Game.of(Game.GameType.DEFAULT ,"for available commands do .Commands"));
+        jdaBot.getPresence().setGame(Game.of(Game.GameType.DEFAULT ,"testing testing beep boop"));
         textChannels.addAll(jdaBot.getTextChannels());
 
 
