@@ -1,6 +1,6 @@
 package discordBot.main.fileUtil.image;
 
-import discordBot.main.botIO.Commands;
+import discordBot.main.App;
 import discordBot.main.fileUtil.Attachments;
 import discordBot.main.fileUtil.FileManager;
 import net.dv8tion.jda.core.entities.Message;
@@ -15,7 +15,7 @@ public class ImageLogic {
     private Attachments attachments = new Attachments();
     private Compare compare = new Compare();
 
-    public void compareImage(MessageChannel channel, Message message, Commands commands) {
+    public void compareImage(MessageChannel channel, Message message) {
         BufferedImage[] refs = fileManager.loadRefs(new File("Images/Downloaded/Refs/ref"));
         BufferedImage[] subImages;
         if (trySavingAttachment(channel,message)) {
@@ -23,7 +23,7 @@ public class ImageLogic {
              cropImage.createSubImages(inputImg);
              subImages = fileManager.loadRefs(new File("Images/Downloaded/Input/ref"));
             boolean[] output = checkMatches(new boolean[5],subImages,refs,0.05);
-            addItemsToChannel(message,output,commands);
+            addItemsToChannel(message,output);
 
         }
     }
@@ -67,15 +67,16 @@ public class ImageLogic {
         }
         return false;
     }
-    private void addItemsToChannel(Message message, boolean[] output, Commands commands) {
+    private void addItemsToChannel(Message message, boolean[] output) {
         String[] emojiArray = {"<:lacquerware:448213627405860864>","<:lamp:448213947984904202>","<:spice:448214072945541130>","<:saber:448402763509006343","<:kite:448399613683302411>"};
         StringBuilder outputString;
         outputString = new StringBuilder();
         String temp = message.getContentRaw().substring(0,3);
+        System.out.println("message substring "+temp.substring(0,2));
                 outputString.append(temp);
             for (int i = 0; i < emojiArray.length;i++) {
                 if (output[i]) {
-                    commands.channelManager.addItems(emojiArray[i],commands.channelManager.getTradingChannelWithCallSignAndId(temp.substring(0,2).toLowerCase(),Integer.parseInt(temp.substring(3,3))),null);
+                    App.channelManager.addItems(emojiArray[i], App.channelManager.getTradingChannelWithCallSignAndId(temp.substring(0,2).toLowerCase(),temp.charAt(2)),null);
                 }
             }
     }
