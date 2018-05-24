@@ -5,6 +5,7 @@ import javax.security.auth.login.LoginException;
 
 import discordBot.main.botIO.MessageReceived;
 import discordBot.main.outputWindow.ChannelManager;
+import discordBot.main.outputWindow.TradingChannelObject;
 import discordBot.tokenUtil.TokenUtil;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 
 public class App extends ListenerAdapter {
     public static ArrayList<TextChannel> textChannels = new ArrayList<TextChannel>();
-
+    public static ArrayList<TradingChannelObject> tradingChannelObjects = new ArrayList<TradingChannelObject>();
     public static ChannelManager channelManager = new ChannelManager();
     public static void main(String[] args) throws LoginException, IllegalArgumentException, InterruptedException    {
         //loads token loading class
