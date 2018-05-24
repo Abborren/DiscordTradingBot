@@ -6,7 +6,7 @@ public class TradingInput {
     public String[] returnItems(String[] message) {
         ArrayList<String> returnList = new ArrayList<String>();
         for (String thisMessage : message) {
-            if (thisMessage.startsWith(":")) {
+            if (thisMessage.startsWith("<:")) {
                 returnList.add(thisMessage);
             }
         }
@@ -17,6 +17,8 @@ public class TradingInput {
         for (String thisMessage : message) {
             if (!thisMessage.startsWith(":") && canParse(thisMessage)) {
                 returnList.add(thisMessage);
+            } else {
+                returnList.add(null);
             }
         }
         return returnList.toArray(new String[0]);
