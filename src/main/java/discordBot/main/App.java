@@ -4,6 +4,7 @@ package discordBot.main;
 import javax.security.auth.login.LoginException;
 
 import discordBot.main.botIO.MessageReceived;
+import discordBot.main.outputWindow.ChannelManager;
 import discordBot.tokenUtil.TokenUtil;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -16,15 +17,19 @@ import java.util.ArrayList;
 
 public class App extends ListenerAdapter {
     public static ArrayList<TextChannel> textChannels = new ArrayList<TextChannel>();
-    private static TokenUtil tokenUtil = new TokenUtil();
-    public String prefix = ".";
-    public static void main(String[] args) throws LoginException, IllegalArgumentException, InterruptedException    {
 
+    public static ChannelManager channelManager = new ChannelManager();
+    public static void main(String[] args) throws LoginException, IllegalArgumentException, InterruptedException    {
+        //loads token loading class
+        TokenUtil tokenUtil = new TokenUtil();
         //Initializes the bot
         JDA jdaBot = new JDABuilder(AccountType.BOT).setToken(tokenUtil.loadToken()).buildBlocking();
         jdaBot.addEventListener(new App());
         jdaBot.getPresence().setGame(Game.of(Game.GameType.DEFAULT ,"for available commands do .Commands"));
         textChannels.addAll(jdaBot.getTextChannels());
+        //creates trading channels
+        channelManager.initiateTradingChannels();
+
     }
     @Override
     public void onMessageReceived(MessageReceivedEvent messageEvent) {
