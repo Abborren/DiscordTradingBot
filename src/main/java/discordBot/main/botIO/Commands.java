@@ -4,6 +4,7 @@ import discordBot.main.App;
 import discordBot.main.fileUtil.Attachments;
 import discordBot.main.fileUtil.image.ImageLogic;
 import discordBot.main.outputWindow.ChannelManager;
+import discordBot.main.outputWindow.TradingChannelObject;
 import net.dv8tion.jda.core.entities.*;
 
 import java.io.File;
@@ -44,18 +45,20 @@ public class Commands {
         String[] message = new String[2];
         if (objMsg.getContentRaw().contains(" ")) {
             message = objMsg.getContentRaw().split(" ");
-        } else {
-            message[0] = objMsg.getContentRaw();
-            message[1] = "reee";
+        }
+        String callSign = message[0];
+        String[] temp = objMsg.getContentRaw().substring(2).split(" ");
+        for (int i = 0; i < temp.length; i++) {
+            temp[i] = temp[i].toLowerCase();
         }
 
-
-        for (int i = 0; i < 2; i++) {
-            message[i] = message[i].toLowerCase();
-        }
+        TradingInput tradingInput = new TradingInput();
+        String[] items = tradingInput.returnItems(temp);
+        String[] amount = tradingInput.returnAmount(temp);
 
         String[] channelCommandsArray = {"ba","ve","se","me","ca","va","ka","ar"};
         int[] channelNumberArray ={1,2,3,4,5,6};
+
         outerLoop:
         for (String channelCommand : channelCommandsArray) {
             for (int number : channelNumberArray) {
@@ -65,8 +68,14 @@ public class Commands {
                 } else if (message[0].startsWith(channelCommand) && message[0].endsWith(String.valueOf(number))) {
                     if (attachments.CheckForAttachments(objMsg)){
                         imageLogic.compareImage(objChannel, objMsg,main);
+                    }else {
+                        TradingChannelObject tradingChannel = main.channelManager.getTradingChannelWithCallSignAndId(message[0].substring(0,2),Integer.parseInt(String.valueOf(message[0].charAt(2))),main);
+                        for (int i= 0; i < items.length; i++) {
+                            if (items.length == amount.length) {
+                                main.channelManager.addItem(items[i], tradingChannel, amount[i]);
+                            }
+                        }
                     }
-
                     break outerLoop;
                 }
 
