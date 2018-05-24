@@ -37,20 +37,16 @@ public class MessageReceived {
         if (handler.checkRole(roles, "admin")) {
             commands.serverAdmin(thisUser, thisMsg, thisChannel);
         }
-        if (!handler.checkRole(roles,"admin")) {
-            commands.nonAdmin(thisUser,thisMsg,thisChannel);
-        }
-        //Example of Role specific serverWide
+
+        //Example of Role specific tradingCommands
         if (handler.checkRole(roles, "ExampleRole")) {
-            //serverWide(thisUser, thisMsg, thisChannel);
+            //tradingCommands(thisUser, thisMsg, thisChannel);
         }
-        //for input serverWide in a specific channel in this case "input-channel"
-        if (handler.checkChannel(thisChannel, "input-channel")) {
-            commands.serverWide(thisUser, thisMsg, thisChannel);
+        //for input tradingCommands in a specific channel in this case "input-channel"
+        if (handler.checkChannel(thisChannel, "trading-Channel")) {
+            commands.tradingCommands(thisUser, thisMsg, thisChannel);
         }
-        else {
-            commands.serverWide(thisUser,thisMsg,thisChannel);
-        }
+
 
     }
 }
