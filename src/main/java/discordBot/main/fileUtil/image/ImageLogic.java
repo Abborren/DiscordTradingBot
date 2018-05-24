@@ -1,5 +1,6 @@
 package discordBot.main.fileUtil.image;
 
+import discordBot.main.botIO.Commands;
 import discordBot.main.fileUtil.Attachments;
 import discordBot.main.fileUtil.FileManager;
 import net.dv8tion.jda.core.entities.Message;
@@ -14,7 +15,7 @@ public class ImageLogic {
     private Attachments attachments = new Attachments();
     private Compare compare = new Compare();
 
-    public void compareImage(MessageChannel channel,Message message) {
+    public void compareImage(MessageChannel channel, Message message, Commands commands) {
         BufferedImage[] refs = fileManager.loadRefs(new File("Images/Downloaded/Refs/ref"));
         BufferedImage[] subImages;
         if (trySavingAttachment(channel,message)) {
@@ -22,8 +23,8 @@ public class ImageLogic {
              cropImage.createSubImages(inputImg);
              subImages = fileManager.loadRefs(new File("Images/Downloaded/Input/ref"));
             boolean[] output = checkMatches(new boolean[5],subImages,refs,0.05);
-            StringBuilder temp = buildOutputMessage(message,output);
-            channel.sendMessage(temp).queue();
+            additemsToChannel(message,output,commands);
+
         }
     }
 
@@ -66,7 +67,7 @@ public class ImageLogic {
         }
         return false;
     }
-    private StringBuilder buildOutputMessage(Message message, boolean[] output) {
+    private void additemsToChannel(Message message, boolean[] output, Commands commands) {
         String[] emojiArray = {"<:lacquerware:448213627405860864>","<:lamp:448213947984904202>","<:spice:448214072945541130>","<:saber:448402763509006343","<:kite:448399613683302411>"};
         StringBuilder outputString;
         outputString = new StringBuilder();
@@ -74,9 +75,8 @@ public class ImageLogic {
                 outputString.append(temp);
             for (int i = 0; i < emojiArray.length;i++) {
                 if (output[i]) {
-                    outputString.append(" ").append(emojiArray[i]);
+                    commands.channelManager.addItems(emojiArray[i],commands.channelManager.getTradingChannelWithCallSignAndId(temp.substring(0,2),Integer.parseInt(temp.substring(3,3))),null);
                 }
             }
-            return outputString;
     }
 }
