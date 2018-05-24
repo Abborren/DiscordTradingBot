@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 public class App extends ListenerAdapter {
     public static ArrayList<TextChannel> textChannels = new ArrayList<TextChannel>();
-    public static ArrayList<TradingChannelObject> tradingChannelObjects = new ArrayList<TradingChannelObject>();
-    public static ChannelManager channelManager = new ChannelManager();
+    public  ArrayList<TradingChannelObject> tradingChannelObjects = new ArrayList<TradingChannelObject>();
+    public  ChannelManager channelManager = new ChannelManager();
     public static void main(String[] args) throws LoginException, IllegalArgumentException, InterruptedException    {
         //loads token loading class
         TokenUtil tokenUtil = new TokenUtil();
@@ -28,8 +28,7 @@ public class App extends ListenerAdapter {
         jdaBot.addEventListener(new App());
         jdaBot.getPresence().setGame(Game.of(Game.GameType.DEFAULT ,"for available commands do .Commands"));
         textChannels.addAll(jdaBot.getTextChannels());
-        //creates trading channels
-        channelManager.initiateTradingChannels();
+
 
     }
     @Override
