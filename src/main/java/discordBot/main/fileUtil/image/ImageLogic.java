@@ -3,6 +3,7 @@ package discordBot.main.fileUtil.image;
 import discordBot.main.App;
 import discordBot.main.fileUtil.Attachments;
 import discordBot.main.fileUtil.FileManager;
+import discordBot.main.outputWindow.TradingChannelObject;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 
@@ -69,17 +70,14 @@ public class ImageLogic {
     }
     private void addItemToChannel(Message message, boolean[] output, App main) {
         String[] emojiArray = {"<:lacquerware:365925547563286528>","<:lamp:365926091241816076>","<:spice:365926064116989972>","<:saber:365926042180911114>","<:kite:365926019254714369>"};
-        StringBuilder outputString;
-        outputString = new StringBuilder();
         String temp = message.getContentRaw().substring(0,3);
-        System.out.println("message substring "+temp.substring(0,2));
-                outputString.append(temp);
-
-        main.channelManager.addItems(emojiArray[0] , main.channelManager.getTradingChannelWithCallSignAndId(temp.substring(0,2).toLowerCase(),temp.charAt(2),main),null);
+        System.out.println((int)temp.charAt(2));
+        TradingChannelObject channel = main.channelManager.getTradingChannelWithCallSignAndId(temp.substring(0,2).toLowerCase(),Integer.parseInt(String.valueOf(temp.charAt(2))),main);
+        System.out.println(channel.name +" " + channel.id);
+        main.channelManager.addItems(emojiArray[0] , channel,"");
             for (int i = 0; i < emojiArray.length;i++) {
                 if (output[i]) {
-
-                    //App.channelManager.addItems(emojiArray[i], App.channelManager.getTradingChannelWithCallSignAndId(temp.substring(0,2).toLowerCase(),temp.charAt(2)),null);
+                    main.channelManager.addItems(emojiArray[i], main.channelManager.getTradingChannelWithCallSignAndId(temp.substring(0,2).toLowerCase(),Integer.parseInt(String.valueOf(temp.charAt(2))),main),null);
                 }
             }
     }
