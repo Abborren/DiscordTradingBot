@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 public class App extends ListenerAdapter {
     public static ArrayList<TextChannel> textChannels = new ArrayList<TextChannel>();
-    public  ArrayList<TradingChannelObject> tradingChannelObjects = new ArrayList<TradingChannelObject>();
     public  ChannelManager channelManager = new ChannelManager();
+    public  ArrayList<TradingChannelObject> tradingChannelObjects = new ArrayList<TradingChannelObject>();
     public static void main(String[] args) throws LoginException, IllegalArgumentException, InterruptedException    {
         //loads token loading class
         TokenUtil tokenUtil = new TokenUtil();
