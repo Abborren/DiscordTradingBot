@@ -23,7 +23,7 @@ public class ImageLogic {
              cropImage.createSubImages(inputImg);
              subImages = fileManager.loadRefs(new File("Images/Downloaded/Input/ref"));
             boolean[] output = checkMatches(new boolean[5],subImages,refs,0.05);
-            addItemsToChannel(message,output);
+            addItemToChannel(message,output);
 
         }
     }
@@ -67,8 +67,8 @@ public class ImageLogic {
         }
         return false;
     }
-    private void addItemsToChannel(Message message, boolean[] output) {
-        String[] emojiArray = {"<:lacquerware:448213627405860864>","<:lamp:448213947984904202>","<:spice:448214072945541130>","<:saber:448402763509006343","<:kite:448399613683302411>"};
+    private void addItemToChannel(Message message, boolean[] output) {
+        String[] emojiArray = {"<:lacquerware:365925547563286528>","<:lamp:365926091241816076>","<:spice:365926064116989972>","<:saber:365926042180911114>","<:kite:365926019254714369>"};
         StringBuilder outputString;
         outputString = new StringBuilder();
         String temp = message.getContentRaw().substring(0,3);
