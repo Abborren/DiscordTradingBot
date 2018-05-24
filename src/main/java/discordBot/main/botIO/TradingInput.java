@@ -25,7 +25,7 @@ public class TradingInput {
     }
     private boolean canParse(String s) {
         try {
-            int i = Integer.parseInt(s);
+            Integer.parseInt(s);
             return true;
         } catch (NumberFormatException e) {
             return false;
