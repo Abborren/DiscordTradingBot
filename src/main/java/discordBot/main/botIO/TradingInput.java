@@ -18,7 +18,7 @@ public class TradingInput {
             if (!thisMessage.startsWith(":") && canParse(thisMessage)) {
                 returnList.add(thisMessage);
             } else {
-                returnList.add(null);
+                returnList.add("N/A");
             }
         }
         return returnList.toArray(new String[0]);
