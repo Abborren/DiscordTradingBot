@@ -52,4 +52,8 @@ public class ChannelManager {
         }
         System.out.println("after change "+ Arrays.deepToString(tradingChannelObject.items));
     }
+    public void clearTradingChannels() {
+        tradingChannelObjects.clear();
+        initiateTradingChannels();
+    }
 }
