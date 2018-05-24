@@ -22,9 +22,9 @@ public class ChannelManager {
             }
         }
     }
-    public TradingChannelObject getTradingChannelWithNameAndId(String channelName, int id) {
+    public TradingChannelObject getTradingChannelWithCallSignAndId(String channelCallSign, int id) {
         for (TradingChannelObject tradingChannelObject : tradingChannelObjects) {
-            if (tradingChannelObject.name.equalsIgnoreCase(channelName) && tradingChannelObject.id == id) {
+            if (tradingChannelObject.callCommand.equalsIgnoreCase(channelCallSign) && tradingChannelObject.id == id) {
                 return tradingChannelObject;
             }
         }
