@@ -38,12 +38,9 @@ public class Commands {
 
 
     void tradingCommands(User objUser, Message objMsg, MessageChannel objChannel, App main) {
-        //creates trading channels
-        if (main.tradingChannelObjects.isEmpty()) {
-            main.channelManager.clearTradingChannels(main);
-            main.channelManager.initiateTradingChannels(main);
-        }
+        checkIfChannelsAreNeeded(main);
         Attachments attachments = new Attachments();
+
         String[] message = new String[2];
         if (objMsg.getContentRaw().contains(" ")) {
             message = objMsg.getContentRaw().split(" ");
@@ -77,6 +74,12 @@ public class Commands {
         }
 
     }
-
+    private void checkIfChannelsAreNeeded(App main){
+        //creates trading channels
+        if (main.tradingChannelObjects.isEmpty()) {
+            main.channelManager.clearTradingChannels(main);
+            main.channelManager.initiateTradingChannels(main);
+        }
+    }
 }
 
