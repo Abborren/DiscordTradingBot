@@ -46,7 +46,6 @@ public class TradingChannelObject {
     }
 
     public void addItem(String tradingItem, String amount) {
-        System.out.println("add item still happens!");
         String[][] itemPairs = {{"<:lacquerware:365925547563286528>","<:censer:365926188968968222>"},
                 {"<:lamp:365926091241816076>","<:ginseng:365926221122371586>"},
                 {"<:spice:365926064116989972>","<:slab:365926150561726465>"},
