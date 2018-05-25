@@ -12,12 +12,12 @@ public class TradingInput {
         }
         return returnList.toArray(new String[0]);
     }
-    public String[] returnRemoveItems(String[] message) {
+    public String[] returnRemoveItems(String[] message, boolean bool) {
         ArrayList<String> returnList = new ArrayList<String>();
         for (String thisMessage : message) {
             if (thisMessage.startsWith("<:")) {
                 returnList.add(thisMessage);
-            } else {
+            } else if (bool){
                 returnList.add(null);
             }
         }
