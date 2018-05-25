@@ -1,11 +1,11 @@
 package discordBot.main;
 
-import discordBot.main.outputWindow.ChannelManager;
+import discordBot.main.outputWindow.ChannelHandling.ChannelManager;
 
 public class TestingGround {
     public static void main(String[] args) {
-        ChannelManager channelManager = new ChannelManager();
+        //ChannelManager channelManager = new ChannelManager();
         //bachannelManager.initiateTradingChannels(main);
-        //channelManager.addItems("<:lacquerware:365925547563286528>",channelManager.getTradingChannelWithNameAndId("Balenos",1),null);
+        //channelManager.addItem("<:lacquerware:365925547563286528>",channelManager.getTradingChannelWithNameAndId("Balenos",1),null);
     }
 }
