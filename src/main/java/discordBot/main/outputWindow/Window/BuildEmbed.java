@@ -16,15 +16,17 @@ public class BuildEmbed {
         ArrayList<MessageEmbed.Field> fieldArrayList = new ArrayList<MessageEmbed.Field>();
         int channelAmount = 0;
         int channelIndex = 0;
-        String oldChannelId = "";
-        for (TradingChannelObject tradingChannel : tradingChannels) {
-            channelAmount++;
-            channelIndex++;
-            if (!tradingChannel.callSign.equals(oldChannelId)) {
-                oldChannelId = tradingChannel.callSign;
-                fieldArrayList.add(new MessageEmbed.Field(tradingChannel.name, getFieldInline(tradingChannels.subList(channelIndex-1,channelIndex+(channelAmount-1)),channelAmount),true));
+        String oldChannelCS = tradingChannels.get(0).callSign;
+        for (int i=0; i < tradingChannels.size(); i++) {
+            if (!tradingChannels.get(i).callSign.equals(oldChannelCS)) {
+                fieldArrayList.add(new MessageEmbed.Field(tradingChannels.get(i-1).name, getFieldInline(tradingChannels.subList(channelIndex-(channelAmount),channelIndex),channelAmount),false));
+                oldChannelCS = tradingChannels.get(i).callSign;
                 channelAmount = 0;
-                channelIndex = 0;
+            }
+            channelIndex++;
+            channelAmount++;
+            if (i+1 == tradingChannels.size()) {
+                fieldArrayList.add(new MessageEmbed.Field(tradingChannels.get(i).name, getFieldInline(tradingChannels.subList(channelIndex-(channelAmount),channelIndex),channelAmount),false));
             }
         }
         for (int i = 0; i < fieldArrayList.size() ;i++) {
