@@ -30,6 +30,7 @@ public class MessageReceived {
 
     public void messageReceivedHandler() {
     //makes bot unable to respond to its own message
+        commands.checkIfChannelsAreNeeded(main);
         if(!thisUser.isBot())
 
     {
@@ -45,6 +46,8 @@ public class MessageReceived {
         //for input tradingCommands in a specific channel in this case "input-channel"
         if (handler.checkChannel(thisChannel, "trade_data_test")) {
             commands.tradingCommands(thisUser, thisMsg, thisChannel,main);
+            commands.removeItems(thisMsg,thisChannel,main);
+            commands.printEmbed(thisChannel,main);
         }
 
 
