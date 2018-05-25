@@ -62,10 +62,10 @@ public class TradingChannelObject {
                     }
                     break;
                } else if (itemPairs[i][1].equalsIgnoreCase(tradingItem)) {
-                   items[((i+1)*2)-1][0] = itemPairs[i][0];
-                   items[((i+1)*2)-2][0] = itemPairs[i][1];
+                   items[((i+1)*2)-2][0] = itemPairs[i][0];
+                   items[((i+1)*2)-1][0] = itemPairs[i][1];
                    if (amount != null) {
-                       items[(i+1)*2-2][1] = amount;
+                       items[(i+1)*2-1][1] = amount;
                    }
                    break;
                }
