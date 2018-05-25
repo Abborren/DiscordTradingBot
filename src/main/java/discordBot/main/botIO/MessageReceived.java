@@ -39,13 +39,13 @@ public class MessageReceived {
             commands.serverAdmin(thisUser, thisMsg, thisChannel);
         }
 
-        //Example of Role specific tradingCommands
+        //Example of Role specific addItems
         if (handler.checkRole(roles, "ExampleRole")) {
-            //tradingCommands(thisUser, thisMsg, thisChannel);
+            //addItems(thisUser, thisMsg, thisChannel);
         }
-        //for input tradingCommands in a specific channel in this case "input-channel"
+        //for input addItems in a specific channel in this case "input-channel"
         if (handler.checkChannel(thisChannel, "trade_data_test")) {
-            commands.tradingCommands(thisUser, thisMsg, thisChannel,main);
+            commands.addItems(thisUser, thisMsg, thisChannel,main);
             commands.removeItems(thisMsg,thisChannel,main);
             commands.printEmbed(thisChannel,main);
         }
