@@ -72,6 +72,7 @@ public class Commands {
                 }
 
             }
+            printEmbed(objChannel,main);
         }
     }
 
