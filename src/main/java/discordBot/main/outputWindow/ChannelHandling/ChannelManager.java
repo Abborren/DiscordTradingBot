@@ -8,7 +8,7 @@ public class ChannelManager {
 
     public void initiateTradingChannels(App main) {
         String[] channelCallSigns = {"ba","ve","se","me","ca","va","ka","ar"};
-        String[] channelName = {"Balenos","Velia","Serendia","Mediah","Calpheon","Valencia","kamasylvia","Arsha_PVP"};
+        String[] channelName = {"Balenos","Velia","Serendia","Mediah","Calpheon","Valencia","Kamasylvia","Arsha (PVP)"};
         int channelId = 0;
         for (int i = 0; i < channelName.length; i++) {
             for (int j = 1; j <= 6; j++) {
@@ -53,6 +53,25 @@ public class ChannelManager {
                    }
                    break;
                }
+        }
+        System.out.println("Channel now contains "+ Arrays.deepToString(tradingChannelObject.items));
+    }
+    public void removeItem(String tradingItem, TradingChannelObject tradingChannelObject, String amount) {
+        String[][] itemPairs = {{"<:lacquerware:365925547563286528>","<:cencer:365926188968968222>"},
+                {"<:lamp:365926091241816076>","<:ginseng:365926221122371586>"},
+                {"<:spice:365926064116989972>","<:slab:365926150561726465>"},
+                {"<:saber:365926042180911114>","<:porcelain:365925475630972928>"},
+                {"<:kite:365926019254714369>","<:silk:365926117024202754>"}};
+        for (int i = 0; i < itemPairs.length; i++) {
+
+            if (itemPairs[i][0].equalsIgnoreCase(tradingItem) || itemPairs[i][1].equalsIgnoreCase(tradingItem)) {
+                tradingChannelObject.items[((i+1)*2)-2][0] = null;
+                tradingChannelObject.items[((i+1)*2)-1][0] = null;
+                if (!tradingChannelObject.items[i][1].equals("N/A")) {
+                    tradingChannelObject.items[i][1] = "N/A";
+                }
+                break;
+            }
         }
         System.out.println("Channel now contains "+ Arrays.deepToString(tradingChannelObject.items));
     }
