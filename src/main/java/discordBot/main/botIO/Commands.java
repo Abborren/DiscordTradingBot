@@ -74,31 +74,33 @@ public class Commands {
             }
         }
     }
-    void printEmbed(MessageChannel objChannel,App main) {
-        PrintEmbed printEmbed = new PrintEmbed();
-        printEmbed.printEmbed(main,objChannel);
-    }
+
     void addItems(User objUser, Message objMsg, MessageChannel objChannel, App main) {
 
         Attachments attachments = new Attachments();
         if (!objMsg.getContentRaw().startsWith("!")) {
 
-            String[] inputCmdMsg;
-
+            String[] inputMsg;
+            String[] temp;
             if (!objMsg.getContentRaw().contains(" ")) {
-                inputCmdMsg = new String[2];
-                inputCmdMsg[0] = objMsg.getContentRaw();
-                inputCmdMsg[1] = "This string is useless but don't remove it";
+                inputMsg = new String[2];
+                temp = new String[2];
+                temp[0] = "N/A";
+                temp[1] = "N/A";
+                inputMsg[0] = objMsg.getContentRaw();
+                inputMsg[1] = "This string is useless but don't remove it";
             } else {
-                inputCmdMsg = objMsg.getContentRaw().split(" ");
+                inputMsg = objMsg.getContentRaw().split(" ");
+                String callSign = inputMsg[0];
+                temp = objMsg.getContentRaw().substring(4).split(" ");
+
 
             }
-            String callSign = inputCmdMsg[0];
-            String[] temp = objMsg.getContentRaw().substring(4).split(" ");
-            for (int i = 0; i < temp.length; i++) {
-                temp[i] = temp[i].toLowerCase();
-                System.out.println("input is"+temp[i]);
+
+            for (int i = 0; i < inputMsg.length; i++) {
+                inputMsg[i] = inputMsg[i].toLowerCase();
             }
+
             TradingInput tradingInput = new TradingInput();
             String[] items = tradingInput.returnItems(temp);
             String[] amount = tradingInput.returnAmount(temp);
@@ -111,13 +113,13 @@ public class Commands {
                     //if channel limit is met it will break
                     if (channelCommand.equals("ka") && number < 4 || channelCommand.equals("ar") && number < 1) {
                         break outerLoop;
-                    } else if (callSign.startsWith(channelCommand) && callSign.endsWith(String.valueOf(number))) {
+                    } else if (inputMsg[0].startsWith(channelCommand) && inputMsg[0].endsWith(String.valueOf(number))) {
                         if (attachments.CheckForAttachments(objMsg)) {
                             if (imageLogic.compareImage(objChannel, objMsg, main)) {
                                 printEmbed(objChannel,main);
                             }
                         } else {
-                            TradingChannelObject tradingChannel = main.channelManager.getTradingChannelWithCallSignAndId(inputCmdMsg[0].substring(0, 2), Integer.parseInt(String.valueOf(inputCmdMsg[0].charAt(2))), main);
+                            TradingChannelObject tradingChannel = main.channelManager.getTradingChannelWithCallSignAndId(inputMsg[0].substring(0, 2), Integer.parseInt(String.valueOf(inputMsg[0].charAt(2))), main);
                             for (int i = 0; i < items.length; i++) {
                                 try {
                                     tradingChannel.addItem(items[i],amount[i]);
@@ -135,6 +137,10 @@ public class Commands {
                 }
             }
         }
+    }
+    void printEmbed(MessageChannel objChannel,App main) {
+        PrintEmbed printEmbed = new PrintEmbed();
+        printEmbed.printEmbed(main,objChannel);
     }
     void checkIfChannelsAreNeeded(App main){
         //creates trading channels
