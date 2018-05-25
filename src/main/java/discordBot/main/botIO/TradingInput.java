@@ -8,6 +8,15 @@ public class TradingInput {
         for (String thisMessage : message) {
             if (thisMessage.startsWith("<:")) {
                 returnList.add(thisMessage);
+            }
+        }
+        return returnList.toArray(new String[0]);
+    }
+    public String[] returnRemoveItems(String[] message) {
+        ArrayList<String> returnList = new ArrayList<String>();
+        for (String thisMessage : message) {
+            if (thisMessage.startsWith("<:")) {
+                returnList.add(thisMessage);
             } else {
                 returnList.add(null);
             }
@@ -19,8 +28,6 @@ public class TradingInput {
         for (String thisMessage : message) {
             if (!thisMessage.startsWith(":") && canParse(thisMessage)) {
                 returnList.add(thisMessage);
-            } else {
-                returnList.add("N/A");
             }
         }
         return returnList.toArray(new String[0]);
