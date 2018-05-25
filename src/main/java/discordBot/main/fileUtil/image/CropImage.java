@@ -14,12 +14,6 @@ public class CropImage {
         // use the Border.png to find the first border.
         BufferedImage border = ImageLogic.fileManager.load(new File("Images/Border/Border.png"));
         int[] coordinates = compare.findSubImage(bigImage, border,0.01);
-        //System.out.println(coordinates[0] + " - " + coordinates[1]);
-
-        // use IMAGE_CONSTANTS.IMAGE_WIDTH and IMAGE_CONSTANTS.IMAGE_HEIGHT to cut out
-        // the image.
-
-
         // do this for all images.
         // after the first image, there are 4 rows down at 100 pixels lower than the previous.
         // after the first image, there are 6 colums to the right, at 58 pixels difference
