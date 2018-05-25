@@ -19,7 +19,7 @@ public class TradingChannelObject {
         }
     }
 
-    public void removeItem(String tradingItem, String amount) {
+    public void removeItem(String tradingItem) {
         String[][] itemPairs = {{"<:lacquerware:365925547563286528>","<:cencer:365926188968968222>"},
                 {"<:lamp:365926091241816076>","<:ginseng:365926221122371586>"},
                 {"<:spice:365926064116989972>","<:slab:365926150561726465>"},
@@ -57,10 +57,10 @@ public class TradingChannelObject {
         for (int i = 0; i < itemPairs.length; i++) {
 
                if (itemPairs[i][0].equalsIgnoreCase(tradingItem)) {
-                    items[((i+1)*2)-2][0] = itemPairs[i][0];
-                    items[((i+1)*2)-1][0] = itemPairs[i][1];
+                    items[((i+1)*2)-1][0] = itemPairs[i][0];
+                    items[((i+1)*2)-2][0] = itemPairs[i][1];
                     if (amount != null) {
-                        items[(i+1)*2-2][1] = amount;
+                        items[(i+1)*2-1][1] = amount;
                     }
                     break;
                } else if (itemPairs[i][1].equalsIgnoreCase(tradingItem)) {
