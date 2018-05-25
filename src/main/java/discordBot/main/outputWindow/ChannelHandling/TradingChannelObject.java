@@ -53,23 +53,21 @@ public class TradingChannelObject {
                 {"<:saber:365926042180911114>","<:porcelain:365925475630972928>"},
                 {"<:kite:365926019254714369>","<:silk:365926117024202754>"}};
         for (int i = 0; i < itemPairs.length; i++) {
-
-               if (itemPairs[i][0].equalsIgnoreCase(tradingItem)) {
-                    items[((i+1)*2)-2][0] = itemPairs[i][0];
-                    items[((i+1)*2)-1][0] = itemPairs[i][1];
-                    if (amount != null) {
-                        items[(i+1)*2-2][1] = amount;
-                    }
-                    break;
-               } else if (itemPairs[i][1].equalsIgnoreCase(tradingItem)) {
-                   items[((i+1)*2)-2][0] = itemPairs[i][0];
-                   items[((i+1)*2)-1][0] = itemPairs[i][1];
-                   if (amount != null) {
-                       items[(i+1)*2-1][1] = amount;
-                   }
-                   break;
-               }
+            boolean b = false;
+            if (itemPairs[i][0].equalsIgnoreCase(tradingItem) || itemPairs[i][1].equalsIgnoreCase(tradingItem)) {
+                items[((i + 1) * 2) - 2][0] = itemPairs[i][0];
+                items[((i + 1) * 2) - 1][0] = itemPairs[i][1];
+                b = true;
+           }
+           if (amount != null && itemPairs[i][0].equalsIgnoreCase(tradingItem)) {
+                items[(i+1)*2-2][1] = amount;
+           } else if (amount != null && itemPairs[i][1].equalsIgnoreCase(tradingItem)) {
+                items[(i+1)*2-1][1] = amount;
+           }
+           if (b) {
+                break;
+           }
         }
-        System.out.println("Channel now contains "+ Arrays.deepToString(items));
+        //System.out.println("Channel now contains "+ Arrays.deepToString(items)); // for debug
     }
 }
