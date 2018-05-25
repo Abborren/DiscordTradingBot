@@ -39,7 +39,6 @@ public class TradingChannelObject {
         }
         if (tradingItem == null) {
             for (int i=0; i < itemPairs.length*2;i++) {
-                System.out.println("Second triggers");
                 items[i][0] = null;
                 items[i][1] = "N/A";
             }
