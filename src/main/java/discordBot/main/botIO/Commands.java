@@ -3,11 +3,12 @@ package discordBot.main.botIO;
 import discordBot.main.App;
 import discordBot.main.fileUtil.Attachments;
 import discordBot.main.fileUtil.image.ImageLogic;
-import discordBot.main.outputWindow.ChannelManager;
-import discordBot.main.outputWindow.TradingChannelObject;
+import discordBot.main.outputWindow.ChannelHandling.TradingChannelObject;
+import discordBot.main.outputWindow.Window.PrintEmbed;
 import net.dv8tion.jda.core.entities.*;
 
 import java.io.File;
+import java.io.PrintStream;
 
 public class Commands {
     private ImageLogic imageLogic = new ImageLogic();
@@ -40,8 +41,11 @@ public class Commands {
 
     void tradingCommands(User objUser, Message objMsg, MessageChannel objChannel, App main) {
         checkIfChannelsAreNeeded(main);
+        PrintEmbed printEmbed = new PrintEmbed();
         Attachments attachments = new Attachments();
-
+        if (objMsg.getContentRaw().equalsIgnoreCase("!PrintOut")) {
+            printEmbed.printEmbed(main,objChannel);
+        }
         String[] message = new String[2];
         if (objMsg.getContentRaw().contains(" ")) {
             message = objMsg.getContentRaw().split(" ");
