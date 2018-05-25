@@ -1,4 +1,4 @@
-package discordBot.main.outputWindow;
+package discordBot.main.outputWindow.ChannelHandling;
 
 
 import discordBot.main.App;

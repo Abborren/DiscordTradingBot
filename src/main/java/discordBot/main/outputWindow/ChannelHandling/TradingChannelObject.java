@@ -1,4 +1,4 @@
-package discordBot.main.outputWindow;
+package discordBot.main.outputWindow.ChannelHandling;
 
 public class TradingChannelObject {
     public String name;

@@ -4,8 +4,8 @@ package discordBot.main;
 import javax.security.auth.login.LoginException;
 
 import discordBot.main.botIO.MessageReceived;
-import discordBot.main.outputWindow.ChannelManager;
-import discordBot.main.outputWindow.TradingChannelObject;
+import discordBot.main.outputWindow.ChannelHandling.ChannelManager;
+import discordBot.main.outputWindow.ChannelHandling.TradingChannelObject;
 import discordBot.tokenUtil.TokenUtil;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
