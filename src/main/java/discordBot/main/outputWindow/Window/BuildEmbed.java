@@ -13,6 +13,7 @@ public class BuildEmbed {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         ArrayList<TradingChannelObject> tradingChannels = new ArrayList<TradingChannelObject>(main.tradingChannelObjects);
         embedBuilder.setTitle("Imperial Trade Delivery Status");
+        embedBuilder.setColor(0x00ff00);
         ArrayList<MessageEmbed.Field> fieldArrayList = new ArrayList<MessageEmbed.Field>();
         int channelAmount = 0;
         int channelIndex = 0;
