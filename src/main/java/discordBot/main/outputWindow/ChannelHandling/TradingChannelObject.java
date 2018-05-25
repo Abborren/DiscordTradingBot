@@ -20,7 +20,7 @@ public class TradingChannelObject {
     }
 
     public void removeItem(String tradingItem) {
-        String[][] itemPairs = {{"<:lacquerware:365925547563286528>","<:cencer:365926188968968222>"},
+        String[][] itemPairs = {{"<:lacquerware:365925547563286528>","<:censer:365926188968968222>"},
                 {"<:lamp:365926091241816076>","<:ginseng:365926221122371586>"},
                 {"<:spice:365926064116989972>","<:slab:365926150561726465>"},
                 {"<:saber:365926042180911114>","<:porcelain:365925475630972928>"},
