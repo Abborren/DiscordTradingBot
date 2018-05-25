@@ -38,26 +38,32 @@ public class Commands {
     }
 
     void removeItems(Message objMsg, MessageChannel objChannel, App main) {
+        boolean removeAll = true;
         if (objMsg.getContentRaw().startsWith("!wipe") && objMsg.getContentRaw().contains(" ")) {
 
-            String[] temp = objMsg.getContentRaw().substring(2).split(" ");
+            String[] temp = objMsg.getContentRaw().substring(6).split(" ");
             for (int i = 0; i < temp.length; i++) {
                 temp[i] = temp[i].toLowerCase();
 
             }
+            for (String s: temp) {
+                if (s.startsWith("<:")) {
+                    removeAll = false;
+                }
+            }
             TradingInput tradingInput = new TradingInput();
-            String[] items = tradingInput.returnRemoveItems(temp);
+            String[] items = tradingInput.returnRemoveItems(temp,removeAll);
             String[] channelCommandsArray = {"ba", "ve", "se", "me", "ca", "va", "ka", "ar"};
             int[] channelNumberArray = {1, 2, 3, 4, 5, 6};
-            //TODO fix command, its the channel
+
             outerLoop:
             for (String channelCommand : channelCommandsArray) {
                 for (int number : channelNumberArray) {
                     //if channel limit is met it will break
                     if (channelCommand.equals("ka") && number < 4 || channelCommand.equals("ar") && number < 1) {
                         break outerLoop;
-                    } else if (command.startsWith(channelCommand) && command.endsWith(String.valueOf(number))) {
-                        TradingChannelObject tradingChannel = main.channelManager.getTradingChannelWithCallSignAndId(inputMsg[1].substring(0, 2), Integer.parseInt(String.valueOf(inputMsg[1].charAt(2))), main);
+                    } else if (temp[0].startsWith(channelCommand) && temp[0].endsWith(String.valueOf(number))) {
+                        TradingChannelObject tradingChannel = main.channelManager.getTradingChannelWithCallSignAndId(temp[0].substring(0, 2), Integer.parseInt(String.valueOf(temp[0].charAt(2))), main);
                         for (int i = 0; i < items.length; i++) {
                             tradingChannel.removeItem(items[i]);
                         }
@@ -75,10 +81,18 @@ public class Commands {
     void addItems(User objUser, Message objMsg, MessageChannel objChannel, App main) {
 
         Attachments attachments = new Attachments();
-        if (objMsg.getContentRaw().contains(" ") && !objMsg.getContentRaw().startsWith("!")) {
-            String[] inputCmdMsg;
-            inputCmdMsg = objMsg.getContentRaw().split(" ");
+        if (!objMsg.getContentRaw().startsWith("!")) {
 
+            String[] inputCmdMsg;
+
+            if (!objMsg.getContentRaw().contains(" ")) {
+                inputCmdMsg = new String[2];
+                inputCmdMsg[0] = objMsg.getContentRaw();
+                inputCmdMsg[1] = "This string is useless but don't remove it";
+            } else {
+                inputCmdMsg = objMsg.getContentRaw().split(" ");
+
+            }
             String callSign = inputCmdMsg[0];
             String[] temp = objMsg.getContentRaw().substring(4).split(" ");
             for (int i = 0; i < temp.length; i++) {
@@ -99,18 +113,21 @@ public class Commands {
                         break outerLoop;
                     } else if (callSign.startsWith(channelCommand) && callSign.endsWith(String.valueOf(number))) {
                         if (attachments.CheckForAttachments(objMsg)) {
-                            imageLogic.compareImage(objChannel, objMsg, main);
+                            if (imageLogic.compareImage(objChannel, objMsg, main)) {
+                                printEmbed(objChannel,main);
+                            }
                         } else {
                             TradingChannelObject tradingChannel = main.channelManager.getTradingChannelWithCallSignAndId(inputCmdMsg[0].substring(0, 2), Integer.parseInt(String.valueOf(inputCmdMsg[0].charAt(2))), main);
                             for (int i = 0; i < items.length; i++) {
                                 try {
                                     tradingChannel.addItem(items[i],amount[i]);
+
                                 } catch (ArrayIndexOutOfBoundsException e) {
                                     tradingChannel.addItem(items[i],null);
+
                                 }
-
-
                             }
+                            printEmbed(objChannel,main);
                         }
                         break outerLoop;
                     }
