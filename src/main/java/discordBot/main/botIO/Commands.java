@@ -92,7 +92,6 @@ public class Commands {
                 inputMsg[1] = "This string is useless but don't remove it";
             } else {
                 inputMsg = objMsg.getContentRaw().split(" ");
-                String callSign = inputMsg[0];
                 temp = objMsg.getContentRaw().substring(4).split(" ");
 
 
