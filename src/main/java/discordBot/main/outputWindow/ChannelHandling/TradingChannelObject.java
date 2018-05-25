@@ -30,9 +30,8 @@ public class TradingChannelObject {
             if (itemPairs[i][0].equalsIgnoreCase(tradingItem) || itemPairs[i][1].equalsIgnoreCase(tradingItem)) {
                 items[((i+1)*2)-2][0] = null;
                 items[((i+1)*2)-1][0] = null;
-                if (!items[i][1].equals("N/A")) {
-                    items[i][1] = "N/A";
-                }
+                items[((i+1)*2)-2][1] = "N/A";
+                items[((i+1)*2)-1][1] = "N/A";
                 break;
             }
 
@@ -56,17 +55,17 @@ public class TradingChannelObject {
         for (int i = 0; i < itemPairs.length; i++) {
 
                if (itemPairs[i][0].equalsIgnoreCase(tradingItem)) {
-                    items[((i+1)*2)-1][0] = itemPairs[i][0];
-                    items[((i+1)*2)-2][0] = itemPairs[i][1];
+                    items[((i+1)*2)-2][0] = itemPairs[i][0];
+                    items[((i+1)*2)-1][0] = itemPairs[i][1];
                     if (amount != null) {
-                        items[(i+1)*2-1][1] = amount;
+                        items[(i+1)*2-2][1] = amount;
                     }
                     break;
                } else if (itemPairs[i][1].equalsIgnoreCase(tradingItem)) {
                    items[((i+1)*2)-1][0] = itemPairs[i][0];
                    items[((i+1)*2)-2][0] = itemPairs[i][1];
                    if (amount != null) {
-                       items[(i+1)*2-1][1] = amount;
+                       items[(i+1)*2-2][1] = amount;
                    }
                    break;
                }
