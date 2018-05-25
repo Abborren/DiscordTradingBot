@@ -8,6 +8,8 @@ public class TradingInput {
         for (String thisMessage : message) {
             if (thisMessage.startsWith("<:")) {
                 returnList.add(thisMessage);
+            } else {
+                returnList.add(null);
             }
         }
         return returnList.toArray(new String[0]);
