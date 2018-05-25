@@ -41,47 +41,49 @@ public class Commands {
 
     void tradingCommands(User objUser, Message objMsg, MessageChannel objChannel, App main) {
         checkIfChannelsAreNeeded(main);
-        PrintEmbed printEmbed = new PrintEmbed();
+
         Attachments attachments = new Attachments();
         if (objMsg.getContentRaw().equalsIgnoreCase("!PrintOut")) {
+            PrintEmbed printEmbed = new PrintEmbed();
             printEmbed.printEmbed(main,objChannel);
         }
-        String[] message = new String[2];
+
         if (objMsg.getContentRaw().contains(" ")) {
-            message = objMsg.getContentRaw().split(" ");
-        }
-        String callSign = message[0];
-        String[] temp = objMsg.getContentRaw().substring(2).split(" ");
-        for (int i = 0; i < temp.length; i++) {
-            temp[i] = temp[i].toLowerCase();
-        }
-        TradingInput tradingInput = new TradingInput();
-        String[] items = tradingInput.returnItems(temp);
-        String[] amount = tradingInput.returnAmount(temp);
-        String[] channelCommandsArray = {"ba","ve","se","me","ca","va","ka","ar"};
-        int[] channelNumberArray ={1,2,3,4,5,6};
+            String[] inputCmdMsg;
+            inputCmdMsg = objMsg.getContentRaw().split(" ");
 
-        outerLoop:
-        for (String channelCommand : channelCommandsArray) {
-            for (int number : channelNumberArray) {
-                //if channel limit is met it will break
-                if (channelCommand.equals("ka") && number < 4 || channelCommand.equals("ar") && number < 1) {
-                    break outerLoop;
-                } else if (message[0].startsWith(channelCommand) && message[0].endsWith(String.valueOf(number))) {
-                    if (attachments.CheckForAttachments(objMsg)) {
-                        imageLogic.compareImage(objChannel, objMsg,main);
-                    }else {
-                        TradingChannelObject tradingChannel = main.channelManager.getTradingChannelWithCallSignAndId(message[0].substring(0,2),Integer.parseInt(String.valueOf(message[0].charAt(2))),main);
-                        for (int i= 0; i < items.length; i++) {
-                            main.channelManager.addItem(items[i], tradingChannel, amount[i]);
+            String callSign = inputCmdMsg[0];
+            String[] temp = objMsg.getContentRaw().substring(2).split(" ");
+            for (int i = 0; i < temp.length; i++) {
+                temp[i] = temp[i].toLowerCase();
+            }
+            TradingInput tradingInput = new TradingInput();
+            String[] items = tradingInput.returnItems(temp);
+            String[] amount = tradingInput.returnAmount(temp);
+            String[] channelCommandsArray = {"ba", "ve", "se", "me", "ca", "va", "ka", "ar"};
+            int[] channelNumberArray = {1, 2, 3, 4, 5, 6};
+
+            outerLoop:
+            for (String channelCommand : channelCommandsArray) {
+                for (int number : channelNumberArray) {
+                    //if channel limit is met it will break
+                    if (channelCommand.equals("ka") && number < 4 || channelCommand.equals("ar") && number < 1) {
+                        break outerLoop;
+                    } else if (callSign.startsWith(channelCommand) && callSign.endsWith(String.valueOf(number))) {
+                        if (attachments.CheckForAttachments(objMsg)) {
+                            imageLogic.compareImage(objChannel, objMsg, main);
+                        } else {
+                            TradingChannelObject tradingChannel = main.channelManager.getTradingChannelWithCallSignAndId(inputCmdMsg[0].substring(0, 2), Integer.parseInt(String.valueOf(inputCmdMsg[0].charAt(2))), main);
+                            for (int i = 0; i < items.length; i++) {
+                                main.channelManager.addItem(items[i], tradingChannel, amount[i]);
+                            }
                         }
+                        break outerLoop;
                     }
-                    break outerLoop;
-                }
 
+                }
             }
         }
-
     }
     private void checkIfChannelsAreNeeded(App main){
         //creates trading channels
