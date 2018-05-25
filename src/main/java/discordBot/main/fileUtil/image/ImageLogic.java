@@ -15,7 +15,7 @@ public class ImageLogic {
     private Attachments attachments = new Attachments();
     private Compare compare = new Compare();
 
-    public void compareImage(MessageChannel channel, Message message,App main) {
+    public boolean compareImage(MessageChannel channel, Message message, App main) {
         BufferedImage[] refs = fileManager.loadRefs(new File("Images/Downloaded/Refs/ref"));
         BufferedImage[] subImages;
         if (trySavingAttachment(channel,message)) {
@@ -23,9 +23,9 @@ public class ImageLogic {
              cropImage.createSubImages(inputImg);
              subImages = fileManager.loadRefs(new File("Images/Downloaded/Input/ref"));
             boolean[] output = checkMatches(new boolean[5],subImages,refs,0.05);
-            addItemToChannel(message,output,main);
-
+            return addItemToChannel(message,output,main);
         }
+        return false;
     }
 
     private boolean[] checkMatches(boolean[] output, BufferedImage[] subImages, BufferedImage[] refs, Double matchLimit) {
@@ -33,7 +33,7 @@ public class ImageLogic {
             double temp = compare.findSubImageDouble(subImages[i],refs[i],matchLimit);
             if (temp < matchLimit) {
                 output[i] = true;
-                //System.out.println("Match at "+i); // for debug purposes
+                System.out.println("Match at "+i); // for debug purposes
             }
         }
         return output;
@@ -63,13 +63,14 @@ public class ImageLogic {
         }
         return false;
     }
-    private void addItemToChannel(Message message, boolean[] output, App main) {
+    private boolean addItemToChannel(Message message, boolean[] output, App main) {
         String[] emojiArray = {"<:lacquerware:365925547563286528>","<:lamp:365926091241816076>","<:spice:365926064116989972>","<:saber:365926042180911114>","<:kite:365926019254714369>"};
         String temp = message.getContentRaw().substring(0,3);
             for (int i = 0; i < output.length;i++) {
                 if (output[i]) {
-                    main.channelManager.addItem(emojiArray[i], main.channelManager.getTradingChannelWithCallSignAndId(temp.substring(0,2).toLowerCase(),Integer.parseInt(String.valueOf(temp.charAt(2))),main),null);
+                    main.channelManager.getTradingChannelWithCallSignAndId(temp.substring(0,2).toLowerCase(),Integer.parseInt(String.valueOf(temp.charAt(2))),main).addItem(emojiArray[i], null);
                 }
             }
+            return true;
     }
 }
