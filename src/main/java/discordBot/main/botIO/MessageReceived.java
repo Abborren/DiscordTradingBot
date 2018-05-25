@@ -47,7 +47,6 @@ public class MessageReceived {
         if (handler.checkChannel(thisChannel, "trade_data_test")) {
             commands.addItems(thisUser, thisMsg, thisChannel,main);
             commands.removeItems(thisMsg,thisChannel,main);
-            commands.printEmbed(thisChannel,main);
         }
 
 
