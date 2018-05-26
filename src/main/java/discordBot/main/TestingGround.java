@@ -1,7 +1,5 @@
 package discordBot.main;
 
-import discordBot.main.outputWindow.ChannelHandling.ChannelManager;
-
 public class TestingGround {
     public static void main(String[] args) {
         //ChannelManager channelManager = new ChannelManager();

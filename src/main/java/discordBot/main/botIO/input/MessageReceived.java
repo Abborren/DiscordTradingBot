@@ -1,5 +1,5 @@
 package discordBot.main.botIO.input;
-import discordBot.main.App;
+import discordBot.main.Bot;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.Role;
@@ -12,7 +12,7 @@ public class MessageReceived {
     private Commands commands = new Commands();
     private Handler handler = new Handler();
     //main
-    private App main;
+    private Bot main;
     //Obtains properties of the received message
     private Message thisMsg;
     private MessageChannel thisChannel;
@@ -20,7 +20,7 @@ public class MessageReceived {
     // gets a list of all the roles that user has
     private List<Role> roles;
 
-    public MessageReceived(MessageReceivedEvent messageEvent, App main) {
+    public MessageReceived(MessageReceivedEvent messageEvent, Bot main) {
         thisMsg = messageEvent.getMessage();
         thisChannel = messageEvent.getChannel();
         thisUser = messageEvent.getAuthor();

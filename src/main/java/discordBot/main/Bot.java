@@ -17,15 +17,15 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.util.ArrayList;
 
-public class App extends ListenerAdapter {
+public class Bot extends ListenerAdapter {
     public static ArrayList<TextChannel> textChannels = new ArrayList<TextChannel>();
     public  ChannelManager channelManager = new ChannelManager();
     public  ArrayList<TradingChannelObject> tradingChannelObjects = new ArrayList<TradingChannelObject>();
 
     public static void main(String[] args) throws LoginException, InterruptedException {
-        new App();
+        new Bot();
     }
-    private App() throws LoginException, InterruptedException {
+    private Bot() throws LoginException, InterruptedException {
         //loads token loading class
         TokenUtil tokenUtil = new TokenUtil();
         //Initializes the bot

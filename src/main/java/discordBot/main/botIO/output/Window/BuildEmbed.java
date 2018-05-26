@@ -1,6 +1,6 @@
 package discordBot.main.botIO.output.Window;
 
-import discordBot.main.App;
+import discordBot.main.Bot;
 import discordBot.main.botIO.output.ChannelHandling.TradingChannelObject;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class BuildEmbed {
-    EmbedBuilder buildOutput(App main) {
+    EmbedBuilder buildOutput(Bot main) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         ArrayList<TradingChannelObject> tradingChannels = new ArrayList<TradingChannelObject>(main.tradingChannelObjects);
         embedBuilder.setTitle("Imperial Trade Delivery Status");

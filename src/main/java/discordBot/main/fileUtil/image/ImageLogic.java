@@ -1,6 +1,6 @@
 package discordBot.main.fileUtil.image;
 
-import discordBot.main.App;
+import discordBot.main.Bot;
 import discordBot.main.fileUtil.Attachments;
 import discordBot.main.fileUtil.FileManager;
 import net.dv8tion.jda.core.entities.Message;
@@ -15,7 +15,7 @@ public class ImageLogic {
     private Attachments attachments = new Attachments();
     private Compare compare = new Compare();
 
-    public boolean compareImage(MessageChannel channel, Message message, App main) {
+    public boolean compareImage(MessageChannel channel, Message message, Bot main) {
         BufferedImage[] refs = fileManager.loadRefs(new File("Images/Downloaded/Refs/ref"));
         BufferedImage[] subImages;
         if (trySavingAttachment(channel,message)) {
@@ -63,7 +63,7 @@ public class ImageLogic {
         }
         return false;
     }
-    private boolean addItemToChannel(Message message, boolean[] output, App main) {
+    private boolean addItemToChannel(Message message, boolean[] output, Bot main) {
         String[] emojiArray = {"<:lacquerware:365925547563286528>","<:lamp:365926091241816076>","<:spice:365926064116989972>","<:saber:365926042180911114>","<:kite:365926019254714369>"};
         String temp = message.getContentRaw().substring(0,3);
             for (int i = 0; i < output.length;i++) {

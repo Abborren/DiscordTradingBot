@@ -1,11 +1,11 @@
 package discordBot.main.botIO.output.ChannelHandling;
 
 
-import discordBot.main.App;
+import discordBot.main.Bot;
 
 public class ChannelManager {
 
-    public void initiateTradingChannels(App main) {
+    public void initiateTradingChannels(Bot main) {
         String[] channelCallSigns = {"ba","ve","se","me","ca","va","ka","ar"};
         String[] channelName = {"Balenos","Velia","Serendia","Mediah","Calpheon","Valencia","Kamasylvia","Arsha (PVP)"};
 
@@ -19,7 +19,7 @@ public class ChannelManager {
             }
         }
     }
-    public TradingChannelObject getTradingChannelWithCallSignAndId(String channelCallSign, int id,App main) {
+    public TradingChannelObject getTradingChannelWithCallSignAndId(String channelCallSign, int id,Bot main) {
         for (TradingChannelObject tradingChannelObject : main.tradingChannelObjects) {
             if (tradingChannelObject.callSign.equalsIgnoreCase(channelCallSign) && tradingChannelObject.id == id) {
                 return tradingChannelObject;
@@ -27,7 +27,7 @@ public class ChannelManager {
         }
         return null;
     }
-    public void clearTradingChannels(App main) {
+    public void clearTradingChannels(Bot main) {
         main.tradingChannelObjects.clear();
     }
 }

@@ -1,6 +1,6 @@
 package discordBot.main.botIO.input;
 
-import discordBot.main.App;
+import discordBot.main.Bot;
 import discordBot.main.fileUtil.Attachments;
 import discordBot.main.fileUtil.image.ImageLogic;
 import discordBot.main.botIO.output.ChannelHandling.TradingChannelObject;
@@ -19,14 +19,14 @@ class Commands {
         //prints out all the channels available
         if (objMsg.getContentRaw().equalsIgnoreCase(preFix + "ShowAllChannels")) {
             StringBuilder s = new StringBuilder();
-            for (int i = 0; i < discordBot.main.App.textChannels.size(); i++) {
-                s.append(i).append(".  ").append(App.textChannels.get(i).toString()).append("\r\n");
+            for (int i = 0; i < Bot.textChannels.size(); i++) {
+                s.append(i).append(".  ").append(Bot.textChannels.get(i).toString()).append("\r\n");
             }
             objChannel.sendMessage(s).queue();
         }
         //tests printing in another channel
         if (objMsg.getContentRaw().equalsIgnoreCase(preFix + "printIn")) {
-            App.textChannels.get(4).sendMessage("printing in another channel!").queue();
+            Bot.textChannels.get(4).sendMessage("printing in another channel!").queue();
 
         }
 
@@ -37,7 +37,7 @@ class Commands {
 
     }
 
-    void removeItems(Message objMsg, MessageChannel objChannel, App main) {
+    void removeItems(Message objMsg, MessageChannel objChannel, Bot main) {
         boolean removeAll = true;
         if (objMsg.getContentRaw().startsWith("!wipe") && objMsg.getContentRaw().contains(" ")) {
 
@@ -76,7 +76,7 @@ class Commands {
         }
     }
 
-    void addItems(User objUser, Message objMsg, MessageChannel objChannel, App main) {
+    void addItems(User objUser, Message objMsg, MessageChannel objChannel, Bot main) {
 
         Attachments attachments = new Attachments();
         if (!objMsg.getContentRaw().startsWith("!")) {
@@ -139,11 +139,11 @@ class Commands {
             }
         }
     }
-    private void printEmbed(MessageChannel objChannel, App main) {
+    private void printEmbed(MessageChannel objChannel, Bot main) {
         PrintEmbed printEmbed = new PrintEmbed();
         printEmbed.printEmbed(main,objChannel);
     }
-    void checkIfChannelsAreNeeded(App main){
+    void checkIfChannelsAreNeeded(Bot main){
         //creates trading channels
         if (main.tradingChannelObjects.isEmpty()) {
             main.channelManager.clearTradingChannels(main);
