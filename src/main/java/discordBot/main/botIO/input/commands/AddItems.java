@@ -10,7 +10,7 @@ import net.dv8tion.jda.core.entities.MessageChannel;
 
 public class AddItems {
     private ImageLogic imageLogic = new ImageLogic();
-    public PrintEmbed printEmbed = new PrintEmbed();
+    private PrintEmbed printEmbed = new PrintEmbed();
     public void addItems(Message objMsg, MessageChannel objChannel, Bot main) {
         Thread thread = new Thread(() -> {
             // Command code here
