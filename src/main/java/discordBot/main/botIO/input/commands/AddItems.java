@@ -1,6 +1,7 @@
 package discordBot.main.botIO.input.commands;
 
 import discordBot.main.Bot;
+import discordBot.main.botIO.output.ChannelHandling.ChannelManager;
 import discordBot.main.botIO.output.ChannelHandling.TradingChannelObject;
 import discordBot.main.botIO.output.Window.PrintEmbed;
 import discordBot.main.fileUtil.Attachments;
@@ -51,7 +52,8 @@ public class AddItems {
                                     printEmbed.editEmbed(main, objChannel);
                                 }
                             } else {
-                                TradingChannelObject tradingChannel = main.channelManager.getTradingChannelWithCallSignAndId(inputMsg[0].substring(0, 2), Integer.parseInt(String.valueOf(inputMsg[0].charAt(2))), main);
+                                ChannelManager channelManager = new ChannelManager();
+                                TradingChannelObject tradingChannel = channelManager.getTradingChannelWithCallSignAndId(inputMsg[0].substring(0, 2), Integer.parseInt(String.valueOf(inputMsg[0].charAt(2))), main);
                                 for (int i = 0; i < items.length; i++) {
                                     try {
                                         tradingChannel.addItem(items[i], amount[i]);
