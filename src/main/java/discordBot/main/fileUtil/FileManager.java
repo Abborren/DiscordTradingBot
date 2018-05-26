@@ -3,8 +3,10 @@ package discordBot.main.fileUtil;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-
+import java.nio.file.Files;
+import java.nio.file.Paths;
 public class FileManager {
     public BufferedImage load(File filename) {
         try {
@@ -13,6 +15,23 @@ public class FileManager {
         } catch (IOException e) {
             System.out.println("Image Load Failed!");
             return null;
+        }
+    }
+    public String loadString(File file) {
+        try {
+            return  new String(Files.readAllBytes(Paths.get(String.valueOf(file))));
+        } catch (IOException e) {
+            System.out.println("Image Load Failed!");
+            return null;
+        }
+    }
+    public void saveString(File file,String s) {
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(s);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
