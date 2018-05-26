@@ -1,16 +1,22 @@
 package discordBot.main.botTime;
 
 import discordBot.main.Bot;
+import discordBot.main.botIO.input.GuildHandler;
+import discordBot.main.botIO.output.Window.PrintEmbed;
+import discordBot.main.fileUtil.FileManager;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.MessageChannel;
 
+import java.io.File;
 import java.time.*;
 import java.util.ArrayList;
 
 public class TimeObj implements Runnable {
     private Bot main;
     private JDA jdaBot;
+    private PrintEmbed printEmbed = new PrintEmbed();
+    private GuildHandler guildHandler = new GuildHandler();
     public TimeObj(Bot main, JDA jdaBot) {
         this.main = main;
         this.jdaBot = jdaBot;
@@ -24,8 +30,8 @@ public class TimeObj implements Runnable {
         long minutePreviousMillis =0;
         ArrayList<LocalDateTime> resetTime = new ArrayList<>();
         int[] resets = {0, 4, 8, 12, 16, 20};
-        for (int i = 0; i < resets.length;i++) {
-            resetTime.add(LocalDateTime.of(LocalDate.now(Clock.systemUTC()),LocalTime.of(resets[i],1)));
+        for (int reset : resets) {
+            resetTime.add(LocalDateTime.of(LocalDate.now(Clock.systemUTC()), LocalTime.of(reset, 1)));
         }
         int temp = resetTime.size();
         for (int i = 0; i < temp; i++) {
@@ -63,11 +69,7 @@ public class TimeObj implements Runnable {
         }
     }
     private boolean checkTradingReset(LocalDateTime timeUTC, LocalDateTime resetTime) {
-
-        if (timeUTC.isAfter(resetTime)) {
-            return true;
-        }
-        return false;
+        return timeUTC.isAfter(resetTime);
     }
     private void updateGameMessage(LocalDateTime timeUTC, LocalDateTime resetTime) {
         //for (int i = 0; i < resetTime.size(); i++) {
@@ -103,24 +105,34 @@ public class TimeObj implements Runnable {
 
         }
         for (MessageChannel messageChannel : main.messageChannels) {
-            if (main.guildHandler.checkChannel(messageChannel,"trade_data_test")) {
-                main.printEmbed.editEmbed(main,messageChannel);
+            if (guildHandler.checkChannel(messageChannel,"trade_data_test")) {
+                printEmbed.editEmbed(main,messageChannel);
                 break;
             }
         }
     }
     private void initiateOutput(JDA jdaBot) {
         main.channelManager.initiateTradingChannels(main);
-        main.messageChannels = main.guildHandler.getMessageChannels(jdaBot);
+        main.messageChannels = guildHandler.getMessageChannels(jdaBot);
         for (MessageChannel messageChannel : main.messageChannels) {
-            if (main.guildHandler.checkChannel(messageChannel,"trade_data_test")) {
+            if (guildHandler.checkChannel(messageChannel,"trade_data_test")) {
                 clearDiscordChannel(messageChannel);
-                main.botMessageId = main.printEmbed.printEmbed(main,messageChannel);
+                FileManager fileManager = new FileManager();
+                String s = fileManager.loadString(new File("Config/BotMessage/MessageId.txt"));
+                if (s == null) {
+                    main.botMessageId = printEmbed.printEmbed(main,messageChannel);
+                    fileManager.saveString(new File("Config/BotMessage/MessageId.txt"),main.botMessageId);
+                } else {
+                    main.botMessageId = s;
+                    printEmbed.editEmbed(main,messageChannel);
+                }
+
                 //System.out.println("channel id "+main.botMessageId);
                 break;
             }
         }
     }
+
     private void clearDiscordChannel(MessageChannel channel) {
         //channel.getHistory().getMessageById("449918019058270218").delete().queue();
 
