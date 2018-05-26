@@ -111,9 +111,10 @@ public class Commands {
             for (String channelCommand : channelCommandsArray) {
                 for (int number : channelNumberArray) {
                     //if channel limit is met it will break
-                    if (channelCommand.equals("ka") && number < 4 || channelCommand.equals("ar") && number < 1) {
+                    if (inputMsg[0].substring(0, 1).equals("ar") && number >= 2 || inputMsg[0].substring(0, 1).equals("ka") && number >= 5) {
                         break outerLoop;
-                    } else if (inputMsg[0].startsWith(channelCommand) && inputMsg[0].endsWith(String.valueOf(number))) {
+                    }
+                    else if (inputMsg[0].startsWith(channelCommand) && inputMsg[0].endsWith(String.valueOf(number))) {
                         if (attachments.CheckForAttachments(objMsg)) {
                             if (imageLogic.compareImage(objChannel, objMsg, main)) {
                                 printEmbed(objChannel,main);
