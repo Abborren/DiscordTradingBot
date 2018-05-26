@@ -17,13 +17,19 @@ public class TimeObj implements Runnable {
     }
     @Override
     public void run() {
-        main.initiateOutput(jdaBot);
+        initiateOutput(jdaBot);
         long interval = 1000;
         long previousMillis =0;
         LocalDateTime[] resetTime = new LocalDateTime[6];
         int[] resets = {0, 4, 8, 12, 16, 20};
         for (int i = 0; i < resets.length;i++) {
             resetTime[i] = LocalDateTime.of(LocalDate.now(),LocalTime.of(resets[i],0));
+        }
+        for (int i = 0; i < resetTime.length; i++) {
+            if (!checkTradingReset(LocalDateTime.now(Clock.systemUTC()), resetTime[i]).toLocalDate().equals(resetTime[i].toLocalDate())) {
+                resetTime[i] = resetTime[i].plusDays(1);
+                //System.out.println("day added to "+ i); // debug feature
+            }
         }
 
         while (true) {
@@ -34,6 +40,8 @@ public class TimeObj implements Runnable {
                 for (int i = 0; i < resetTime.length; i++) {
                     if (!checkTradingReset(timeUTC, resetTime[i]).toLocalDate().equals(resetTime[i].toLocalDate())) {
                         resetTime[i] = resetTime[i].plusDays(1);
+                        System.out.println("trading resets");
+                        resetTrading();
                         //System.out.println(" current check time "+ resetTime[i]);
                     }
                 }
@@ -44,8 +52,6 @@ public class TimeObj implements Runnable {
     private LocalDateTime checkTradingReset(LocalDateTime timeUTC, LocalDateTime resetTime) {
 
         if (timeUTC.isAfter(resetTime)) {
-            System.out.println("trading resets");
-            resetTrading();
             return resetTime.plusDays(1);
         }
         return resetTime;
@@ -64,5 +70,16 @@ public class TimeObj implements Runnable {
                 break;
             }
         }*/
+    }
+    public void initiateOutput(JDA jdaBot) {
+        main.channelManager.initiateTradingChannels(main);
+        main.messageChannels = main.guildHandler.getMessageChannels(jdaBot);
+        for (MessageChannel messageChannel : main.messageChannels) {
+            if (main.guildHandler.checkChannel(messageChannel,"trade_data_test")) {
+                main.printEmbed.printEmbed(main,messageChannel);
+                break;
+            }
+
+        }
     }
 }
