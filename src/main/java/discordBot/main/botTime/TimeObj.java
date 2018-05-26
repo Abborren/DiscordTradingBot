@@ -58,7 +58,7 @@ public class TimeObj implements Runnable {
             }
             if (currentTimeMillis - minutePreviousMillis >= minuteInterVal) {
                 minutePreviousMillis = currentTimeMillis;
-                updateGameMessage(timeUTC,resetTime);
+                updateGameMessage(timeUTC,resetTime.get(5));
             }
         }
     }
@@ -69,14 +69,14 @@ public class TimeObj implements Runnable {
         }
         return false;
     }
-    private void updateGameMessage(LocalDateTime timeUTC, ArrayList<LocalDateTime> resetTime) {
-        for (int i = 0; i < resetTime.size(); i++) {
+    private void updateGameMessage(LocalDateTime timeUTC, LocalDateTime resetTime) {
+        //for (int i = 0; i < resetTime.size(); i++) {
 
-            Duration duration = Duration.between(timeUTC, resetTime.get(i));
-            if(duration.getSeconds() < 0) {
+            Duration duration = Duration.between(timeUTC, resetTime);
+          /*  if(duration.getSeconds() < 0) {
                 continue;
             }
-            else {
+            else */{
                 long minutes = duration.toMinutes();
                 long hrs = 0;
                 while (minutes >= 60) {
@@ -90,9 +90,9 @@ public class TimeObj implements Runnable {
                 }
 
                 System.out.println(duration.toMinutes());
-                break;
+
             }
-        }
+        //}
     }
     private void resetTrading() {
         for (int i=0; i< main.tradingChannelObjects.size();i++) {
@@ -102,12 +102,12 @@ public class TimeObj implements Runnable {
             }
 
         }
-        /*for (MessageChannel messageChannel : main.messageChannels) {
+        for (MessageChannel messageChannel : main.messageChannels) {
             if (main.guildHandler.checkChannel(messageChannel,"trade_data_test")) {
-                main.printEmbed.printEmbed(main,messageChannel);
+                main.printEmbed.editEmbed(main,messageChannel);
                 break;
             }
-        }*/
+        }
     }
     private void initiateOutput(JDA jdaBot) {
         main.channelManager.initiateTradingChannels(main);
@@ -116,6 +116,7 @@ public class TimeObj implements Runnable {
             if (main.guildHandler.checkChannel(messageChannel,"trade_data_test")) {
                 clearDiscordChannel(messageChannel);
                 main.botMessage = main.printEmbed.printEmbed(main,messageChannel);
+                //System.out.println("channel id "+main.botMessage);
                 break;
             }
         }
