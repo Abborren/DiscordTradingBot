@@ -2,10 +2,12 @@ package discordBot.main.botIO.input.commands;
 
 import discordBot.main.Bot;
 import discordBot.main.botIO.output.ChannelHandling.TradingChannelObject;
+import discordBot.main.botIO.output.Window.PrintEmbed;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 
 public class RemoveItems {
+    private PrintEmbed printEmbed = new PrintEmbed();
     public void removeItems(Message objMsg, MessageChannel objChannel, Bot main) {
         Thread thread = new Thread(() -> {
 
@@ -42,7 +44,7 @@ public class RemoveItems {
                         }
                     }
                 }
-                main.printEmbed.editEmbed(main, objChannel);
+                printEmbed.editEmbed(main, objChannel);
             }
         });
         thread.start();
