@@ -1,5 +1,7 @@
 package discordBot.main.botIO.input;
 import discordBot.main.Bot;
+import discordBot.main.botIO.input.commands.AddItems;
+import discordBot.main.botIO.input.commands.RemoveItems;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.Role;
@@ -11,6 +13,8 @@ import java.util.List;
 public class MessageReceived {
     private Commands commands = new Commands();
     private GuildHandler guildHandler = new GuildHandler();
+    private AddItems addItems = new AddItems();
+    private RemoveItems removeItems = new RemoveItems();
     //main
     private Bot main;
     //Obtains properties of the received message
@@ -45,8 +49,8 @@ public class MessageReceived {
         }
         //for input addItems in a specific channel in this case "input-channel"
         if (guildHandler.checkChannel(thisChannel, "trade_data_test")) {
-            commands.addItems(thisUser, thisMsg, thisChannel,main);
-            commands.removeItems(thisMsg,thisChannel,main);
+            addItems.addItems(thisMsg, thisChannel,main);
+            removeItems.removeItems(thisMsg,thisChannel,main);
         }
 
 
