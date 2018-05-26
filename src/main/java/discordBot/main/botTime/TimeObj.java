@@ -2,12 +2,12 @@ package discordBot.main.botTime;
 
 import discordBot.main.Bot;
 import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.MessageChannel;
 
-import java.time.Clock;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
+import java.util.ArrayList;
+
 public class TimeObj implements Runnable {
     private Bot main;
     private JDA jdaBot;
@@ -18,34 +18,48 @@ public class TimeObj implements Runnable {
     @Override
     public void run() {
         initiateOutput(jdaBot);
-        long interval = 1000;
-        long previousMillis =0;
-        LocalDateTime[] resetTime = new LocalDateTime[6];
+        long secondInterval = 1000;
+        long minuteInterVal = 60000;
+        long secondPreviousMillis =0;
+        long minutePreviousMillis =0;
+        ArrayList<LocalDateTime> resetTime = new ArrayList<>();
         int[] resets = {0, 4, 8, 12, 16, 20};
         for (int i = 0; i < resets.length;i++) {
-            resetTime[i] = LocalDateTime.of(LocalDate.now(),LocalTime.of(resets[i],0));
+            resetTime.add(LocalDateTime.of(LocalDate.now(Clock.systemUTC()),LocalTime.of(resets[i],0)));
         }
-        for (int i = 0; i < resetTime.length; i++) {
-            if (!checkTradingReset(LocalDateTime.now(Clock.systemUTC()), resetTime[i]).toLocalDate().equals(resetTime[i].toLocalDate())) {
-                resetTime[i] = resetTime[i].plusDays(1);
-                //System.out.println("day added to "+ i); // debug feature
+        int temp = resetTime.size();
+        for (int i = 0; i < temp; i++) {
+            if (!checkTradingReset(LocalDateTime.now(), resetTime.get(i)).toLocalDate().equals(resetTime.get(i).toLocalDate())) {
+                resetTime.add(resetTime.get(i).plusDays(1));
+                resetTime.remove(i);
+                System.out.println("day added to "+ i); // debug feature
             }
         }
 
+
+
+
+
         while (true) {
-            long currentMillis = System.currentTimeMillis();
+            long currentTimeMillis = System.currentTimeMillis();
             LocalDateTime timeUTC = LocalDateTime.now(Clock.systemUTC());
-            if (currentMillis - previousMillis >= interval) {
-                previousMillis = currentMillis;
-                for (int i = 0; i < resetTime.length; i++) {
-                    if (!checkTradingReset(timeUTC, resetTime[i]).toLocalDate().equals(resetTime[i].toLocalDate())) {
-                        resetTime[i] = resetTime[i].plusDays(1);
+            if (currentTimeMillis - secondPreviousMillis >= secondInterval) {
+                secondPreviousMillis = currentTimeMillis;
+                int inttemp = resetTime.size();
+                for (int i = 0; i < inttemp; i++) {
+                    if (!checkTradingReset(timeUTC, resetTime.get(i)).toLocalDate().equals(resetTime.get(i).toLocalDate())) {
+                        resetTime.add(resetTime.get(i).plusDays(1));
+                        resetTime.remove(i);
                         System.out.println("trading resets");
                         resetTrading();
                         //System.out.println(" current check time "+ resetTime[i]);
                     }
                 }
                 //System.out.println("current time " + timeUTC.getHour()+":"+timeUTC.getMinute()+":"+timeUTC.getSecond()); // hour:minute:second
+            }
+            if (currentTimeMillis - minutePreviousMillis >= minuteInterVal) {
+                minutePreviousMillis = currentTimeMillis;
+                updateGameMessage(timeUTC,resetTime);
             }
         }
     }
@@ -71,15 +85,46 @@ public class TimeObj implements Runnable {
             }
         }*/
     }
-    public void initiateOutput(JDA jdaBot) {
+    private void clearDiscordChannel(MessageChannel channel) {
+            //channel.getHistory().getMessageById("449918019058270218").delete().queue();
+
+    }
+    private void initiateOutput(JDA jdaBot) {
         main.channelManager.initiateTradingChannels(main);
         main.messageChannels = main.guildHandler.getMessageChannels(jdaBot);
         for (MessageChannel messageChannel : main.messageChannels) {
             if (main.guildHandler.checkChannel(messageChannel,"trade_data_test")) {
-                main.printEmbed.printEmbed(main,messageChannel);
+                clearDiscordChannel(messageChannel);
+                main.botMessage = main.printEmbed.printEmbed(main,messageChannel);
                 break;
             }
-
         }
+    }
+    private void updateGameMessage(LocalDateTime timeUTC, ArrayList<LocalDateTime> resetTime) {
+        for (int i = 0; i < resetTime.size(); i++) {
+
+            Duration duration = Duration.between(timeUTC, resetTime.get(i));
+            if(duration.getSeconds() < 0) {
+                continue;
+            }
+            else {
+                long minutes = duration.toMinutes();
+                long hrs = 0;
+                while (minutes >= 60) {
+                    minutes = minutes -60;
+                    hrs++;
+                }
+                if (hrs >= 1) {
+                    jdaBot.getPresence().setGame(Game.of(Game.GameType.DEFAULT ,"next reset in "+hrs+"h "+minutes+"mins"));
+                } else {
+                    jdaBot.getPresence().setGame(Game.of(Game.GameType.DEFAULT ,"next reset in "+minutes+"mins"));
+                }
+
+                System.out.println(duration.toMinutes());
+                break;
+            }
+        }
+
+
     }
 }
