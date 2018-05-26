@@ -1,19 +1,23 @@
 package discordBot.main.botTime;
 
 import discordBot.main.Bot;
+import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.entities.MessageChannel;
 
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 public class TimeObj implements Runnable {
-    Bot main;
-    public TimeObj(Bot main) {
+    private Bot main;
+    private JDA jdaBot;
+    public TimeObj(Bot main, JDA jdaBot) {
         this.main = main;
+        this.jdaBot = jdaBot;
     }
     @Override
     public void run() {
-
+        main.initiateOutput(jdaBot);
         long interval = 1000;
         long previousMillis =0;
         LocalDateTime[] resetTime = new LocalDateTime[6];
@@ -52,6 +56,13 @@ public class TimeObj implements Runnable {
                 String item = main.tradingChannelObjects.get(i).items[j][0];
                 main.tradingChannelObjects.get(i).removeItem(item);
             }
+
         }
+        /*for (MessageChannel messageChannel : main.messageChannels) {
+            if (main.guildHandler.checkChannel(messageChannel,"trade_data_test")) {
+                main.printEmbed.printEmbed(main,messageChannel);
+                break;
+            }
+        }*/
     }
 }
