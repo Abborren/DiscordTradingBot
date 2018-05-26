@@ -21,12 +21,9 @@ import java.util.ArrayList;
 
 public class Bot extends ListenerAdapter {
     public static ArrayList<TextChannel> textChannels = new ArrayList<TextChannel>();
-    public  ChannelManager channelManager = new ChannelManager();
     public  ArrayList<TradingChannelObject> tradingChannelObjects = new ArrayList<TradingChannelObject>();
-    public PrintEmbed printEmbed = new PrintEmbed();
-    public GuildHandler guildHandler = new GuildHandler();
-    public MessageChannel[] messageChannels;
     public String botMessageId;
+
     public static void main(String[] args) throws LoginException, InterruptedException {
         new Bot();
     }
