@@ -1,6 +1,5 @@
 package discordBot.main.botIO.output.ChannelHandling;
 
-import java.util.Arrays;
 
 public class TradingChannelObject {
     public String name;
