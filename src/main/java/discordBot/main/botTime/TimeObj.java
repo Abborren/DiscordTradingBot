@@ -115,8 +115,8 @@ public class TimeObj implements Runnable {
         for (MessageChannel messageChannel : main.messageChannels) {
             if (main.guildHandler.checkChannel(messageChannel,"trade_data_test")) {
                 clearDiscordChannel(messageChannel);
-                main.botMessage = main.printEmbed.printEmbed(main,messageChannel);
-                //System.out.println("channel id "+main.botMessage);
+                main.botMessageId = main.printEmbed.printEmbed(main,messageChannel);
+                //System.out.println("channel id "+main.botMessageId);
                 break;
             }
         }

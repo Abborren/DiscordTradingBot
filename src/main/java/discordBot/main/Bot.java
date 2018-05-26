@@ -26,7 +26,7 @@ public class Bot extends ListenerAdapter {
     public PrintEmbed printEmbed = new PrintEmbed();
     public GuildHandler guildHandler = new GuildHandler();
     public MessageChannel[] messageChannels;
-    public String botMessage;
+    public String botMessageId;
     public static void main(String[] args) throws LoginException, InterruptedException {
         new Bot();
     }
