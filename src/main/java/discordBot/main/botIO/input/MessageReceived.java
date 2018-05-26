@@ -10,7 +10,7 @@ import java.util.List;
 
 public class MessageReceived {
     private Commands commands = new Commands();
-    private Handler handler = new Handler();
+    private GuildHandler guildHandler = new GuildHandler();
     //main
     private Bot main;
     //Obtains properties of the received message
@@ -30,21 +30,21 @@ public class MessageReceived {
 
     public void messageReceivedHandler() {
     //makes bot unable to respond to its own message
-        commands.checkIfChannelsAreNeeded(main);
+
         if(!thisUser.isBot())
 
     {
         //Admin only input.
-        if (handler.checkRole(roles, "admin")) {
+        if (guildHandler.checkRole(roles, "admin")) {
             commands.serverAdmin(thisUser, thisMsg, thisChannel);
         }
 
         //Example of Role specific role
-        if (handler.checkRole(roles, "ExampleRole")) {
+        if (guildHandler.checkRole(roles, "ExampleRole")) {
             //addItems(thisUser, thisMsg, thisChannel);
         }
         //for input addItems in a specific channel in this case "input-channel"
-        if (handler.checkChannel(thisChannel, "trade_data_test")) {
+        if (guildHandler.checkChannel(thisChannel, "trade_data_test")) {
             commands.addItems(thisUser, thisMsg, thisChannel,main);
             commands.removeItems(thisMsg,thisChannel,main);
         }
