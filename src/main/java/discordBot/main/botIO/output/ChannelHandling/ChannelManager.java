@@ -27,7 +27,4 @@ public class ChannelManager {
         }
         return null;
     }
-    public void clearTradingChannels(Bot main) {
-        main.tradingChannelObjects.clear();
-    }
 }
