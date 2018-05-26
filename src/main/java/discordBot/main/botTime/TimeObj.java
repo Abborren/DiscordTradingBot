@@ -2,6 +2,7 @@ package discordBot.main.botTime;
 
 import discordBot.main.Bot;
 import discordBot.main.botIO.input.GuildHandler;
+import discordBot.main.botIO.output.ChannelHandling.ChannelManager;
 import discordBot.main.botIO.output.Window.PrintEmbed;
 import discordBot.main.fileUtil.FileManager;
 import net.dv8tion.jda.core.JDA;
@@ -17,6 +18,8 @@ public class TimeObj implements Runnable {
     private JDA jdaBot;
     private PrintEmbed printEmbed = new PrintEmbed();
     private GuildHandler guildHandler = new GuildHandler();
+    public MessageChannel[] messageChannels;
+
     public TimeObj(Bot main, JDA jdaBot) {
         this.main = main;
         this.jdaBot = jdaBot;
@@ -104,7 +107,7 @@ public class TimeObj implements Runnable {
             }
 
         }
-        for (MessageChannel messageChannel : main.messageChannels) {
+        for (MessageChannel messageChannel : messageChannels) {
             if (guildHandler.checkChannel(messageChannel,"trade_data_test")) {
                 printEmbed.editEmbed(main,messageChannel);
                 break;
@@ -112,9 +115,11 @@ public class TimeObj implements Runnable {
         }
     }
     private void initiateOutput(JDA jdaBot) {
-        main.channelManager.initiateTradingChannels(main);
-        main.messageChannels = guildHandler.getMessageChannels(jdaBot);
-        for (MessageChannel messageChannel : main.messageChannels) {
+
+        ChannelManager channelManager = new ChannelManager();
+        channelManager.initiateTradingChannels(main);
+        messageChannels = guildHandler.getMessageChannels(jdaBot);
+        for (MessageChannel messageChannel : messageChannels) {
             if (guildHandler.checkChannel(messageChannel,"trade_data_test")) {
                 clearDiscordChannel(messageChannel);
                 FileManager fileManager = new FileManager();
