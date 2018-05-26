@@ -41,7 +41,7 @@ public class TimeObj implements Runnable {
             if (checkTradingReset(LocalDateTime.now(Clock.systemUTC()), resetTime.get(0))) {
                 resetTime.add(resetTime.get(0).plusDays(1));
                 resetTime.remove(0);
-                System.out.println("day added to "+ i); // debug feature
+                //System.out.println("day added to "+ i); // debug feature
             } else {
                 resetTime.add(resetTime.get(0));
                 resetTime.remove(0);
@@ -75,29 +75,20 @@ public class TimeObj implements Runnable {
         return timeUTC.isAfter(resetTime);
     }
     private void updateGameMessage(LocalDateTime timeUTC, LocalDateTime resetTime) {
-        //for (int i = 0; i < resetTime.size(); i++) {
 
-            Duration duration = Duration.between(timeUTC, resetTime);
-          /*  if(duration.getSeconds() < 0) {
-                continue;
-            }
-            else */{
-                long minutes = duration.toMinutes();
-                long hrs = 0;
-                while (minutes >= 60) {
-                    minutes = minutes -60;
-                    hrs++;
-                }
-                if (hrs >= 1) {
-                    jdaBot.getPresence().setGame(Game.of(Game.GameType.DEFAULT ,"next reset in "+hrs+"h "+minutes+"mins"));
-                } else {
-                    jdaBot.getPresence().setGame(Game.of(Game.GameType.DEFAULT ,"next reset in "+minutes+"mins"));
-                }
+        Duration duration = Duration.between(timeUTC, resetTime);
 
-                System.out.println(duration.toMinutes());
-
-            }
-        //}
+        long minutes = duration.toMinutes();
+        long hrs = 0;
+        while (minutes >= 60) {
+            minutes = minutes -60;
+            hrs++;
+        }
+        if (hrs >= 1) {
+            jdaBot.getPresence().setGame(Game.of(Game.GameType.DEFAULT ,"next reset in "+hrs+"h "+minutes+"mins"));
+        } else {
+            jdaBot.getPresence().setGame(Game.of(Game.GameType.DEFAULT ,"next reset in "+minutes+"mins"));
+        }
     }
     private void resetTrading() {
         for (int i=0; i< main.tradingChannelObjects.size();i++) {
@@ -121,10 +112,9 @@ public class TimeObj implements Runnable {
         messageChannels = guildHandler.getMessageChannels(jdaBot);
         for (MessageChannel messageChannel : messageChannels) {
             if (guildHandler.checkChannel(messageChannel,"trade_data_test")) {
-                clearDiscordChannel(messageChannel);
                 FileManager fileManager = new FileManager();
                 String s = fileManager.loadString(new File("Config/BotMessage/MessageId.txt"));
-                if (s == null) {
+                if (s == null || s.equals("")) {
                     main.botMessageId = printEmbed.printEmbed(main,messageChannel);
                     fileManager.saveString(new File("Config/BotMessage/MessageId.txt"),main.botMessageId);
                 } else {
@@ -136,10 +126,5 @@ public class TimeObj implements Runnable {
                 break;
             }
         }
-    }
-
-    private void clearDiscordChannel(MessageChannel channel) {
-        //channel.getHistory().getMessageById("449918019058270218").delete().queue();
-
     }
 }
