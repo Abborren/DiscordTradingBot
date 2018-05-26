@@ -2,6 +2,7 @@ package discordBot.main.botIO.input.commands;
 
 import discordBot.main.Bot;
 import discordBot.main.botIO.output.ChannelHandling.TradingChannelObject;
+import discordBot.main.botIO.output.Window.PrintEmbed;
 import discordBot.main.fileUtil.Attachments;
 import discordBot.main.fileUtil.image.ImageLogic;
 import net.dv8tion.jda.core.entities.Message;
@@ -9,6 +10,7 @@ import net.dv8tion.jda.core.entities.MessageChannel;
 
 public class AddItems {
     private ImageLogic imageLogic = new ImageLogic();
+    public PrintEmbed printEmbed = new PrintEmbed();
     public void addItems(Message objMsg, MessageChannel objChannel, Bot main) {
         Thread thread = new Thread(() -> {
             // Command code here
@@ -46,7 +48,7 @@ public class AddItems {
                         } else if (inputMsg[0].startsWith(channelCommand) && inputMsg[0].endsWith(String.valueOf(number))) {
                             if (attachments.CheckForAttachments(objMsg)) {
                                 if (imageLogic.compareImage(objChannel, objMsg, main)) {
-                                    main.printEmbed.editEmbed(main, objChannel);
+                                    printEmbed.editEmbed(main, objChannel);
                                 }
                             } else {
                                 TradingChannelObject tradingChannel = main.channelManager.getTradingChannelWithCallSignAndId(inputMsg[0].substring(0, 2), Integer.parseInt(String.valueOf(inputMsg[0].charAt(2))), main);
@@ -59,7 +61,7 @@ public class AddItems {
 
                                     }
                                 }
-                                main.printEmbed.editEmbed(main, objChannel);
+                                printEmbed.editEmbed(main, objChannel);
                             }
                             break outerLoop;
                         }
