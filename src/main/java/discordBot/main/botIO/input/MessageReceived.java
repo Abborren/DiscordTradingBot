@@ -49,8 +49,11 @@ public class MessageReceived {
         }
         //for input addItems in a specific channel in this case "input-channel"
         if (guildHandler.checkChannel(thisChannel, "trade_data_test")) {
+            DeleteIputMessage deleteIputMessage = new DeleteIputMessage();
+
             addItems.addItems(thisMsg, thisChannel,main);
             removeItems.removeItems(thisMsg,thisChannel,main);
+            deleteIputMessage.deleteMessage(thisChannel);
         }
 
 
