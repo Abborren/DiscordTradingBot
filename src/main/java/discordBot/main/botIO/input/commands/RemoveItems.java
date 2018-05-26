@@ -1,6 +1,7 @@
 package discordBot.main.botIO.input.commands;
 
 import discordBot.main.Bot;
+import discordBot.main.botIO.output.ChannelHandling.ChannelManager;
 import discordBot.main.botIO.output.ChannelHandling.TradingChannelObject;
 import discordBot.main.botIO.output.Window.PrintEmbed;
 import net.dv8tion.jda.core.entities.Message;
@@ -36,7 +37,8 @@ public class RemoveItems {
                         if (channelCommand.equals("ka") && number < 4 || channelCommand.equals("ar") && number < 1) {
                             break outerLoop;
                         } else if (temp[0].startsWith(channelCommand) && temp[0].endsWith(String.valueOf(number))) {
-                            TradingChannelObject tradingChannel = main.channelManager.getTradingChannelWithCallSignAndId(temp[0].substring(0, 2), Integer.parseInt(String.valueOf(temp[0].charAt(2))), main);
+                            ChannelManager channelManager = new ChannelManager();
+                            TradingChannelObject tradingChannel = channelManager.getTradingChannelWithCallSignAndId(temp[0].substring(0, 2), Integer.parseInt(String.valueOf(temp[0].charAt(2))), main);
                             for (String item : items) {
                                 tradingChannel.removeItem(item);
                             }
