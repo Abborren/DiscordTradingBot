@@ -1,6 +1,7 @@
 package discordBot.main.fileUtil.image;
 
 import discordBot.main.Bot;
+import discordBot.main.botIO.output.ChannelHandling.ChannelManager;
 import discordBot.main.fileUtil.Attachments;
 import discordBot.main.fileUtil.FileManager;
 import net.dv8tion.jda.core.entities.Message;
@@ -68,7 +69,8 @@ public class ImageLogic {
         String temp = message.getContentRaw().substring(0,3);
             for (int i = 0; i < output.length;i++) {
                 if (output[i]) {
-                    main.channelManager.getTradingChannelWithCallSignAndId(temp.substring(0,2).toLowerCase(),Integer.parseInt(String.valueOf(temp.charAt(2))),main).addItem(emojiArray[i], null);
+                    ChannelManager channelManager = new ChannelManager();
+                    channelManager.getTradingChannelWithCallSignAndId(temp.substring(0,2).toLowerCase(),Integer.parseInt(String.valueOf(temp.charAt(2))),main).addItem(emojiArray[i], null);
                 }
             }
             return true;
