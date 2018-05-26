@@ -25,7 +25,7 @@ public class TimeObj implements Runnable {
         ArrayList<LocalDateTime> resetTime = new ArrayList<>();
         int[] resets = {0, 4, 8, 12, 16, 20};
         for (int i = 0; i < resets.length;i++) {
-            resetTime.add(LocalDateTime.of(LocalDate.now(Clock.systemUTC()),LocalTime.of(resets[i],0)));
+            resetTime.add(LocalDateTime.of(LocalDate.now(Clock.systemUTC()),LocalTime.of(resets[i],1)));
         }
         int temp = resetTime.size();
         for (int i = 0; i < temp; i++) {
@@ -44,8 +44,8 @@ public class TimeObj implements Runnable {
             LocalDateTime timeUTC = LocalDateTime.now(Clock.systemUTC());
             if (currentTimeMillis - secondPreviousMillis >= secondInterval) {
                 secondPreviousMillis = currentTimeMillis;
-                int inttemp = resetTime.size();
-                for (int i = 0; i < inttemp; i++) {
+                int intTemp = resetTime.size();
+                for (int i = 0; i < intTemp; i++) {
                     if (checkTradingReset(timeUTC, resetTime.get(0))) {
                         resetTime.add(resetTime.get(0).plusDays(1));
                         resetTime.remove(0);
@@ -58,7 +58,7 @@ public class TimeObj implements Runnable {
             }
             if (currentTimeMillis - minutePreviousMillis >= minuteInterVal) {
                 minutePreviousMillis = currentTimeMillis;
-                updateGameMessage(timeUTC,resetTime.get(5));
+                updateGameMessage(timeUTC,resetTime.get(0));
             }
         }
     }
