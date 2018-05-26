@@ -29,16 +29,15 @@ public class TimeObj implements Runnable {
         }
         int temp = resetTime.size();
         for (int i = 0; i < temp; i++) {
-            if (!checkTradingReset(LocalDateTime.now(), resetTime.get(i)).toLocalDate().equals(resetTime.get(i).toLocalDate())) {
-                resetTime.add(resetTime.get(i).plusDays(1));
-                resetTime.remove(i);
+            if (checkTradingReset(LocalDateTime.now(Clock.systemUTC()), resetTime.get(0))) {
+                resetTime.add(resetTime.get(0).plusDays(1));
+                resetTime.remove(0);
                 System.out.println("day added to "+ i); // debug feature
+            } else {
+                resetTime.add(resetTime.get(0));
+                resetTime.remove(0);
             }
         }
-
-
-
-
 
         while (true) {
             long currentTimeMillis = System.currentTimeMillis();
@@ -47,9 +46,9 @@ public class TimeObj implements Runnable {
                 secondPreviousMillis = currentTimeMillis;
                 int inttemp = resetTime.size();
                 for (int i = 0; i < inttemp; i++) {
-                    if (!checkTradingReset(timeUTC, resetTime.get(i)).toLocalDate().equals(resetTime.get(i).toLocalDate())) {
-                        resetTime.add(resetTime.get(i).plusDays(1));
-                        resetTime.remove(i);
+                    if (checkTradingReset(timeUTC, resetTime.get(0))) {
+                        resetTime.add(resetTime.get(0).plusDays(1));
+                        resetTime.remove(0);
                         System.out.println("trading resets");
                         resetTrading();
                         //System.out.println(" current check time "+ resetTime[i]);
@@ -63,42 +62,12 @@ public class TimeObj implements Runnable {
             }
         }
     }
-    private LocalDateTime checkTradingReset(LocalDateTime timeUTC, LocalDateTime resetTime) {
+    private boolean checkTradingReset(LocalDateTime timeUTC, LocalDateTime resetTime) {
 
         if (timeUTC.isAfter(resetTime)) {
-            return resetTime.plusDays(1);
+            return true;
         }
-        return resetTime;
-    }
-    private void resetTrading() {
-        for (int i=0; i< main.tradingChannelObjects.size();i++) {
-            for (int j=0; j < main.tradingChannelObjects.get(i).items.length; j++) {
-                String item = main.tradingChannelObjects.get(i).items[j][0];
-                main.tradingChannelObjects.get(i).removeItem(item);
-            }
-
-        }
-        /*for (MessageChannel messageChannel : main.messageChannels) {
-            if (main.guildHandler.checkChannel(messageChannel,"trade_data_test")) {
-                main.printEmbed.printEmbed(main,messageChannel);
-                break;
-            }
-        }*/
-    }
-    private void clearDiscordChannel(MessageChannel channel) {
-            //channel.getHistory().getMessageById("449918019058270218").delete().queue();
-
-    }
-    private void initiateOutput(JDA jdaBot) {
-        main.channelManager.initiateTradingChannels(main);
-        main.messageChannels = main.guildHandler.getMessageChannels(jdaBot);
-        for (MessageChannel messageChannel : main.messageChannels) {
-            if (main.guildHandler.checkChannel(messageChannel,"trade_data_test")) {
-                clearDiscordChannel(messageChannel);
-                main.botMessage = main.printEmbed.printEmbed(main,messageChannel);
-                break;
-            }
-        }
+        return false;
     }
     private void updateGameMessage(LocalDateTime timeUTC, ArrayList<LocalDateTime> resetTime) {
         for (int i = 0; i < resetTime.size(); i++) {
@@ -124,7 +93,35 @@ public class TimeObj implements Runnable {
                 break;
             }
         }
+    }
+    private void resetTrading() {
+        for (int i=0; i< main.tradingChannelObjects.size();i++) {
+            for (int j=0; j < main.tradingChannelObjects.get(i).items.length; j++) {
+                String item = main.tradingChannelObjects.get(i).items[j][0];
+                main.tradingChannelObjects.get(i).removeItem(item);
+            }
 
+        }
+        /*for (MessageChannel messageChannel : main.messageChannels) {
+            if (main.guildHandler.checkChannel(messageChannel,"trade_data_test")) {
+                main.printEmbed.printEmbed(main,messageChannel);
+                break;
+            }
+        }*/
+    }
+    private void initiateOutput(JDA jdaBot) {
+        main.channelManager.initiateTradingChannels(main);
+        main.messageChannels = main.guildHandler.getMessageChannels(jdaBot);
+        for (MessageChannel messageChannel : main.messageChannels) {
+            if (main.guildHandler.checkChannel(messageChannel,"trade_data_test")) {
+                clearDiscordChannel(messageChannel);
+                main.botMessage = main.printEmbed.printEmbed(main,messageChannel);
+                break;
+            }
+        }
+    }
+    private void clearDiscordChannel(MessageChannel channel) {
+        //channel.getHistory().getMessageById("449918019058270218").delete().queue();
 
     }
 }
