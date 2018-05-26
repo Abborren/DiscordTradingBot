@@ -13,9 +13,6 @@ class Commands {
     private ImageLogic imageLogic = new ImageLogic();
     private String preFix = ".";
     void serverAdmin(User user, Message objMsg, MessageChannel objChannel) {
-        //Splits the command at spaces
-        String[] stringInput = objMsg.getContentRaw().split(" ");
-
         //prints out all the channels available
         if (objMsg.getContentRaw().equalsIgnoreCase(preFix + "ShowAllChannels")) {
             StringBuilder s = new StringBuilder();
@@ -70,9 +67,8 @@ class Commands {
                         break outerLoop;
                     }
                 }
-
             }
-            printEmbed(objChannel,main);
+            main.printEmbed.editEmbed(main,objChannel);
         }
     }
 
@@ -93,10 +89,7 @@ class Commands {
             } else {
                 inputMsg = objMsg.getContentRaw().split(" ");
                 temp = objMsg.getContentRaw().substring(4).split(" ");
-
-
             }
-
             for (int i = 0; i < inputMsg.length; i++) {
                 inputMsg[i] = inputMsg[i].toLowerCase();
             }
@@ -117,7 +110,7 @@ class Commands {
                     else if (inputMsg[0].startsWith(channelCommand) && inputMsg[0].endsWith(String.valueOf(number))) {
                         if (attachments.CheckForAttachments(objMsg)) {
                             if (imageLogic.compareImage(objChannel, objMsg, main)) {
-                                printEmbed(objChannel,main);
+                                main.printEmbed.editEmbed(main,objChannel);
                             }
                         } else {
                             TradingChannelObject tradingChannel = main.channelManager.getTradingChannelWithCallSignAndId(inputMsg[0].substring(0, 2), Integer.parseInt(String.valueOf(inputMsg[0].charAt(2))), main);
@@ -130,24 +123,13 @@ class Commands {
 
                                 }
                             }
-                            printEmbed(objChannel,main);
+                            main.printEmbed.editEmbed(main,objChannel);
                         }
                         break outerLoop;
                     }
 
                 }
             }
-        }
-    }
-    private void printEmbed(MessageChannel objChannel, Bot main) {
-        PrintEmbed printEmbed = new PrintEmbed();
-        printEmbed.printEmbed(main,objChannel);
-    }
-    void checkIfChannelsAreNeeded(Bot main){
-        //creates trading channels
-        if (main.tradingChannelObjects.isEmpty()) {
-            main.channelManager.clearTradingChannels(main);
-            main.channelManager.initiateTradingChannels(main);
         }
     }
 }
