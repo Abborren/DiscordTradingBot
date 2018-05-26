@@ -85,9 +85,9 @@ public class TimeObj implements Runnable {
             hrs++;
         }
         if (hrs >= 1) {
-            jdaBot.getPresence().setGame(Game.of(Game.GameType.DEFAULT ,"next reset in "+hrs+"h "+minutes+"mins"));
+            jdaBot.getPresence().setGame(Game.of(Game.GameType.DEFAULT ,"next reset in "+hrs+"h "+minutes+"min"));
         } else {
-            jdaBot.getPresence().setGame(Game.of(Game.GameType.DEFAULT ,"next reset in "+minutes+"mins"));
+            jdaBot.getPresence().setGame(Game.of(Game.GameType.DEFAULT ,"next reset in "+minutes+"min"));
         }
     }
     private void resetTrading() {
