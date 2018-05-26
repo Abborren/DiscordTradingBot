@@ -1,4 +1,4 @@
-package discordBot.main.botIO;
+package discordBot.main.botInput;
 import discordBot.main.App;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
@@ -34,7 +34,7 @@ public class MessageReceived {
         if(!thisUser.isBot())
 
     {
-        //Admin only botIO.
+        //Admin only botInput.
         if (handler.checkRole(roles, "admin")) {
             commands.serverAdmin(thisUser, thisMsg, thisChannel);
         }

@@ -1,4 +1,4 @@
-package discordBot.main.botIO;
+package discordBot.main.botInput;
 
 import discordBot.main.App;
 import discordBot.main.fileUtil.Attachments;
