@@ -39,15 +39,23 @@ class BuildEmbed {
     private String getFieldInline(List<TradingChannelObject> tradingChannels, int channelGroupAmount) {
         //add channel
         StringBuilder returnS = new StringBuilder();
-
+        String[] notItems = {"<:notlacq:375401116046721024>","<:notcens:375400990767316993>"
+                ,"<:notlamp:375401135860875265>","<:gins:375401049479053321>"
+                ,"<:notspice:375401653559361546>","<:notslab:375401619879100416>"
+                ,"<:notsabe:375401451385651200>","<:notporc:375401220254203914>"
+                ,"<:notkite:375401088796327938>","<:notsilk:375401486160756757>"};
         for (int i = 0; i < channelGroupAmount; i++) {
             returnS.append("\r\n").append(tradingChannels.get(i).id).append(" ");
             for (int j = 0; j < tradingChannels.get(i).items.length; j++) {
 
                 if (tradingChannels.get(i).items[j][0] != null) {
-                    returnS.append(tradingChannels.get(i).items[j][0]).append(" ");
-                    if (!tradingChannels.get(i).items[j][1].equalsIgnoreCase("N/A")) {
-                        returnS.append(tradingChannels.get(i).items[j][1]);
+                    if (tradingChannels.get(i).items[j][1].equalsIgnoreCase("0")) {
+                        returnS.append(notItems[j]).append(" ");
+                    } else {
+                        returnS.append(tradingChannels.get(i).items[j][0]).append(" ");
+                        if (!tradingChannels.get(i).items[j][1].equalsIgnoreCase("N/A")) {
+                            returnS.append(tradingChannels.get(i).items[j][1]);
+                        }
                     }
                 }
             }
