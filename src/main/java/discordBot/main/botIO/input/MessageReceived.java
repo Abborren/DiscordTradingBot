@@ -1,4 +1,4 @@
-package discordBot.main.botInput;
+package discordBot.main.botIO.input;
 import discordBot.main.App;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
@@ -9,8 +9,8 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import java.util.List;
 
 public class MessageReceived {
-    Commands commands = new Commands();
-    Handler handler = new Handler();
+    private Commands commands = new Commands();
+    private Handler handler = new Handler();
     //main
     private App main;
     //Obtains properties of the received message
@@ -34,12 +34,12 @@ public class MessageReceived {
         if(!thisUser.isBot())
 
     {
-        //Admin only botInput.
+        //Admin only input.
         if (handler.checkRole(roles, "admin")) {
             commands.serverAdmin(thisUser, thisMsg, thisChannel);
         }
 
-        //Example of Role specific addItems
+        //Example of Role specific role
         if (handler.checkRole(roles, "ExampleRole")) {
             //addItems(thisUser, thisMsg, thisChannel);
         }

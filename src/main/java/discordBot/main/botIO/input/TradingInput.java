@@ -1,9 +1,9 @@
-package discordBot.main.botInput;
+package discordBot.main.botIO.input;
 
 import java.util.ArrayList;
 
-public class TradingInput {
-    public String[] returnItems(String[] message) {
+class TradingInput {
+    String[] returnItems(String[] message) {
         ArrayList<String> returnList = new ArrayList<String>();
         for (String thisMessage : message) {
             if (thisMessage.startsWith("<:")) {
@@ -12,7 +12,7 @@ public class TradingInput {
         }
         return returnList.toArray(new String[0]);
     }
-    public String[] returnRemoveItems(String[] message, boolean bool) {
+    String[] returnRemoveItems(String[] message, boolean bool) {
         ArrayList<String> returnList = new ArrayList<String>();
         for (String thisMessage : message) {
             if (thisMessage.startsWith("<:")) {
@@ -23,7 +23,7 @@ public class TradingInput {
         }
         return returnList.toArray(new String[0]);
     }
-    public String[] returnAmount(String[] message) {
+    String[] returnAmount(String[] message) {
         ArrayList<String> returnList = new ArrayList<String>();
         for (String thisMessage : message) {
             if (!thisMessage.startsWith(":") && canParse(thisMessage)) {

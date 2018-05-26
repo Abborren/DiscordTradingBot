@@ -1,4 +1,4 @@
-package discordBot.main.outputWindow.ChannelHandling;
+package discordBot.main.botIO.output.ChannelHandling;
 
 import java.util.Arrays;
 
@@ -7,7 +7,7 @@ public class TradingChannelObject {
     public int id;
     public String[][] items = new String[10][2];
     public String callSign;
-    public TradingChannelObject(String name, String callSign, int id) {
+    TradingChannelObject(String name, String callSign, int id) {
         this.name = name;
         this.id = id;
         this.callSign = callSign;

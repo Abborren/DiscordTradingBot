@@ -1,15 +1,15 @@
-package discordBot.main.outputWindow.Window;
+package discordBot.main.botIO.output.Window;
 
 import discordBot.main.App;
-import discordBot.main.outputWindow.ChannelHandling.TradingChannelObject;
+import discordBot.main.botIO.output.ChannelHandling.TradingChannelObject;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuildEmbed {
-    public EmbedBuilder buildOutput(App main) {
+class BuildEmbed {
+    EmbedBuilder buildOutput(App main) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         ArrayList<TradingChannelObject> tradingChannels = new ArrayList<TradingChannelObject>(main.tradingChannelObjects);
         embedBuilder.setTitle("Imperial Trade Delivery Status");
@@ -30,8 +30,8 @@ public class BuildEmbed {
                 fieldArrayList.add(new MessageEmbed.Field(tradingChannels.get(i).name, getFieldInline(tradingChannels.subList(channelIndex-(channelAmount),channelIndex),channelAmount),false));
             }
         }
-        for (int i = 0; i < fieldArrayList.size() ;i++) {
-            embedBuilder.addField(fieldArrayList.get(i));
+        for (MessageEmbed.Field aFieldArrayList : fieldArrayList) {
+            embedBuilder.addField(aFieldArrayList);
         }
         fieldArrayList.clear();
         return embedBuilder;

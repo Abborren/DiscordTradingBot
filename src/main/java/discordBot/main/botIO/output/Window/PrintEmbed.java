@@ -1,4 +1,4 @@
-package discordBot.main.outputWindow.Window;
+package discordBot.main.botIO.output.Window;
 
 import discordBot.main.App;
 import net.dv8tion.jda.core.entities.MessageChannel;

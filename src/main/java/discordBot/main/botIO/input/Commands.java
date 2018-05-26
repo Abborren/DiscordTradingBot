@@ -1,15 +1,15 @@
-package discordBot.main.botInput;
+package discordBot.main.botIO.input;
 
 import discordBot.main.App;
 import discordBot.main.fileUtil.Attachments;
 import discordBot.main.fileUtil.image.ImageLogic;
-import discordBot.main.outputWindow.ChannelHandling.TradingChannelObject;
-import discordBot.main.outputWindow.Window.PrintEmbed;
+import discordBot.main.botIO.output.ChannelHandling.TradingChannelObject;
+import discordBot.main.botIO.output.Window.PrintEmbed;
 import net.dv8tion.jda.core.entities.*;
 
 import java.io.File;
 
-public class Commands {
+class Commands {
     private ImageLogic imageLogic = new ImageLogic();
     private String preFix = ".";
     void serverAdmin(User user, Message objMsg, MessageChannel objChannel) {
@@ -64,8 +64,8 @@ public class Commands {
                         break outerLoop;
                     } else if (temp[0].startsWith(channelCommand) && temp[0].endsWith(String.valueOf(number))) {
                         TradingChannelObject tradingChannel = main.channelManager.getTradingChannelWithCallSignAndId(temp[0].substring(0, 2), Integer.parseInt(String.valueOf(temp[0].charAt(2))), main);
-                        for (int i = 0; i < items.length; i++) {
-                            tradingChannel.removeItem(items[i]);
+                        for (String item : items) {
+                            tradingChannel.removeItem(item);
                         }
                         break outerLoop;
                     }
@@ -139,7 +139,7 @@ public class Commands {
             }
         }
     }
-    void printEmbed(MessageChannel objChannel,App main) {
+    private void printEmbed(MessageChannel objChannel, App main) {
         PrintEmbed printEmbed = new PrintEmbed();
         printEmbed.printEmbed(main,objChannel);
     }
