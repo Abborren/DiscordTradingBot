@@ -1,10 +1,16 @@
 package discordBot.main.botTime;
 
+import discordBot.main.Bot;
+
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 public class TimeObj implements Runnable {
+    Bot main;
+    public TimeObj(Bot main) {
+        this.main = main;
+    }
     @Override
     public void run() {
 
@@ -22,11 +28,12 @@ public class TimeObj implements Runnable {
             if (currentMillis - previousMillis >= interval) {
                 previousMillis = currentMillis;
                 for (int i = 0; i < resetTime.length; i++) {
-                    if (!checkTradingReset(timeUTC, resetTime[i]).equals(resetTime[i])) {
+                    if (!checkTradingReset(timeUTC, resetTime[i]).toLocalDate().equals(resetTime[i].toLocalDate())) {
                         resetTime[i] = resetTime[i].plusDays(1);
+                        //System.out.println(" current check time "+ resetTime[i]);
                     }
                 }
-                //System.out.println(timeUTC.getHour()+":"+timeUTC.getMinute()+":"+timeUTC.getSecond()); // hour:minute:second
+                //System.out.println("current time " + timeUTC.getHour()+":"+timeUTC.getMinute()+":"+timeUTC.getSecond()); // hour:minute:second
             }
         }
     }
@@ -34,9 +41,17 @@ public class TimeObj implements Runnable {
 
         if (timeUTC.isAfter(resetTime)) {
             System.out.println("trading resets");
-
+            resetTrading();
             return resetTime.plusDays(1);
         }
         return resetTime;
+    }
+    private void resetTrading() {
+        for (int i=0; i< main.tradingChannelObjects.size();i++) {
+            for (int j=0; j < main.tradingChannelObjects.get(i).items.length; j++) {
+                String item = main.tradingChannelObjects.get(i).items[j][0];
+                main.tradingChannelObjects.get(i).removeItem(item);
+            }
+        }
     }
 }
