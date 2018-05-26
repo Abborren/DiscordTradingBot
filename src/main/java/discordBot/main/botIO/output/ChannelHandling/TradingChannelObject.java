@@ -42,7 +42,7 @@ public class TradingChannelObject {
                 items[i][1] = "N/A";
             }
         }
-        System.out.println("Channel now contains "+ Arrays.deepToString(items));
+        //System.out.println("Channel now contains "+ Arrays.deepToString(items)); // for debug
     }
 
     public void addItem(String tradingItem, String amount) {
