@@ -21,7 +21,7 @@ public class FileManager {
         try {
             return  new String(Files.readAllBytes(Paths.get(String.valueOf(file))));
         } catch (IOException e) {
-            System.out.println("Image Load Failed!");
+            System.out.println(file.toString()+" not found or something went wrong!");
             return null;
         }
     }
