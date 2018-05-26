@@ -3,7 +3,7 @@ import java.io.*;
 
 public class TokenUtil {
     public String loadToken() {
-        String fileName = "Token/DiscordToken.txt";
+        String fileName = "Config/Token/DiscordToken.txt";
         try {
             FileReader fileReader = new FileReader(fileName);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
