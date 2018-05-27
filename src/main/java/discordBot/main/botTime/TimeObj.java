@@ -18,7 +18,7 @@ public class TimeObj implements Runnable {
     private JDA jdaBot;
     private PrintEmbed printEmbed = new PrintEmbed();
     private GuildHandler guildHandler = new GuildHandler();
-    public MessageChannel[] messageChannels;
+    private MessageChannel[] messageChannels;
 
     public TimeObj(Bot main, JDA jdaBot) {
         this.main = main;
@@ -34,7 +34,7 @@ public class TimeObj implements Runnable {
         ArrayList<LocalDateTime> resetTime = new ArrayList<>();
         int[] resets = {0, 4, 8, 12, 16, 20};
         for (int reset : resets) {
-            resetTime.add(LocalDateTime.of(LocalDate.now(Clock.systemUTC()), LocalTime.of(reset, 1)));
+            resetTime.add(LocalDateTime.of(LocalDate.now(Clock.systemUTC()), LocalTime.of(reset, 0)));
         }
         int temp = resetTime.size();
         for (int i = 0; i < temp; i++) {
@@ -100,6 +100,8 @@ public class TimeObj implements Runnable {
         for (MessageChannel messageChannel : messageChannels) {
             if (guildHandler.checkChannel(messageChannel,"trade_data_test")) {
                 printEmbed.editEmbed(main,messageChannel);
+                ResetMessage resetMessage = new ResetMessage();
+                resetMessage.resetMessage(messageChannel,jdaBot.getRoles());
                 break;
             }
         }
