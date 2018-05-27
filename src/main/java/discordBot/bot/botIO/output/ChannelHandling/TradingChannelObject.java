@@ -10,7 +10,7 @@ public class TradingChannelObject {
     public int id;
     public String[][] items = new String[10][2];
     public String callSign;
-    private String[][] itemPairs = new FileManager().loadItemPairs(new File("Config/Items/TradingItems.txt"));
+    private String[][] itemPairs = new FileManager().loadString2dArray(new File("Config/Variables/Items/TradingItems.txt"));
 
     TradingChannelObject(String name, String callSign, int id) {
         this.name = name;
