@@ -22,9 +22,27 @@ public class FileManager {
         try {
             return  new String(Files.readAllBytes(Paths.get(String.valueOf(file))));
         } catch (IOException e) {
-            System.out.println(file.toString()+" not found or something went wrong!");
+            System.exit(0);
+            System.out.println("File load failed of"+file.toString());
             return null;
         }
+    }
+    public String[] loadStringArray(File file) {
+        try {
+            BufferedReader br = new BufferedReader( new FileReader(file));
+            String strLine;
+            ArrayList<String> strings = new ArrayList<>();
+            while ((strLine = br.readLine()) != null) {
+                strings.add(strLine);
+            }
+            br.close();
+            return strings.toArray(new String[0]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.exit(0);
+        System.out.println("File load failed of"+file.toString());
+        return null;
     }
     public String[][] loadString2dArray(File file) {
         try {
@@ -45,21 +63,8 @@ public class FileManager {
         } catch (IOException h) {
             h.printStackTrace();
         }
-        return null;
-    }
-    public String[] loadStringArray(File file) {
-        try {
-            BufferedReader br = new BufferedReader( new FileReader(file));
-            String strLine;
-            ArrayList<String> strings = new ArrayList<>();
-            while ((strLine = br.readLine()) != null) {
-                strings.add(strLine);
-            }
-            br.close();
-            return strings.toArray(new String[0]);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        System.exit(0);
+        System.out.println("File load failed of"+file.toString());
         return null;
     }
     public void saveString(File file,String s) {
