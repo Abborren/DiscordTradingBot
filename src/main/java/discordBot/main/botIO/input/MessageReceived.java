@@ -2,6 +2,7 @@ package discordBot.main.botIO.input;
 import discordBot.main.Bot;
 import discordBot.main.botIO.input.commands.AddItems;
 import discordBot.main.botIO.input.commands.RemoveItems;
+import discordBot.main.botIO.input.commands.WipeChannel;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.Role;
@@ -11,10 +12,8 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import java.util.List;
 
 public class MessageReceived {
-    private Commands commands = new Commands();
+
     private GuildHandler guildHandler = new GuildHandler();
-    private AddItems addItems = new AddItems();
-    private RemoveItems removeItems = new RemoveItems();
     //main
     private Bot main;
     //Obtains properties of the received message
@@ -39,8 +38,9 @@ public class MessageReceived {
 
     {
         //Admin only input.
-        if (guildHandler.checkRole(roles, "admin")) {
-            commands.serverAdmin(thisUser, thisMsg, thisChannel);
+        if (guildHandler.checkRole(roles, "Moderator") || guildHandler.checkRole(roles, "Owner") ) {
+            WipeChannel wipeChannel = new WipeChannel();
+            wipeChannel.wipeChannel(thisChannel,thisMsg,thisUser,main);
         }
 
         //Example of Role specific role
@@ -49,11 +49,13 @@ public class MessageReceived {
         }
         //for input addItems in a specific channel in this case "input-channel"
         if (guildHandler.checkChannel(thisChannel, "trade_data_test")) {
-            DeleteIputMessage deleteIputMessage = new DeleteIputMessage();
+            DeleteInputMessage deleteInputMessage = new DeleteInputMessage();
+            AddItems addItems = new AddItems();
+            RemoveItems removeItems = new RemoveItems();
 
             addItems.addItems(thisMsg, thisChannel,main);
             removeItems.removeItems(thisMsg,thisChannel,main);
-            deleteIputMessage.deleteMessage(thisChannel);
+            deleteInputMessage.deleteMessage(thisChannel);
         }
 
 
