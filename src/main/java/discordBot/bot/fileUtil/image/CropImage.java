@@ -8,16 +8,12 @@ import java.io.IOException;
 /**
  * Put in picture, coordinates and size and it will spit back a image
  */
-public class CropImage {
+class CropImage {
     private Compare compare = new Compare();
-    public void createSubImages(BufferedImage bigImage) {
-        // use the Border.png to find the first border.
+    void createSubImages(BufferedImage bigImage) {
+
         BufferedImage border = ImageLogic.fileManager.load(new File("Images/Border/Border.png"));
         int[] coordinates = compare.findSubImage(bigImage, border,0.01);
-        // do this for all images.
-        // after the first image, there are 4 rows down at 100 pixels lower than the previous.
-        // after the first image, there are 6 colums to the right, at 58 pixels difference
-        // after the 6th image, there is a gap of 90 before the above statement is repeated.
         int counter = 0;
         int refNumber = 0;
         for(int rows = 0; rows < 3; rows++) {
@@ -39,6 +35,5 @@ public class CropImage {
                 }
             }
         }
-        // write the subimages to disk, this should create 5 images.
     }
 }
