@@ -97,7 +97,7 @@ public class BotTiming implements Runnable {
         long minutes = duration.toMinutes();
         long hrs = 0;
         while (minutes >= 60) {
-            minutes = minutes -60;
+            minutes -= 60;
             hrs++;
         }
         if (hrs >= 1) {
