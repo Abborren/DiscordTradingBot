@@ -2,12 +2,15 @@ package discordBot.bot.botIO.output.ChannelHandling;
 
 
 import discordBot.bot.Bot;
+import discordBot.bot.fileUtil.FileManager;
+
+import java.io.File;
 
 public class ChannelManager {
 
     public void initiateTradingChannels(Bot main) {
-        String[] channelCallSigns = {"ba","ve","se","me","ca","va","ka","ar"};
-        String[] channelName = {"Balenos","Velia","Serendia","Mediah","Calpheon","Valencia","Kamasylvia","Arsha (PVP)"};
+        String[] channelCallSigns = new FileManager().loadStringArray(new File("Config/Variables/Channels/ChannelId.txt"));
+        String[] channelName = new FileManager().loadStringArray(new File("Config/Variables/Channels/ChannelNames.txt"));
 
         for (int i = 0; i < channelName.length; i++) {
             for (int j = 1; j <= 6; j++) {
