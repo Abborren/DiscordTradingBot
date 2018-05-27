@@ -65,7 +65,7 @@ public class ImageLogic {
         return false;
     }
     private boolean addItemToChannel(Message message, boolean[] output, Bot main) {
-        String[] emojiArray = {"<:lacquerware:365925547563286528>","<:lamp:365926091241816076>","<:spice:365926064116989972>","<:saber:365926042180911114>","<:kite:365926019254714369>"};
+        String[] emojiArray = new FileManager().loadStringArray(new File("Config/Variables/Items/TradingItems.txt"));
         String temp = message.getContentRaw().substring(0,3);
             for (int i = 0; i < output.length;i++) {
                 if (output[i]) {
