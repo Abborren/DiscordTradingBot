@@ -10,6 +10,5 @@ public class DiscordUser {
     public DiscordUser(LocalDateTime timeUTC, User user) {
         this.user = user;
         this.timeUTC = timeUTC.plusHours(16);
-        //determineTime(timeUTC);
     }
 }
