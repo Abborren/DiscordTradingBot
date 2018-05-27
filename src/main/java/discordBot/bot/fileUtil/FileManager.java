@@ -26,7 +26,7 @@ public class FileManager {
             return null;
         }
     }
-    public String[][] loadItemPairs(File file) {
+    public String[][] loadString2dArray(File file) {
         try {
             BufferedReader br = new BufferedReader( new FileReader(file));
             String strLine;
