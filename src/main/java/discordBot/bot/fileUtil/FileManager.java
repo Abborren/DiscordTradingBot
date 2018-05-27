@@ -2,11 +2,12 @@ package discordBot.bot.fileUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+
 public class FileManager {
     public BufferedImage load(File filename) {
         try {
@@ -24,6 +25,27 @@ public class FileManager {
             System.out.println(file.toString()+" not found or something went wrong!");
             return null;
         }
+    }
+    public String[][] loadItemPairs(File file) {
+        try {
+            BufferedReader br = new BufferedReader( new FileReader(file));
+            String strLine;
+            ArrayList<String> strings = new ArrayList<>();
+            while ((strLine = br.readLine()) != null) {
+                strings.add(strLine);
+            }
+            br.close();
+
+            String[][] array = new String[strings.size()/2][2];
+            for (int i = 0; i < array.length; i++) {
+                array[i][0] = strings.get(((i+1)*2)-2);
+                array[i][1] = strings.get(((i+1)*2)-1);
+            }
+            return array;
+        } catch (IOException h) {
+            h.printStackTrace();
+        }
+        return null;
     }
     public void saveString(File file,String s) {
         try {
