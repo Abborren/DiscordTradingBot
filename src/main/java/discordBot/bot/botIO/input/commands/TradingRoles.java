@@ -20,7 +20,6 @@ public class TradingRoles {
                         guildController.removeRolesFromMember(guild.getMember(user),roles.get(0)).complete();
                         printTempMessage(channel,", you are now inactive!",user);
                     } else {
-                        System.out.println("user is already inactive");
                         printTempMessage(channel,", you are already inactive",user);
                     }
 
