@@ -43,8 +43,7 @@ public class TimeObj implements Runnable {
                 resetTime.remove(0);
                 //System.out.println("day added to "+ i); // debug feature
             } else {
-                resetTime.add(resetTime.get(0));
-                resetTime.remove(0);
+                break;
             }
         }
 
@@ -60,6 +59,7 @@ public class TimeObj implements Runnable {
                         resetTime.add(resetTime.get(0).plusDays(1));
                         resetTime.remove(0);
                         resetTrading();
+                        updateGameMessage(timeUTC,resetTime.get(0));
                     }
                 }
                 //System.out.println("current time " + timeUTC.getHour()+":"+timeUTC.getMinute()+":"+timeUTC.getSecond()); // hour:minute:second
