@@ -17,10 +17,9 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import java.util.ArrayList;
 
 public class Bot extends ListenerAdapter {
-    public static ArrayList<TextChannel> textChannels = new ArrayList<TextChannel>();
     public  ArrayList<TradingChannelObject> tradingChannelObjects = new ArrayList<TradingChannelObject>();
     public String botMessageId;
-
+    private JDA jdaBot;
     public static void main(String[] args) throws LoginException, InterruptedException {
         new Bot();
     }
@@ -28,15 +27,14 @@ public class Bot extends ListenerAdapter {
         //loads token loading class
         TokenUtil tokenUtil = new TokenUtil();
         //Initializes the bot
-        JDA jdaBot = new JDABuilder(AccountType.BOT).setToken(tokenUtil.loadToken()).buildBlocking();
+        jdaBot = new JDABuilder(AccountType.BOT).setToken(tokenUtil.loadToken()).buildBlocking();
         jdaBot.addEventListener(this);
-        textChannels.addAll(jdaBot.getTextChannels());
         TimeObj timeObj = new TimeObj(this,jdaBot);
         Thread timeThread = new Thread(timeObj);
         timeThread.start();
     }
     @Override
     public void onMessageReceived(MessageReceivedEvent messageEvent) {
-        new MessageReceived(messageEvent,this).messageReceivedHandler();
+        new MessageReceived(messageEvent,this,jdaBot).messageReceivedHandler();
     }
 }
