@@ -5,7 +5,7 @@ import javax.security.auth.login.LoginException;
 
 import discordBot.bot.botIO.input.MessageReceived;
 import discordBot.bot.botIO.output.ChannelHandling.TradingChannelObject;
-import discordBot.bot.botTime.TimeObj;
+import discordBot.bot.botTime.BotTiming;
 import discordBot.bot.botTime.discordUser.DiscordUser;
 import discordBot.tokenUtil.TokenUtil;
 import net.dv8tion.jda.core.AccountType;
@@ -30,8 +30,8 @@ public class Bot extends ListenerAdapter {
         //Initializes the bot
         jdaBot = new JDABuilder(AccountType.BOT).setToken(tokenUtil.loadToken()).buildBlocking();
         jdaBot.addEventListener(this);
-        TimeObj timeObj = new TimeObj(this,jdaBot);
-        Thread timeThread = new Thread(timeObj);
+        BotTiming botTiming = new BotTiming(this,jdaBot);
+        Thread timeThread = new Thread(botTiming);
         timeThread.start();
     }
     @Override

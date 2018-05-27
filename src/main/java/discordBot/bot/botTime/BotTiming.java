@@ -18,14 +18,14 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimeObj implements Runnable {
+public class BotTiming implements Runnable {
     private Bot main;
     private JDA jdaBot;
     private PrintEmbed printEmbed = new PrintEmbed();
     private GuildHandler guildHandler = new GuildHandler();
     private MessageChannel[] messageChannels;
 
-    public TimeObj(Bot main, JDA jdaBot) {
+    public BotTiming(Bot main, JDA jdaBot) {
         this.main = main;
         this.jdaBot = jdaBot;
     }
