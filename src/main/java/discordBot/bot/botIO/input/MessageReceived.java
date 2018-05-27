@@ -4,12 +4,15 @@ import discordBot.bot.botIO.input.commands.AddItems;
 import discordBot.bot.botIO.input.commands.RemoveItems;
 import discordBot.bot.botIO.input.commands.TradingRoles;
 import discordBot.bot.botIO.input.commands.WipeChannel;
+import discordBot.bot.fileUtil.FileManager;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+
+import java.io.File;
 import java.util.List;
 
 public class MessageReceived {
@@ -37,9 +40,7 @@ public class MessageReceived {
     public void messageReceivedHandler() {
     //makes bot unable to respond to its own message
 
-        if(!thisUser.isBot())
-
-    {
+        if(!thisUser.isBot()) {
         //Admin only input.
         if (guildHandler.checkRole(roles, "Moderator") || guildHandler.checkRole(roles, "Owner") ) {
             WipeChannel wipeChannel = new WipeChannel();
@@ -47,12 +48,12 @@ public class MessageReceived {
         }
 
         //Example of Role specific role
-        if (guildHandler.checkChannel(thisChannel, "trade_data_test")) {
+        if (guildHandler.checkChannel(thisChannel, new FileManager().loadString(new File("Config/Variables/Channels/RolesChannel.txt")))) {
             TradingRoles tradingRoles = new TradingRoles();
             tradingRoles.giveRole(thisChannel,thisMsg,thisUser,roles, jdaBot,main);
         }
         //for input addItems in a specific channel in this case "input-channel"
-        if (guildHandler.checkChannel(thisChannel, "trade_data_test")) {
+        if (guildHandler.checkChannel(thisChannel, new FileManager().loadString(new File("Config/Variables/Channels/TradingChannel.txt")))) {
             DeleteInputMessage deleteInputMessage = new DeleteInputMessage();
             AddItems addItems = new AddItems();
             RemoveItems removeItems = new RemoveItems();
