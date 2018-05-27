@@ -2,7 +2,9 @@ package discordBot.bot.botIO.input;
 import discordBot.bot.Bot;
 import discordBot.bot.botIO.input.commands.AddItems;
 import discordBot.bot.botIO.input.commands.RemoveItems;
+import discordBot.bot.botIO.input.commands.TradingRoles;
 import discordBot.bot.botIO.input.commands.WipeChannel;
+import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.Role;
@@ -22,13 +24,15 @@ public class MessageReceived {
     private User thisUser;
     // gets a list of all the roles that user has
     private List<Role> roles;
-
-    public MessageReceived(MessageReceivedEvent messageEvent, Bot main) {
+    // gets Jda bot
+    private JDA jdaBot;
+    public MessageReceived(MessageReceivedEvent messageEvent, Bot main,JDA jdaBot) {
         thisMsg = messageEvent.getMessage();
         thisChannel = messageEvent.getChannel();
         thisUser = messageEvent.getAuthor();
         roles = messageEvent.getGuild().getMember(thisUser).getRoles();
         this.main = main;
+        this.jdaBot = jdaBot;
     }
 
     public void messageReceivedHandler() {
@@ -44,8 +48,9 @@ public class MessageReceived {
         }
 
         //Example of Role specific role
-        if (guildHandler.checkRole(roles, "ExampleRole")) {
-            //addItems(thisUser, thisMsg, thisChannel);
+        if (guildHandler.checkChannel(thisChannel, "trade_data_test")) {
+            TradingRoles tradingRoles = new TradingRoles();
+            tradingRoles.giveRole(thisChannel,thisMsg,thisUser,roles, jdaBot);
         }
         //for input addItems in a specific channel in this case "input-channel"
         if (guildHandler.checkChannel(thisChannel, "trade_data_test")) {
