@@ -8,11 +8,15 @@ import discordBot.bot.botIO.output.tempMessages.ResetMessage;
 import discordBot.bot.fileUtil.FileManager;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.core.entities.Role;
+import net.dv8tion.jda.core.managers.GuildController;
 
 import java.io.File;
 import java.time.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TimeObj implements Runnable {
     private Bot main;
@@ -39,7 +43,7 @@ public class TimeObj implements Runnable {
         }
         int temp = resetTime.size();
         for (int i = 0; i < temp; i++) {
-            if (checkTradingReset(LocalDateTime.now(Clock.systemUTC()), resetTime.get(0))) {
+            if (checkIfTimeXIsAfterTimeY(LocalDateTime.now(Clock.systemUTC()), resetTime.get(0))) {
                 resetTime.add(resetTime.get(0).plusDays(1));
                 resetTime.remove(0);
                 //System.out.println("day added to "+ i); // debug feature
@@ -55,7 +59,7 @@ public class TimeObj implements Runnable {
                 secondPreviousMillis = currentTimeMillis;
                 int intTemp = resetTime.size();
                 for (int i = 0; i < intTemp; i++) {
-                    if (checkTradingReset(timeUTC, resetTime.get(0))) {
+                    if (checkIfTimeXIsAfterTimeY(timeUTC, resetTime.get(0))) {
                         System.out.println("trading resets and time is "+resetTime.get(0));
                         resetTime.add(resetTime.get(0).plusDays(1));
                         resetTime.remove(0);
@@ -67,11 +71,22 @@ public class TimeObj implements Runnable {
             }
             if (currentTimeMillis - minutePreviousMillis >= minuteInterVal) {
                 minutePreviousMillis = currentTimeMillis;
+                for (int i = 0; i < main.discordUsers.size();i++) {
+                    if (!checkIfTimeXIsAfterTimeY(timeUTC,main.discordUsers.get(i).timeUTC)) {
+                        Guild guild = jdaBot.getGuilds().get(1);
+                        List<Role> roles = jdaBot.getRolesByName("active",true);
+
+                        GuildController guildController =new GuildController(guild);
+                        guildController.removeRolesFromMember(guild.getMember(main.discordUsers.get(i).user),roles.get(0)).complete();
+                        main.discordUsers.remove(main.discordUsers.get(i));
+
+                    }
+                }
                 updateGameMessage(timeUTC,resetTime.get(0));
             }
         }
     }
-    private boolean checkTradingReset(LocalDateTime timeUTC, LocalDateTime resetTime) {
+    private boolean checkIfTimeXIsAfterTimeY(LocalDateTime timeUTC, LocalDateTime resetTime) {
         return timeUTC.isAfter(resetTime);
     }
     private void updateGameMessage(LocalDateTime timeUTC, LocalDateTime resetTime) {
