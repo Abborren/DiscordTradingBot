@@ -27,7 +27,7 @@ public class ResetMessage {
                 return channel.sendMessage(role.getAsMention()+" Imperial Trading Reset \n" +
                         "Wait a minute or two for channels to reset before reporting.\n" +
                         "Do not forget to update the itemcount after you have sold your items.\n" +
-                        "Thank you for using Zephyro's BDO Tools").complete().getId();
+                        "Thank you for using Abborren's BDO Tools").complete().getId();
             }
         }
         return null;
