@@ -1,12 +1,12 @@
-package discordBot.bot.botTime;
+package discordBot.bot.botIO.output.tempMessages;
 
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.Role;
 
 import java.util.List;
 
-class ResetMessage {
-    void resetMessage(MessageChannel channel, List<Role> roles) {
+public class ResetMessage {
+    public void resetMessage(MessageChannel channel, List<Role> roles) {
 
         Thread thread = new Thread(() -> {
             String messageId = sendMessage(channel,roles);
