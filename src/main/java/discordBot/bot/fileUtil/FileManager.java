@@ -47,6 +47,21 @@ public class FileManager {
         }
         return null;
     }
+    public String[] loadStringArray(File file) {
+        try {
+            BufferedReader br = new BufferedReader( new FileReader(file));
+            String strLine;
+            ArrayList<String> strings = new ArrayList<>();
+            while ((strLine = br.readLine()) != null) {
+                strings.add(strLine);
+            }
+            br.close();
+            return strings.toArray(new String[0]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public void saveString(File file,String s) {
         try {
             FileWriter fileWriter = new FileWriter(file);
