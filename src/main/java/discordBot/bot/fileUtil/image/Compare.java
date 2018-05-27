@@ -3,14 +3,14 @@ package discordBot.bot.fileUtil.image;
 
 import java.awt.image.BufferedImage;
 
-public class Compare {
+class Compare {
     /**
      * finds a region of im1 that matches with im2, if no matches are found then returns 0,0
      * @param im1 image one that will be compared
      * @param im2 Sub image, compares to image 1
      * @return returns a coordinate x and y on match or 0,0 if it can not find a match
      */
-    public int[] findSubImage(BufferedImage im1, BufferedImage im2,double matchLimit) {
+    int[] findSubImage(BufferedImage im1, BufferedImage im2, double matchLimit) {
         int w1 = im1.getWidth();
         int h1 = im1.getHeight();
         int w2 = im2.getWidth();
@@ -29,7 +29,7 @@ public class Compare {
      * @param im2 Sub Image, the thing it will look for
      * @return a % value of matching
      */
-    public double findSubImageDouble(BufferedImage im1, BufferedImage im2,double matchLimit) {
+    double findSubImageDouble(BufferedImage im1, BufferedImage im2, double matchLimit) {
         int w1 = im1.getWidth();
         int h1 = im1.getHeight();
         int w2 = im2.getWidth();
