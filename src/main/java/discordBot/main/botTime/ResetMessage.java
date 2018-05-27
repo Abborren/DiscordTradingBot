@@ -5,7 +5,7 @@ import net.dv8tion.jda.core.entities.Role;
 
 import java.util.List;
 
-public class ResetMessage {
+class ResetMessage {
     void resetMessage(MessageChannel channel, List<Role> roles) {
 
         Thread thread = new Thread(() -> {
