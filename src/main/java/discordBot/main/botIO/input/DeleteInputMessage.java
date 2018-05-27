@@ -2,7 +2,7 @@ package discordBot.main.botIO.input;
 
 import net.dv8tion.jda.core.entities.MessageChannel;
 
-public class DeleteIputMessage {
+public class DeleteInputMessage {
     public void deleteMessage(MessageChannel channel) {
         String id = channel.getLatestMessageId();
         //System.out.println(id); // debug feature to check what message is deleted
