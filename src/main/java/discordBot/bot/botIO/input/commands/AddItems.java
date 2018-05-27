@@ -5,9 +5,12 @@ import discordBot.bot.botIO.output.ChannelHandling.ChannelManager;
 import discordBot.bot.botIO.output.ChannelHandling.TradingChannelObject;
 import discordBot.bot.botIO.output.Window.PrintEmbed;
 import discordBot.bot.fileUtil.Attachments;
+import discordBot.bot.fileUtil.FileManager;
 import discordBot.bot.fileUtil.image.ImageLogic;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
+
+import java.io.File;
 
 public class AddItems {
     private ImageLogic imageLogic = new ImageLogic();
@@ -37,7 +40,7 @@ public class AddItems {
                 TradingInput tradingInput = new TradingInput();
                 String[] items = tradingInput.returnItems(temp);
                 String[] amount = tradingInput.returnAmount(temp);
-                String[] channelCommandsArray = {"ba", "ve", "se", "me", "ca", "va", "ka", "ar"};
+                String[] channelCommandsArray = new FileManager().loadStringArray(new File("Config/Variables/Channels/ChannelId.txt"));
                 int[] channelNumberArray = {1, 2, 3, 4, 5, 6};
 
                 outerLoop:
