@@ -1,4 +1,4 @@
-package discordBot.main.fileUtil;
+package discordBot.bot.fileUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

@@ -1,4 +1,4 @@
-package discordBot.main.fileUtil;
+package discordBot.bot.fileUtil;
 
 import net.dv8tion.jda.core.entities.Message;
 

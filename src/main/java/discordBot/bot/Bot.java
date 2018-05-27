@@ -1,14 +1,11 @@
 
 
-package discordBot.main;
+package discordBot.bot;
 import javax.security.auth.login.LoginException;
 
-import discordBot.main.botIO.input.GuildHandler;
-import discordBot.main.botIO.input.MessageReceived;
-import discordBot.main.botIO.output.ChannelHandling.ChannelManager;
-import discordBot.main.botIO.output.ChannelHandling.TradingChannelObject;
-import discordBot.main.botIO.output.Window.PrintEmbed;
-import discordBot.main.botTime.TimeObj;
+import discordBot.bot.botIO.input.MessageReceived;
+import discordBot.bot.botIO.output.ChannelHandling.TradingChannelObject;
+import discordBot.bot.botTime.TimeObj;
 import discordBot.tokenUtil.TokenUtil;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;

@@ -1,8 +1,8 @@
-package discordBot.main.botIO.input;
-import discordBot.main.Bot;
-import discordBot.main.botIO.input.commands.AddItems;
-import discordBot.main.botIO.input.commands.RemoveItems;
-import discordBot.main.botIO.input.commands.WipeChannel;
+package discordBot.bot.botIO.input;
+import discordBot.bot.Bot;
+import discordBot.bot.botIO.input.commands.AddItems;
+import discordBot.bot.botIO.input.commands.RemoveItems;
+import discordBot.bot.botIO.input.commands.WipeChannel;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.Role;
@@ -14,7 +14,7 @@ import java.util.List;
 public class MessageReceived {
 
     private GuildHandler guildHandler = new GuildHandler();
-    //main
+    //bot
     private Bot main;
     //Obtains properties of the received message
     private Message thisMsg;

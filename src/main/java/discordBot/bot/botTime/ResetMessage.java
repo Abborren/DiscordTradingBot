@@ -1,4 +1,4 @@
-package discordBot.main.botTime;
+package discordBot.bot.botTime;
 
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.Role;

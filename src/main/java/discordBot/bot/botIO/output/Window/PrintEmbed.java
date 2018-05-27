@@ -1,6 +1,6 @@
-package discordBot.main.botIO.output.Window;
+package discordBot.bot.botIO.output.Window;
 
-import discordBot.main.Bot;
+import discordBot.bot.Bot;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 

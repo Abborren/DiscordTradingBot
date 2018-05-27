@@ -1,4 +1,4 @@
-package discordBot.main.botIO.input;
+package discordBot.bot.botIO.input;
 
 import net.dv8tion.jda.core.entities.MessageChannel;
 

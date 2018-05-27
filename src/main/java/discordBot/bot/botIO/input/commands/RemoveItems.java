@@ -1,9 +1,9 @@
-package discordBot.main.botIO.input.commands;
+package discordBot.bot.botIO.input.commands;
 
-import discordBot.main.Bot;
-import discordBot.main.botIO.output.ChannelHandling.ChannelManager;
-import discordBot.main.botIO.output.ChannelHandling.TradingChannelObject;
-import discordBot.main.botIO.output.Window.PrintEmbed;
+import discordBot.bot.Bot;
+import discordBot.bot.botIO.output.ChannelHandling.ChannelManager;
+import discordBot.bot.botIO.output.ChannelHandling.TradingChannelObject;
+import discordBot.bot.botIO.output.Window.PrintEmbed;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 

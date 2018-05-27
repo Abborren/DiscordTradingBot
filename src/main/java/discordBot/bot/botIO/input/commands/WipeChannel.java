@@ -1,6 +1,6 @@
-package discordBot.main.botIO.input.commands;
+package discordBot.bot.botIO.input.commands;
 
-import discordBot.main.Bot;
+import discordBot.bot.Bot;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;

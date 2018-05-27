@@ -1,7 +1,7 @@
-package discordBot.main.botIO.output.ChannelHandling;
+package discordBot.bot.botIO.output.ChannelHandling;
 
 
-import discordBot.main.Bot;
+import discordBot.bot.Bot;
 
 public class ChannelManager {
 

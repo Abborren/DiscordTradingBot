@@ -1,11 +1,11 @@
-package discordBot.main.botIO.input.commands;
+package discordBot.bot.botIO.input.commands;
 
-import discordBot.main.Bot;
-import discordBot.main.botIO.output.ChannelHandling.ChannelManager;
-import discordBot.main.botIO.output.ChannelHandling.TradingChannelObject;
-import discordBot.main.botIO.output.Window.PrintEmbed;
-import discordBot.main.fileUtil.Attachments;
-import discordBot.main.fileUtil.image.ImageLogic;
+import discordBot.bot.Bot;
+import discordBot.bot.botIO.output.ChannelHandling.ChannelManager;
+import discordBot.bot.botIO.output.ChannelHandling.TradingChannelObject;
+import discordBot.bot.botIO.output.Window.PrintEmbed;
+import discordBot.bot.fileUtil.Attachments;
+import discordBot.bot.fileUtil.image.ImageLogic;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 

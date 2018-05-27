@@ -1,7 +1,7 @@
-package discordBot.main.botIO.output.Window;
+package discordBot.bot.botIO.output.Window;
 
-import discordBot.main.Bot;
-import discordBot.main.botIO.output.ChannelHandling.TradingChannelObject;
+import discordBot.bot.Bot;
+import discordBot.bot.botIO.output.ChannelHandling.TradingChannelObject;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 

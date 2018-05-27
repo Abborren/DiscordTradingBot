@@ -1,4 +1,4 @@
-package discordBot.main.botIO.input.commands;
+package discordBot.bot.botIO.input.commands;
 
 import java.util.ArrayList;
 

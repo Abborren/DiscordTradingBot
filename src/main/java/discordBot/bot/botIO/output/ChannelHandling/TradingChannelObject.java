@@ -1,4 +1,4 @@
-package discordBot.main.botIO.output.ChannelHandling;
+package discordBot.bot.botIO.output.ChannelHandling;
 
 
 public class TradingChannelObject {

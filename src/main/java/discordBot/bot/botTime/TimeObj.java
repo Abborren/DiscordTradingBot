@@ -1,10 +1,10 @@
-package discordBot.main.botTime;
+package discordBot.bot.botTime;
 
-import discordBot.main.Bot;
-import discordBot.main.botIO.input.GuildHandler;
-import discordBot.main.botIO.output.ChannelHandling.ChannelManager;
-import discordBot.main.botIO.output.Window.PrintEmbed;
-import discordBot.main.fileUtil.FileManager;
+import discordBot.bot.Bot;
+import discordBot.bot.botIO.input.GuildHandler;
+import discordBot.bot.botIO.output.ChannelHandling.ChannelManager;
+import discordBot.bot.botIO.output.Window.PrintEmbed;
+import discordBot.bot.fileUtil.FileManager;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.MessageChannel;
@@ -123,7 +123,7 @@ public class TimeObj implements Runnable {
                     printEmbed.editEmbed(main,messageChannel);
                 }
 
-                //System.out.println("channel id "+main.botMessageId);
+                //System.out.println("channel id "+bot.botMessageId);
                 break;
             }
         }
