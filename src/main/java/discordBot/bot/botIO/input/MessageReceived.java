@@ -4,6 +4,7 @@ import discordBot.bot.botIO.input.commands.AddItems;
 import discordBot.bot.botIO.input.commands.RemoveItems;
 import discordBot.bot.botIO.input.commands.TradingRoles;
 import discordBot.bot.botIO.input.commands.WipeChannel;
+import discordBot.bot.botTime.discordUser.DiscordUser;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
@@ -11,6 +12,8 @@ import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class MessageReceived {
@@ -50,7 +53,7 @@ public class MessageReceived {
         //Example of Role specific role
         if (guildHandler.checkChannel(thisChannel, "trade_data_test")) {
             TradingRoles tradingRoles = new TradingRoles();
-            tradingRoles.giveRole(thisChannel,thisMsg,thisUser,roles, jdaBot);
+            tradingRoles.giveRole(thisChannel,thisMsg,thisUser,roles, jdaBot,main);
         }
         //for input addItems in a specific channel in this case "input-channel"
         if (guildHandler.checkChannel(thisChannel, "trade_data_test")) {
