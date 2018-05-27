@@ -56,11 +56,10 @@ public class TimeObj implements Runnable {
                 int intTemp = resetTime.size();
                 for (int i = 0; i < intTemp; i++) {
                     if (checkTradingReset(timeUTC, resetTime.get(0))) {
+                        System.out.println("trading resets and time is "+resetTime.get(0));
                         resetTime.add(resetTime.get(0).plusDays(1));
                         resetTime.remove(0);
-                        System.out.println("trading resets");
                         resetTrading();
-                        //System.out.println(" current check time "+ resetTime[i]);
                     }
                 }
                 //System.out.println("current time " + timeUTC.getHour()+":"+timeUTC.getMinute()+":"+timeUTC.getSecond()); // hour:minute:second
