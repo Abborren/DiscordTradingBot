@@ -1,6 +1,8 @@
 package discordBot.bot.botIO.input.commands;
 
 import discordBot.bot.Bot;
+import discordBot.bot.botIO.output.tempMessages.TempMessage;
+import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
@@ -26,25 +28,13 @@ public class WipeChannel {
                             }
 
                         }
-                        String id = channel.sendMessage(user.getAsMention() + " Message clearing is complete").complete().getId();
-                        try {
-                            Thread.sleep(20000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        channel.deleteMessageById(id).complete();
+                        new TempMessage().printTempMessage(channel, new MessageBuilder(user.getAsMention() + " Message clearing is complete"), 20000);
                     }
                 }
             } catch(ErrorResponseException e){
                 System.out.println(e);
             } catch(NumberFormatException f){
-                String id = channel.sendMessage(user.getAsMention() + " Message clearing failed, message deletion amount is not a number or something went wrong.").complete().getId();
-                try {
-                    Thread.sleep(20000);
-                } catch (InterruptedException j) {
-                    j.printStackTrace();
-                }
-                channel.deleteMessageById(id).complete();
+                new TempMessage().printTempMessage(channel, new MessageBuilder(user.getAsMention() + " Message clearing failed, message deletion amount is not a number or something went wrong."), 20000);
             }
         });
         thread.start();

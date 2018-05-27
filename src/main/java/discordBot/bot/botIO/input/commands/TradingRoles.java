@@ -1,6 +1,8 @@
 package discordBot.bot.botIO.input.commands;
 
+import discordBot.bot.botIO.output.tempMessages.TempMessage;
 import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.managers.GuildController;
 
@@ -11,6 +13,7 @@ public class TradingRoles {
         Thread thread = new Thread(() -> {
             Guild guild = channel.getJDA().getGuilds().get(1);
             GuildController guildController =new GuildController(guild);
+            TempMessage tempMessage = new TempMessage();
             String messageS = message.getContentRaw().toLowerCase();
             List<Role> roles = jdaBot.getRolesByName("active",true);
 
@@ -18,18 +21,18 @@ public class TradingRoles {
                 if (messageS.endsWith("inactive")) {
                     if (userRoles.contains(roles.get(0))) {
                         guildController.removeRolesFromMember(guild.getMember(user),roles.get(0)).complete();
-                        printTempMessage(channel,", you are now inactive!",user);
+                        tempMessage.printTempMessage(channel,new MessageBuilder(user.getAsMention()+", you are now inactive!"),6000);
                     } else {
-                        printTempMessage(channel,", you are already inactive",user);
+                        tempMessage.printTempMessage(channel,new MessageBuilder(user.getAsMention()+", you are already inactive"),6000);
                     }
 
                 } else if (messageS.endsWith("active")) {
                     if (!userRoles.contains(roles.get(0))) {
                         guildController.addRolesToMember(guild.getMember(user),roles.get(0)).complete();
-                        printTempMessage(channel,", you are now active!",user);
+                        tempMessage.printTempMessage(channel,new MessageBuilder(user.getAsMention()+", you are now active!"),6000);
 
                     } else {
-                        printTempMessage(channel,", you are already active!",user);
+                        tempMessage.printTempMessage(channel,new MessageBuilder(user.getAsMention()+", you are already active!"),6000);
                     }
                 }
             }
@@ -37,14 +40,4 @@ public class TradingRoles {
         thread.start();
 
     }
-    private void printTempMessage (MessageChannel channel,String s,User user) {
-        String id = channel.sendMessage(user.getAsMention()+s).complete().getId();
-        try {
-            Thread.sleep(6000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        channel.deleteMessageById(id).complete();
-    }
-
 }
