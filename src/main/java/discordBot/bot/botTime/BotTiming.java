@@ -52,7 +52,7 @@ public class BotTiming implements Runnable {
             }
         }
 
-        while (true) {
+        while (main.running) {
             long currentTimeMillis = System.currentTimeMillis();
             LocalDateTime timeUTC = LocalDateTime.now(Clock.systemUTC());
             if (currentTimeMillis - secondPreviousMillis >= secondInterval) {
@@ -115,7 +115,7 @@ public class BotTiming implements Runnable {
 
         }
         for (MessageChannel messageChannel : messageChannels) {
-            if (guildHandler.checkChannel(messageChannel,"trade_data_test")) {
+            if (guildHandler.checkChannel(messageChannel,new FileManager().loadString(new File("Config/Variables/Channels/TradingChannel.txt")))) {
                 printEmbed.editEmbed(main,messageChannel);
                 ResetMessage resetMessage = new ResetMessage();
                 resetMessage.resetMessage(messageChannel,jdaBot.getRoles());
@@ -129,7 +129,7 @@ public class BotTiming implements Runnable {
         channelManager.initiateTradingChannels(main);
         messageChannels = guildHandler.getMessageChannels(jdaBot);
         for (MessageChannel messageChannel : messageChannels) {
-            if (guildHandler.checkChannel(messageChannel,"trade_data_test")) {
+            if (guildHandler.checkChannel(messageChannel,new FileManager().loadString(new File("Config/Variables/Channels/TradingChannel.txt")))) {
                 FileManager fileManager = new FileManager();
                 String s = fileManager.loadString(new File("Config/BotMessage/MessageId.txt"));
                 if (s == null || s.equals("")) {
