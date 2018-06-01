@@ -4,6 +4,7 @@ package discordBot.bot.botIO.output.ChannelHandling;
 import discordBot.bot.fileUtil.FileManager;
 
 import java.io.File;
+import java.util.Arrays;
 
 public class TradingChannelObject {
     public String name;
@@ -50,7 +51,7 @@ public class TradingChannelObject {
         for (int i = 0; i < itemPairs.length; i++) {
             boolean b = false;
             if (tradingItem.equals("n")) {
-                items[0][0] = "n";
+                items[i][0] = "n";
                 break;
             }
             if (itemPairs[i][0].equalsIgnoreCase(tradingItem) || itemPairs[i][1].equalsIgnoreCase(tradingItem)) {
@@ -67,6 +68,6 @@ public class TradingChannelObject {
                 break;
            }
         }
-        //System.out.println("Channel now contains "+ Arrays.deepToString(items)); // for debug
+        System.out.println("Channel now contains "+ Arrays.deepToString(items)); // for debug
     }
 }
