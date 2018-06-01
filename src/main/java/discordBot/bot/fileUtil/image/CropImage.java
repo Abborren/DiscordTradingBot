@@ -16,6 +16,7 @@ class CropImage {
         int[] coordinates = compare.findSubImage(bigImage, border,0.01);
         int counter = 0;
         int refNumber = 0;
+        outerLoop:
         for(int rows = 0; rows < 3; rows++) {
             for(int columns = 0; columns < 12; columns++) {
                 counter++;
@@ -29,8 +30,11 @@ class CropImage {
                         e.printStackTrace();
                     }
                     counter = -1;
+                    if (refNumber == 4) {
+                        break outerLoop;
+                    }
                 }
-                if (rows== 2 && columns ==7) {
+                if (rows == 2 && columns == 7) {
                     break;
                 }
             }
