@@ -49,6 +49,10 @@ public class TradingChannelObject {
 
         for (int i = 0; i < itemPairs.length; i++) {
             boolean b = false;
+            if (tradingItem.equals("n")) {
+                items[0][0] = "n";
+                break;
+            }
             if (itemPairs[i][0].equalsIgnoreCase(tradingItem) || itemPairs[i][1].equalsIgnoreCase(tradingItem)) {
                 items[((i + 1) * 2) - 2][0] = itemPairs[i][0];
                 items[((i + 1) * 2) - 1][0] = itemPairs[i][1];
