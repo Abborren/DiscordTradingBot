@@ -46,7 +46,7 @@ class BuildEmbed {
             returnS.append("\r\n").append(tradingChannels.get(i).id).append(" ");
             for (int j = 0; j < tradingChannels.get(i).items.length; j++) {
                 if (tradingChannels.get(i).items[j][0] != null) {
-                    if (tradingChannels.get(i).items[j][0].contains("n")){
+                    if (tradingChannels.get(i).items[j][0].equals("n")){
                         returnS.append("Nothing here!");
                         break;
                     } else if (tradingChannels.get(i).items[j][1].equalsIgnoreCase("0")) {
