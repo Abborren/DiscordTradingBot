@@ -21,6 +21,7 @@ public class Bot extends ListenerAdapter {
     public ArrayList<DiscordUser> discordUsers = new ArrayList<>();
     public String botMessageId;
     private JDA jdaBot;
+    public boolean running = true;
     public static void main(String[] args) throws LoginException, InterruptedException {
         new Bot();
     }
