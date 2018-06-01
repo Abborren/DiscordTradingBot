@@ -6,7 +6,10 @@ class TradingInput {
     String[] returnItems(String[] message) {
         ArrayList<String> returnList = new ArrayList<String>();
         for (String thisMessage : message) {
-            if (thisMessage.startsWith("<:")) {
+            if (!thisMessage.startsWith(":") && thisMessage.contains("n")) {
+                returnList.add(thisMessage);
+            }
+            else if (thisMessage.startsWith("<:")) {
                 returnList.add(thisMessage);
             }
         }
@@ -15,7 +18,9 @@ class TradingInput {
     String[] returnRemoveItems(String[] message, boolean bool) {
         ArrayList<String> returnList = new ArrayList<String>();
         for (String thisMessage : message) {
-            if (thisMessage.startsWith("<:")) {
+            if (!thisMessage.startsWith(":") && thisMessage.contains("n")) {
+                returnList.add(thisMessage);
+            } else if (thisMessage.startsWith("<:")) {
                 returnList.add(thisMessage);
             } else if (bool){
                 returnList.add(null);
@@ -29,6 +34,7 @@ class TradingInput {
             if (!thisMessage.startsWith(":") && canParse(thisMessage)) {
                 returnList.add(thisMessage);
             }
+
         }
         return returnList.toArray(new String[0]);
     }
