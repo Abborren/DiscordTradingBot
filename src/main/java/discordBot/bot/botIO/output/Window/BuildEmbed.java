@@ -41,7 +41,7 @@ class BuildEmbed {
     private String getFieldInline(List<TradingChannelObject> tradingChannels, int channelGroupAmount) {
         //add channel
         StringBuilder returnS = new StringBuilder();
-        String[] notItems = new FileManager().loadStringArray(new File("Config/Variables/Items/TradingNotItems.txt"));
+        String[] notItems = new FileManager().loadStringArray(new File("Config/Variables/Items/TradingNotItems.txt"),false);
         for (int i = 0; i < channelGroupAmount; i++) {
             returnS.append("\r\n").append(tradingChannels.get(i).id).append(" ");
             for (int j = 0; j < tradingChannels.get(i).items.length; j++) {
