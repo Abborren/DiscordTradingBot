@@ -65,14 +65,22 @@ public class ImageLogic {
         return false;
     }
     private boolean addItemToChannel(Message message, boolean[] output, Bot main) {
-        String[] emojiArray = new FileManager().loadStringArray(new File("Config/Variables/Items/TradingItems.txt"));
+        String[] emojiArray = new FileManager().loadStringArray(new File("Config/Variables/Items/TradingItems.txt"),true);
         String temp = message.getContentRaw().substring(0,3);
+        ChannelManager channelManager = new ChannelManager();
+        boolean b = false;
             for (int i = 0; i < output.length;i++) {
                 if (output[i]) {
-                    ChannelManager channelManager = new ChannelManager();
                     channelManager.getTradingChannelWithCallSignAndId(temp.substring(0,2).toLowerCase(),Integer.parseInt(String.valueOf(temp.charAt(2))),main).addItem(emojiArray[i], null);
+                    b = true;
                 }
             }
-            return true;
+            if (b) {
+                return true;
+            } else {
+                channelManager.getTradingChannelWithCallSignAndId(temp.substring(0,2).toLowerCase(),Integer.parseInt(String.valueOf(temp.charAt(2))),main).addItem("n", null);
+                return true;
+            }
+
     }
 }
