@@ -39,6 +39,12 @@ public class Attachments {
         }
         return null;
     }
+
+    /**
+     * this checks if a message has a attachment
+     * @param message the specific message that triggered this function
+     * @return returns true if the message has a attachment if else returns false
+     */
     public boolean CheckForAttachments(Message message) {
         //return message.getAttachments() != null;
         for(Message.Attachment attachment : message.getAttachments()) {

@@ -13,18 +13,32 @@ public class TradingChannelObject {
     public String callSign;
     private String[][] itemPairs = new FileManager().loadString2dArray(new File("Config/Variables/Items/TradingItems.txt"));
 
+    /**
+     *
+     * @param name decides the name of this tradingChannel
+     * @param callSign decides the callsign of this tradingChannel
+     * @param id decides the id of this tradingChannel
+     */
     TradingChannelObject(String name, String callSign, int id) {
         this.name = name;
         this.id = id;
         this.callSign = callSign;
-        resetItemAmount();
+        setItemAmount();
     }
-    private void resetItemAmount() {
+
+    /**
+     * this initially sets this specific tradingChannels item amounts to N/A
+     */
+    private void setItemAmount() {
         for (int i= 0; i < items.length; i++) {
             items[i][1] = "N/A";
         }
     }
 
+    /**
+     * logic to remve a specific item, also resets its item amount
+     * @param tradingItem is the tradingItem that requests to be removed from this tradingChannel object
+     */
     public void removeItem(String tradingItem) {
         for (int i = 0; i < itemPairs.length; i++) {
 
@@ -46,6 +60,11 @@ public class TradingChannelObject {
         //System.out.println("Channel now contains "+ Arrays.deepToString(items)); // for debug
     }
 
+    /**
+     * adds a specific item to this trading object
+     * @param tradingItem the requested trading item
+     * @param amount the requested items amount, if specified else it will remain N/A
+     */
     public void addItem(String tradingItem, String amount) {
 
         for (int i = 0; i < itemPairs.length; i++) {

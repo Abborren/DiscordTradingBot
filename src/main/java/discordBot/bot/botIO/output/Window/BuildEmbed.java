@@ -11,6 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 class BuildEmbed {
+    /**
+     * Builds the whole embed message
+     * @param main the Bots main
+     * @return returns the embed to be printed
+     */
     EmbedBuilder buildOutput(Bot main) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         ArrayList<TradingChannelObject> tradingChannels = new ArrayList<TradingChannelObject>(main.tradingChannelObjects);
@@ -38,6 +43,13 @@ class BuildEmbed {
         fieldArrayList.clear();
         return embedBuilder;
     }
+
+    /**
+     * creates all inlines
+     * @param tradingChannels gets the tradingChannel objects array
+     * @param channelGroupAmount the amount of channels in a group
+     * @return returns the inline i a channel group
+     */
     private String getFieldInline(List<TradingChannelObject> tradingChannels, int channelGroupAmount) {
         //add channel
         StringBuilder returnS = new StringBuilder();

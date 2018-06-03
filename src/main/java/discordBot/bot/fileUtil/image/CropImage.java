@@ -10,6 +10,11 @@ import java.io.IOException;
  */
 class CropImage {
     private Compare compare = new Compare();
+
+    /**
+     * this creates the subimages needed for comparing item matches
+     * @param bigImage the input image
+     */
     void createSubImages(BufferedImage bigImage) {
 
         BufferedImage border = ImageLogic.fileManager.load(new File("Images/Border/border.png"));

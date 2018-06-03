@@ -22,9 +22,22 @@ public class Bot extends ListenerAdapter {
     public String botMessageId;
     private JDA jdaBot;
     public boolean running = true;
+
+    /**
+     * this starts the bot
+     * @param args arguments, not used for anything
+     * @throws LoginException
+     * @throws InterruptedException
+     */
     public static void main(String[] args) throws LoginException, InterruptedException {
         new Bot();
     }
+
+    /**
+     *
+     * @throws LoginException if bot cannot log in
+     * @throws InterruptedException if bot looses internet connection
+     */
     private Bot() throws LoginException, InterruptedException {
         //loads token loading class
         TokenUtil tokenUtil = new TokenUtil();
@@ -36,6 +49,9 @@ public class Bot extends ListenerAdapter {
         timeThread.start();
     }
     @Override
+    /**
+     * this is where the message recived event is initially handled
+     */
     public void onMessageReceived(MessageReceivedEvent messageEvent) {
         new MessageReceived(messageEvent,this,jdaBot).messageReceivedHandler();
     }

@@ -9,6 +9,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class FileManager {
+    /**
+     * this will load a specific image
+     * @param filename the pathname of the image to be loaded
+     * @return returns the buffered image of the path that was loaded
+     */
     public BufferedImage load(File filename) {
         try {
             //System.out.println("Loading succeeded");
@@ -18,6 +23,12 @@ public class FileManager {
             return null;
         }
     }
+
+    /**
+     * this will load all strings of a path
+     * @param file the specific file path
+     * @return returns the loaded String
+     */
     public String loadString(File file) {
         try {
             return  new String(Files.readAllBytes(Paths.get(String.valueOf(file))));
@@ -28,6 +39,12 @@ public class FileManager {
         }
     }
 
+    /**
+     * this will load all lines of a file into a String array
+     * @param file the file path of the txt file
+     * @param needOnlyFirstItem if it only needs every other item instead of all of them
+     * @return returns the loaded String array
+     */
     public String[] loadStringArray(File file,boolean needOnlyFirstItem) {
         try {
             BufferedReader br = new BufferedReader( new FileReader(file));
@@ -54,6 +71,12 @@ public class FileManager {
         System.out.println("File load failed of"+file.toString());
         return null;
     }
+
+    /**
+     * this will load all the lines of a specific txt file
+     * @param file the file path of a specific file
+     * @return will return a 2d String array with the first[0][0] being item 0 and item 1 being [0][1] and item 2 being [1][0] etc
+     */
     public String[][] loadString2dArray(File file) {
         try {
             BufferedReader br = new BufferedReader( new FileReader(file));
@@ -77,6 +100,12 @@ public class FileManager {
         System.out.println("File load failed of"+file.toString());
         return null;
     }
+
+    /**
+     * this tries to save String to a file
+     * @param file the specific filepath where s will be saved
+     * @param s the specific String to be saved
+     */
     public void saveString(File file,String s) {
         try {
             FileWriter fileWriter = new FileWriter(file);
@@ -87,6 +116,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * this will load the references
+     * @param filePath the specific filePath
+     * @return return the BufferedImage array with the references
+     */
     public BufferedImage[] loadRefs(File filePath) {
         BufferedImage[] imageArray = new BufferedImage[5];
         for (int i = 0; i < imageArray.length;i++) {

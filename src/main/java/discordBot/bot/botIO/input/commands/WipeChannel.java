@@ -11,6 +11,13 @@ import net.dv8tion.jda.core.exceptions.ErrorResponseException;
 import java.util.List;
 
 public class WipeChannel {
+    /**
+     *
+     * @param channel the message channel where this function was triggered from
+     * @param message the specific message that triggered this function
+     * @param user the user who sent the message
+     * @param main the Bots main
+     */
     public void wipeChannel(MessageChannel channel, Message message, User user, Bot main) {
         Thread thread = new Thread(() -> {
             try {

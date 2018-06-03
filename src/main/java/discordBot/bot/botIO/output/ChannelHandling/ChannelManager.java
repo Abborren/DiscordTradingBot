@@ -7,7 +7,10 @@ import discordBot.bot.fileUtil.FileManager;
 import java.io.File;
 
 public class ChannelManager {
-
+    /**
+     * this initially creates the trading channel objects when the bot starts
+     * @param main is the Bots main and is where the tradingChannel objects are stored
+     */
     public void initiateTradingChannels(Bot main) {
         String[] channelCallSigns = new FileManager().loadStringArray(new File("Config/Variables/Channels/ChannelId.txt"),false);
         String[] channelName = new FileManager().loadStringArray(new File("Config/Variables/Channels/ChannelNames.txt"),false);
@@ -22,6 +25,14 @@ public class ChannelManager {
             }
         }
     }
+
+    /**
+     * gets by callsign and id the right trading channel object
+     * @param channelCallSign the callsign of the channel for example va or ba
+     * @param id a number between 1 and 6 for the most part
+     * @param main the bots main
+     * @return returns the correct channel if it exists if not returns null
+     */
     public TradingChannelObject getTradingChannelWithCallSignAndId(String channelCallSign, int id,Bot main) {
         for (TradingChannelObject tradingChannelObject : main.tradingChannelObjects) {
             if (tradingChannelObject.callSign.equalsIgnoreCase(channelCallSign) && tradingChannelObject.id == id) {

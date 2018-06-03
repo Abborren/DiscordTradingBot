@@ -15,6 +15,13 @@ import java.io.File;
 public class AddItems {
     private ImageLogic imageLogic = new ImageLogic();
     private PrintEmbed printEmbed = new PrintEmbed();
+
+    /**
+     * this adds items to a specific channel object.
+     * @param objMsg the discord message in question
+     * @param objChannel the discord message channel in question
+     * @param main the main class of the bot, containing the JDA
+     */
     public void addItems(Message objMsg, MessageChannel objChannel, Bot main) {
         Thread thread = new Thread(() -> {
             // Command code here

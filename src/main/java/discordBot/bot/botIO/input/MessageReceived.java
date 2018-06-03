@@ -28,6 +28,13 @@ public class MessageReceived {
     private List<Role> roles;
     // gets Jda bot
     private JDA jdaBot;
+
+    /**
+     * this handles all messages that are recived from discord
+     * @param messageEvent something message related happened on discord
+     * @param main the Bots main
+     * @param jdaBot the discord api
+     */
     public MessageReceived(MessageReceivedEvent messageEvent, Bot main,JDA jdaBot) {
         thisMsg = messageEvent.getMessage();
         thisChannel = messageEvent.getChannel();
@@ -37,6 +44,9 @@ public class MessageReceived {
         this.jdaBot = jdaBot;
     }
 
+    /**
+     * where you add commands and new functions that are to be triggered on specific things
+     */
     public void messageReceivedHandler() {
     //makes bot unable to respond to its own message
 

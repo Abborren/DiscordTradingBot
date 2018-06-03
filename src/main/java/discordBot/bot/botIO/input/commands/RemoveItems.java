@@ -12,6 +12,12 @@ import java.io.File;
 
 public class RemoveItems {
     private PrintEmbed printEmbed = new PrintEmbed();
+    /**
+     * this removes items to a specific channel object.
+     * @param objMsg the discord message in question
+     * @param objChannel the discord message channel in question
+     * @param main the main class of the bot, containing the JDA
+     */
     public void removeItems(Message objMsg, MessageChannel objChannel, Bot main) {
         Thread thread = new Thread(() -> {
 

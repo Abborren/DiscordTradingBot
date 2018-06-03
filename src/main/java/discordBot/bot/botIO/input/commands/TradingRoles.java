@@ -13,10 +13,19 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class TradingRoles {
+    /**
+     *
+     * @param channel the specific channel where the message that triggered this funcion was sent
+     * @param message a discord message
+     * @param user the specific user
+     * @param userRoles the roles a specific user has currently
+     * @param jdaBot the discord Bot
+     * @param main the Bot main
+     */
     public void giveRole(MessageChannel channel, Message message, User user, List<Role> userRoles, JDA jdaBot,Bot main) {
         Thread thread = new Thread(() -> {
             Guild guild = channel.getJDA().getGuilds().get(1);
-            GuildController guildController =new GuildController(guild);
+            GuildController guildController = new GuildController(guild);
             TempMessage tempMessage = new TempMessage();
             String messageS = message.getContentRaw().toLowerCase();
             List<Role> roles = jdaBot.getRolesByName("active",true);

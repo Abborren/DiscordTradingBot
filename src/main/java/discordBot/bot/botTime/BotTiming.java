@@ -25,6 +25,11 @@ public class BotTiming implements Runnable {
     private GuildHandler guildHandler = new GuildHandler();
     private MessageChannel[] messageChannels;
 
+    /**
+     * creates this timing object
+     * @param main the bots main
+     * @param jdaBot the bots JDA
+     */
     public BotTiming(Bot main, JDA jdaBot) {
         this.main = main;
         this.jdaBot = jdaBot;
@@ -76,6 +81,11 @@ public class BotTiming implements Runnable {
             }
         }
     }
+
+    /**
+     * this checks if 16 hrs have passed since user in DiscordUser object requested "active" role
+     * @param timeUTC the current UTC time
+     */
     private void userRoleRemoval(LocalDateTime timeUTC) {
         for (int i = 0; i < main.discordUsers.size();i++) {
             if (!checkIfTimeXIsAfterTimeY(timeUTC,main.discordUsers.get(i).timeUTC)) {
@@ -87,9 +97,22 @@ public class BotTiming implements Runnable {
             }
         }
     }
+
+    /**
+     * this check if one time is after another time
+     * @param timeUTC the current time in UTC
+     * @param resetTime the reset time in UTC
+     * @return if time x is after time y returns true else returns false
+     */
     private boolean checkIfTimeXIsAfterTimeY(LocalDateTime timeUTC, LocalDateTime resetTime) {
         return timeUTC.isAfter(resetTime);
     }
+
+    /**
+     * this updates the game message to the time untill next reset
+     * @param timeUTC the current time in UTC
+     * @param resetTime the next reset in UTC
+     */
     private void updateGameMessage(LocalDateTime timeUTC, LocalDateTime resetTime) {
 
         Duration duration = Duration.between(timeUTC, resetTime);
@@ -106,6 +129,10 @@ public class BotTiming implements Runnable {
             jdaBot.getPresence().setGame(Game.of(Game.GameType.DEFAULT ,"next reset in "+minutes+"min"));
         }
     }
+
+    /**
+     * this resets trading when a reset has just triggered
+     */
     private void resetTrading() {
         for (int i=0; i< main.tradingChannelObjects.size();i++) {
             for (int j=0; j < main.tradingChannelObjects.get(i).items.length; j++) {
@@ -123,6 +150,11 @@ public class BotTiming implements Runnable {
             }
         }
     }
+
+    /**
+     * this initiates the trading channels and creates a new embed/edits it
+     * @param jdaBot the Discord bots JDA
+     */
     private void initiateOutput(JDA jdaBot) {
 
         ChannelManager channelManager = new ChannelManager();
