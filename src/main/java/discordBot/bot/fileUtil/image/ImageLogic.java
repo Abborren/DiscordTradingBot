@@ -41,10 +41,10 @@ public class ImageLogic {
     }
 
     private boolean trySavingAttachment(MessageChannel objChannel, Message objMsg) {
-        if (tryDeletingOldFile(new File("Images/Downloaded/Input/inputRef.png"))) {
-            File b = attachments.downloadChangeName(objMsg, true, new File("Images/Downloaded/Input/inputRef.png"));
+        if (tryDeletingOldFile(new File("Images/Downloaded/Input/inputRef.PNG"))) {
+            File b = attachments.downloadChangeName(objMsg, true, new File("Images/Downloaded/Input/inputRef.PNG"));
             if (b != null) {
-                //System.out.println("Saving worked! file has been saved!");
+                System.out.println("Saving worked! file has been saved!");
                 return true;
             } else {
                 objChannel.sendMessage("Collection of file failed or something went wrong").queue();
