@@ -12,7 +12,7 @@ class CropImage {
     private Compare compare = new Compare();
     void createSubImages(BufferedImage bigImage) {
 
-        BufferedImage border = ImageLogic.fileManager.load(new File("Images/Border/sign2.png"));
+        BufferedImage border = ImageLogic.fileManager.load(new File("Images/Border/border.png"));
         int[] coordinates = compare.findSubImage(bigImage, border,0.01);
         int counter = 0;
         int refNumber = 0;
@@ -20,8 +20,8 @@ class CropImage {
         for(int rows = 0; rows < 3; rows++) {
             for(int columns = 0; columns < 12; columns++) {
                 counter++;
-                int yCord = coordinates[1]+(rows*100)+25;
-                int xCord = (columns<6?coordinates[0]+(columns*58):coordinates[0]+32+(columns*58))-208;
+                int yCord = coordinates[1]+(rows*100);
+                int xCord = (columns<6?coordinates[0]+(columns*58):coordinates[0]+32+(columns*58))-1;
                 System.out.println("x cord is "+xCord +" and y cord is "+yCord);
                 BufferedImage subImage = bigImage.getSubimage(xCord, yCord ,48, 48);
                 if (counter == 5) {
