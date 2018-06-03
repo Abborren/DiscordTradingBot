@@ -9,8 +9,8 @@ import java.io.File;
 public class ChannelManager {
 
     public void initiateTradingChannels(Bot main) {
-        String[] channelCallSigns = new FileManager().loadStringArray(new File("Config/Variables/Channels/ChannelId.txt"));
-        String[] channelName = new FileManager().loadStringArray(new File("Config/Variables/Channels/ChannelNames.txt"));
+        String[] channelCallSigns = new FileManager().loadStringArray(new File("Config/Variables/Channels/ChannelId.txt"),false);
+        String[] channelName = new FileManager().loadStringArray(new File("Config/Variables/Channels/ChannelNames.txt"),false);
 
         for (int i = 0; i < channelName.length; i++) {
             for (int j = 1; j <= 6; j++) {
