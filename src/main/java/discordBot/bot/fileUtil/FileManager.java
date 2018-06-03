@@ -27,7 +27,8 @@ public class FileManager {
             return null;
         }
     }
-    public String[] loadStringArray(File file) {
+
+    public String[] loadStringArray(File file,boolean needOnlyFirstItem) {
         try {
             BufferedReader br = new BufferedReader( new FileReader(file));
             String strLine;
@@ -36,7 +37,16 @@ public class FileManager {
                 strings.add(strLine);
             }
             br.close();
-            return strings.toArray(new String[0]);
+            if (needOnlyFirstItem) {
+                ArrayList<String> outputStrings = new ArrayList<>();
+                for (int i = 0; i< strings.size();) {
+                    outputStrings.add(strings.get(i));
+                    i = i+2;
+                }
+                return outputStrings.toArray(new String[0]);
+            } else {
+                return strings.toArray(new String[0]);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
