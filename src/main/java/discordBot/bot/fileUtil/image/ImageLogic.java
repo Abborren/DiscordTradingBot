@@ -30,7 +30,7 @@ public class ImageLogic {
              BufferedImage inputImg = fileManager.load(new File("Images/Downloaded/Input/inputRef.png"));
              cropImage.createSubImages(inputImg);
              subImages = fileManager.loadRefs(new File("Images/Downloaded/Input/ref"));
-            boolean[] output = checkMatches(subImages,refs,0.05);
+            boolean[] output = checkMatches(subImages,refs,0.06);
             return addItemToChannel(message,output,main);
         }
         return false;
