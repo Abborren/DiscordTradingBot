@@ -17,21 +17,22 @@ class CropImage {
      */
     void createSubImages(BufferedImage bigImage) {
 
-        BufferedImage border = ImageLogic.fileManager.load(new File("Images/Border/border.png"));
-        int[] coordinates = compare.findSubImage(bigImage, border,0.04);
+        BufferedImage border = ImageLogic.fileManager.load(new File("Images/Border/border2.png"));
+        int[] coordinates = compare.findSubImage(bigImage, border,0.01);
         int counter = 0;
         int refNumber = 0;
         outerLoop:
         for(int rows = 0; rows < 3; rows++) {
             for(int columns = 0; columns < 12; columns++) {
                 counter++;
-                int yCord = coordinates[1]+(rows*100);
-                int xCord = (columns<6?coordinates[0]+(columns*58):coordinates[0]+32+(columns*58))-1;
-
+                int yCord = coordinates[1]+(rows*100)+21;
+                int xCord = (columns<6?coordinates[0]+(columns*58):coordinates[0]+31+(columns*58))-217;
+                //System.out.println("x cord is "+xCord +" and y cord is "+yCord); // debug feature
                 BufferedImage subImage = bigImage.getSubimage(xCord, yCord ,48, 48);
+
                 if (counter == 5) {
                     try {
-                        System.out.println("x cord is "+xCord +" and y cord is "+yCord);
+
                         System.out.println("img ref"+refNumber+" saved!");
                         ImageIO.write(subImage, "png", new File(String.format("Images/Downloaded/Input/ref%s.png", refNumber)));
                         refNumber++;
@@ -39,7 +40,7 @@ class CropImage {
                         e.printStackTrace();
                     }
                     counter = -1;
-                    if (refNumber == 4) {
+                    if (refNumber == 5) {
                         break outerLoop;
                     }
                 }
