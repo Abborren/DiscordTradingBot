@@ -18,7 +18,7 @@ class CropImage {
     void createSubImages(BufferedImage bigImage) {
 
         BufferedImage border = ImageLogic.fileManager.load(new File("Images/Border/border.png"));
-        int[] coordinates = compare.findSubImage(bigImage, border,0.01);
+        int[] coordinates = compare.findSubImage(bigImage, border,0.04);
         int counter = 0;
         int refNumber = 0;
         outerLoop:
@@ -27,10 +27,11 @@ class CropImage {
                 counter++;
                 int yCord = coordinates[1]+(rows*100);
                 int xCord = (columns<6?coordinates[0]+(columns*58):coordinates[0]+32+(columns*58))-1;
-                System.out.println("x cord is "+xCord +" and y cord is "+yCord);
+
                 BufferedImage subImage = bigImage.getSubimage(xCord, yCord ,48, 48);
                 if (counter == 5) {
                     try {
+                        System.out.println("x cord is "+xCord +" and y cord is "+yCord);
                         System.out.println("img ref"+refNumber+" saved!");
                         ImageIO.write(subImage, "png", new File(String.format("Images/Downloaded/Input/ref%s.png", refNumber)));
                         refNumber++;
