@@ -20,6 +20,7 @@ class Compare {
         // output similarity measure from 0 to 1, with 0 being identical
         System.out.println(temp[2]);
         // return best location
+        //System.out.println("border found at "+ temp[0]+","+ temp[1]);
         return new int[] {(int) temp[0], (int) temp[1]};
     }
 
