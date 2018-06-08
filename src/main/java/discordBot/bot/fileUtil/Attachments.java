@@ -24,7 +24,7 @@ public class Attachments {
 
     /**
      *
-     * @param message inptted message that might contain attachment
+     * @param message inputted message that might contain attachment
      * @param filterImages decides if function will only save images
      * @param file file path/name that the function will save file as.
      * @return returns the filepath that the file was saved to.
