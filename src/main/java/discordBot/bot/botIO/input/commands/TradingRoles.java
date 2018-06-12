@@ -48,9 +48,12 @@ public class TradingRoles {
 
                 } else if (messageS.endsWith("active")) {
                     if (!userRoles.contains(roles.get(0))) {
-                        guildController.addRolesToMember(guild.getMember(user),roles.get(0)).complete();
+                        LocalDateTime timeUTC = LocalDateTime.now(Clock.systemUTC());
+                        Member member = guild.getMember(user);
+                        guildController.addRolesToMember(member,roles.get(0)).complete();
                         main.discordUsers.add(new DiscordUser(LocalDateTime.now(Clock.systemUTC()),user));
                         tempMessage.printTempMessage(channel,new MessageBuilder(user.getAsMention()+", you are now active!"),6000);
+                        System.out.println("User "+ user.getName()+" has gained active role! at "+timeUTC.getHour()+":"+timeUTC.getMinute()+"!");
 
                     } else {
                         tempMessage.printTempMessage(channel,new MessageBuilder(user.getAsMention()+", you are already active!"),6000);
