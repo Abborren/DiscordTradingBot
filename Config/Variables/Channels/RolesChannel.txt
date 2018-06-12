@@ -1,1 +1,1 @@
-bot-commands
+bot-commands-test
