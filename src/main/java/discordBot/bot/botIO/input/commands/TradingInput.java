@@ -11,7 +11,7 @@ class TradingInput {
     String[] returnItems(String[] message) {
         ArrayList<String> returnList = new ArrayList<String>();
         for (String thisMessage : message) {
-            if (!thisMessage.startsWith(":") && thisMessage.contains("n")) {
+            if (!thisMessage.startsWith("<:") && thisMessage.contains("n") && !thisMessage.equals(message[0])) {
                 returnList.add(thisMessage);
             }
             else if (thisMessage.startsWith("<:")) {
