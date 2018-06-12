@@ -36,7 +36,7 @@ public class BotTiming implements Runnable {
     }
     @Override
     public void run() {
-        initiateOutput(jdaBot);
+        //initiateOutput(jdaBot);
         long secondInterval = 1000;
         long minuteInterVal = 60000;
         long secondPreviousMillis =0;
@@ -89,7 +89,7 @@ public class BotTiming implements Runnable {
     private void userRoleRemoval(LocalDateTime timeUTC) {
         for (int i = 0; i < main.discordUsers.size();i++) {
             if (!checkIfTimeXIsAfterTimeY(timeUTC,main.discordUsers.get(i).timeUTC)) {
-                Guild guild = jdaBot.getGuilds().get(1);
+                Guild guild = jdaBot.getGuilds().get(0);
                 List<Role> roles = jdaBot.getRolesByName("active",true);
                 GuildController guildController = new GuildController(guild);
                 guildController.removeRolesFromMember(guild.getMember(main.discordUsers.get(i).user),roles.get(0)).complete();
