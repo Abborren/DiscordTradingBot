@@ -59,8 +59,10 @@ public class MessageReceived {
 
         //Example of Role specific role
         if (guildHandler.checkChannel(thisChannel, new FileManager().loadString(new File("Config/Variables/Channels/RolesChannel.txt")))) {
+            DeleteInputMessage deleteInputMessage = new DeleteInputMessage();
             TradingRoles tradingRoles = new TradingRoles();
             tradingRoles.giveRole(thisChannel,thisMsg,thisUser,roles, jdaBot,main);
+            deleteInputMessage.deleteMessage(thisChannel);
         }
         //for input addItems in a specific channel in this case "input-channel"
         if (guildHandler.checkChannel(thisChannel, new FileManager().loadString(new File("Config/Variables/Channels/TradingChannel.txt")))) {
