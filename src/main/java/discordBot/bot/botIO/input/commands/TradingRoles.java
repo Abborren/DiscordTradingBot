@@ -24,7 +24,7 @@ public class TradingRoles {
      */
     public void giveRole(MessageChannel channel, Message message, User user, List<Role> userRoles, JDA jdaBot,Bot main) {
         Thread thread = new Thread(() -> {
-            Guild guild = channel.getJDA().getGuilds().get(1);
+            Guild guild = channel.getJDA().getGuilds().get(0);
             GuildController guildController = new GuildController(guild);
             TempMessage tempMessage = new TempMessage();
             String messageS = message.getContentRaw().toLowerCase();
