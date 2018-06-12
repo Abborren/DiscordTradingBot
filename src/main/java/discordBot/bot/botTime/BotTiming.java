@@ -36,7 +36,7 @@ public class BotTiming implements Runnable {
     }
     @Override
     public void run() {
-        //initiateOutput(jdaBot);
+        initiateOutput(jdaBot);
         long secondInterval = 1000;
         long minuteInterVal = 60000;
         long secondPreviousMillis =0;
@@ -93,6 +93,7 @@ public class BotTiming implements Runnable {
                 List<Role> roles = jdaBot.getRolesByName("active",true);
                 GuildController guildController = new GuildController(guild);
                 guildController.removeRolesFromMember(guild.getMember(main.discordUsers.get(i).user),roles.get(0)).complete();
+                System.out.println("User "+ main.discordUsers.get(i).user.getName()+" has lost active role! at "+timeUTC.getHour()+":"+timeUTC.getMinute()+"!");
                 main.discordUsers.remove(main.discordUsers.get(i));
             }
         }
@@ -109,7 +110,7 @@ public class BotTiming implements Runnable {
     }
 
     /**
-     * this updates the game message to the time untill next reset
+     * this updates the game message to the time until next reset
      * @param timeUTC the current time in UTC
      * @param resetTime the next reset in UTC
      */
