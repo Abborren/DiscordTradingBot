@@ -59,9 +59,14 @@ class TradingInput {
      */
     String[] returnAmount(String[] message) {
         ArrayList<String> returnList = new ArrayList<String>();
-        for (String thisMessage : message) {
-            if (!thisMessage.startsWith(":") && canParse(thisMessage)) {
-                returnList.add(thisMessage);
+        int indexOffset = 1;
+        for (int i = 1; i < message.length; i++) {
+            if (!message[i].startsWith("<:") && canParse(message[i])) {
+                returnList.remove(i-indexOffset);
+                returnList.add(message[i]);
+            } else if (message[i].startsWith("<:") && !canParse(message[i])) {
+                returnList.add(null);
+                indexOffset++;
             }
 
         }
