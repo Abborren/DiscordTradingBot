@@ -1,1 +1,1 @@
-trade_data_test
+bot-commands-test
