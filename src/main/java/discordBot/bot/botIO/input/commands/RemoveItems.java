@@ -36,7 +36,7 @@ public class RemoveItems {
                 }
                 TradingInput tradingInput = new TradingInput();
                 String[] items = tradingInput.returnRemoveItems(temp, removeAll);
-                String[] channelCommandsArray = new FileManager().loadStringArray(new File("Config/Variables/Channels/ChannelId.txt"),false);
+                String[] channelCommandsArray = new FileManager().loadStringArray(new File("Config/Variables/Channels/ChannelCallSign.txt"),false);
                 int[] channelNumberArray = {1, 2, 3, 4, 5, 6};
 
                 outerLoop:
