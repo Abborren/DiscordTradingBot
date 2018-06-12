@@ -62,9 +62,9 @@ class BuildEmbed {
                         returnS.append("Nothing here!");
                         break;
                     } else if (tradingChannels.get(i).items[j][1].equalsIgnoreCase("0")) {
-                        returnS.append(notItems[j]).append(" ");
+                        returnS.append(" ").append(notItems[j]).append(" ");
                     } else {
-                        returnS.append(tradingChannels.get(i).items[j][0]).append(" ");
+                        returnS.append(" ").append(tradingChannels.get(i).items[j][0]).append(" ");
                         if (!tradingChannels.get(i).items[j][1].equalsIgnoreCase("N/A")) {
                             returnS.append(tradingChannels.get(i).items[j][1]);
                         }
