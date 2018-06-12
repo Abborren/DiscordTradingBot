@@ -1,5 +1,8 @@
 package discordBot.bot.botIO.input.commands;
 
+import discordBot.bot.fileUtil.FileManager;
+
+import java.io.File;
 import java.util.ArrayList;
 
 class TradingInput {
@@ -10,12 +13,20 @@ class TradingInput {
      */
     String[] returnItems(String[] message) {
         ArrayList<String> returnList = new ArrayList<String>();
+        String[] tradingArea = new FileManager().loadStringArray(new File("Config/Variables/Items/TradingAreas.txt"),false);
+        String[] firstItems = new FileManager().loadStringArray(new File("Config/Variables/Items/TradingItems.txt"),true);
         for (String thisMessage : message) {
             if ( !thisMessage.equals(message[0])){
                 if (!thisMessage.startsWith("<:") && thisMessage.contains("n")) {
                     returnList.add("n");
                 } else if (thisMessage.startsWith("<:")) {
                     returnList.add(thisMessage);
+                }
+
+                for (int i = 0; i < tradingArea.length; i++) {
+                    if (thisMessage.startsWith(tradingArea[i])) {
+                        returnList.add(firstItems[i]);
+                    }
                 }
             }
         }
