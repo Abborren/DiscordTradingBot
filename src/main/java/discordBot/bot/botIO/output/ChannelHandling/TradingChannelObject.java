@@ -69,7 +69,7 @@ public class TradingChannelObject {
 
         for (int i = 0; i < itemPairs.length; i++) {
             boolean b = false;
-            if (tradingItem.equals("n")) {
+            if (tradingItem.startsWith("n")) {
                 items[i][0] = "n";
                 break;
             }
