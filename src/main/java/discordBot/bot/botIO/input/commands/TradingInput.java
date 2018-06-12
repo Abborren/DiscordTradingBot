@@ -11,11 +11,12 @@ class TradingInput {
     String[] returnItems(String[] message) {
         ArrayList<String> returnList = new ArrayList<String>();
         for (String thisMessage : message) {
-            if (!thisMessage.startsWith("<:") && thisMessage.contains("n") && !thisMessage.equals(message[0])) {
-                returnList.add(thisMessage);
-            }
-            else if (thisMessage.startsWith("<:")) {
-                returnList.add(thisMessage);
+            if ( !thisMessage.equals(message[0])){
+                if (!thisMessage.startsWith("<:") && thisMessage.contains("n")) {
+                    returnList.add("n");
+                } else if (thisMessage.startsWith("<:")) {
+                    returnList.add(thisMessage);
+                }
             }
         }
         return returnList.toArray(new String[0]);
