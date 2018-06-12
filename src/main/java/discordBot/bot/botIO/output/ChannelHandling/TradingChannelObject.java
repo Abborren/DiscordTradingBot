@@ -87,6 +87,6 @@ public class TradingChannelObject {
                 break;
            }
         }
-        System.out.println("Channel now contains "+ Arrays.deepToString(items)); // for debug
+        //System.out.println("Channel now contains "+ Arrays.deepToString(items)); // for debug
     }
 }
