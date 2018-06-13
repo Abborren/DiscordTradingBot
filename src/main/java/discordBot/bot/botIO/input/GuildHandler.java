@@ -10,9 +10,9 @@ import java.util.List;
 
 public class GuildHandler {
     /**
-     *
+     *  this will find and return a MessageChannel if it exists
      * @param channel the channel that the message that triggered this was sent from
-     * @param channelName the name of the channel thats being looked for
+     * @param channelName the name of the channel that's being looked for
      * @return true if channel that message is sent in is equals to channelName
      */
     public boolean checkChannel(MessageChannel channel, String channelName) {
@@ -21,16 +21,14 @@ public class GuildHandler {
     }
 
     /**
-     *
+     * This returns all message channels on the discord
      * @param jda the main bots JDA
-     * @return returns all the messagechannels on the server
+     * @return returns all the MessageChannels on the server
      */
     public MessageChannel[] getMessageChannels(JDA jda) {
         ArrayList<MessageChannel> channels = new ArrayList<>();
         for(Guild g : jda.getGuilds()) {
-            for(MessageChannel c : g.getTextChannels()) {
-                channels.add(c);
-            }
+            channels.addAll(g.getTextChannels());
         }
         return channels.toArray(new MessageChannel[0]);
     }
