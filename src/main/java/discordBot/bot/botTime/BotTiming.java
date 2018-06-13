@@ -70,6 +70,7 @@ public class BotTiming implements Runnable {
                         resetTime.remove(0);
                         resetTrading();
                         main.gameMessage = updateGameMessage(timeUTC,resetTime.get(0));
+                        editEmbed();
                     }
                 }
                 //System.out.println("current time " + timeUTC.getHour()+":"+timeUTC.getMinute()+":"+timeUTC.getSecond()); // hour:minute:second
@@ -78,7 +79,8 @@ public class BotTiming implements Runnable {
                 minutePreviousMillis = currentTimeMillis;
                 userRoleRemoval(timeUTC);
                 main.gameMessage = updateGameMessage(timeUTC,resetTime.get(0));
-                System.out.println(main.gameMessage);
+                editEmbed();
+
             }
         }
     }
@@ -166,6 +168,10 @@ public class BotTiming implements Runnable {
         ChannelManager channelManager = new ChannelManager();
         channelManager.initiateTradingChannels(main);
         messageChannels = guildHandler.getMessageChannels(jdaBot);
+        editEmbed();
+
+    }
+    private void editEmbed() {
         for (MessageChannel messageChannel : messageChannels) {
             if (guildHandler.checkChannel(messageChannel,new FileManager().loadString(new File("Config/Variables/Channels/TradingChannel.txt")))) {
                 FileManager fileManager = new FileManager();
