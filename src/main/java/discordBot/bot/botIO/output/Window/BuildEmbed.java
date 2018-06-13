@@ -19,8 +19,9 @@ class BuildEmbed {
     EmbedBuilder buildOutput(Bot main) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         ArrayList<TradingChannelObject> tradingChannels = new ArrayList<TradingChannelObject>(main.tradingChannelObjects);
-        embedBuilder.setTitle("Imperial Trade Delivery Status");
         embedBuilder.setColor(0x00ff00);
+        embedBuilder.addField("Imperial Trade Delivery Status",main.gameMessage,false);
+        embedBuilder.addBlankField(false);
         ArrayList<MessageEmbed.Field> fieldArrayList = new ArrayList<MessageEmbed.Field>();
         int channelAmount = 0;
         int channelIndex = 0;
