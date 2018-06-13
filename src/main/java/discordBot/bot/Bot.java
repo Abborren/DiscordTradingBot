@@ -20,6 +20,7 @@ public class Bot extends ListenerAdapter {
     public ArrayList<TradingChannelObject> tradingChannelObjects = new ArrayList<TradingChannelObject>();
     public ArrayList<DiscordUser> discordUsers = new ArrayList<>();
     public String botMessageId;
+    public String gameMessage = "next reset in ?min";
     private JDA jdaBot;
     public boolean running = true;
 
