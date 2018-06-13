@@ -14,7 +14,7 @@ class TradingInput {
     String[] returnItems(String[] message) {
         ArrayList<String> returnList = new ArrayList<String>();
         String[] tradingArea = new FileManager().loadStringArray(new File("Config/Variables/Items/TradingAreas.txt"),false);
-        String[] firstItems = new FileManager().loadStringArray(new File("Config/Variables/Items/TradingItems.txt"),true);
+        String[] firstItems = new FileManager().loadStringArray(new File("Config/Variables/Items/TradingItems.txt"),false);
         for (String thisMessage : message) {
             if ( !thisMessage.equals(message[0])){
                 if (!thisMessage.startsWith("<:") && thisMessage.contains("n")) {
@@ -24,7 +24,7 @@ class TradingInput {
                 }
 
                 for (int i = 0; i < tradingArea.length; i++) {
-                    if (thisMessage.startsWith(tradingArea[i])) {
+                    if (thisMessage.equals(tradingArea[i])) {
                         returnList.add(firstItems[i]);
                     }
                 }
@@ -41,14 +41,23 @@ class TradingInput {
      */
     String[] returnRemoveItems(String[] message, boolean removeAll) {
         ArrayList<String> returnList = new ArrayList<String>();
+        String[] tradingArea = new FileManager().loadStringArray(new File("Config/Variables/Items/TradingAreas.txt"),false);
+        String[] firstItems = new FileManager().loadStringArray(new File("Config/Variables/Items/TradingItems.txt"),true);
         for (String thisMessage : message) {
-            if (!thisMessage.startsWith(":") && thisMessage.contains("n")) {
-                returnList.add(thisMessage);
-            } else if (thisMessage.startsWith("<:")) {
-                returnList.add(thisMessage);
-            } else if (removeAll){
-                returnList.add(null);
-            }
+
+                if (!thisMessage.startsWith(":") && thisMessage.contains("n")) {
+                    returnList.add(thisMessage);
+                } else if (thisMessage.startsWith("<:")) {
+                    returnList.add(thisMessage);
+                } else if (removeAll) {
+                    returnList.add(null);
+                }
+                for (int i = 0; i < tradingArea.length; i++) {
+                    if (thisMessage.equals(tradingArea[i])) {
+                        returnList.add(firstItems[i]);
+                    }
+                }
+
         }
         return returnList.toArray(new String[0]);
     }
@@ -64,7 +73,7 @@ class TradingInput {
             if (!message[i].startsWith("<:") && canParse(message[i])) {
                 returnList.remove(i-indexOffset);
                 returnList.add(message[i]);
-            } else if (message[i].startsWith("<:") && !canParse(message[i])) {
+            } else  {
                 returnList.add(null);
                 indexOffset++;
             }
