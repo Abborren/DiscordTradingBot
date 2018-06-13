@@ -42,7 +42,7 @@ class TradingInput {
     String[] returnRemoveItems(String[] message, boolean removeAll) {
         ArrayList<String> returnList = new ArrayList<String>();
         String[] tradingArea = new FileManager().loadStringArray(new File("Config/Variables/Items/TradingAreas.txt"),false);
-        String[] firstItems = new FileManager().loadStringArray(new File("Config/Variables/Items/TradingItems.txt"),true);
+        String[] firstItems = new FileManager().loadStringArray(new File("Config/Variables/Items/TradingItems.txt"),false);
         for (String thisMessage : message) {
 
                 if (!thisMessage.startsWith(":") && thisMessage.contains("n")) {
