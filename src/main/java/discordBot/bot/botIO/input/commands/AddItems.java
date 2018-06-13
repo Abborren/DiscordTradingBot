@@ -11,6 +11,7 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 
 import java.io.File;
+import java.util.Arrays;
 
 public class AddItems {
     private ImageLogic imageLogic = new ImageLogic();
@@ -40,6 +41,8 @@ public class AddItems {
                 } else {
                     inputMsg = objMsg.getContentRaw().split(" ");
                 }
+                // this will filter out empty strings in the array. aka it deals with double spaces
+                inputMsg = Arrays.stream(inputMsg).filter(s -> !s.isEmpty()).toArray(String[]::new);
                 for (int i = 0; i < inputMsg.length; i++) {
                     inputMsg[i] = inputMsg[i].toLowerCase();
                 }
@@ -63,7 +66,13 @@ public class AddItems {
                                 }
                             } else {
                                 ChannelManager channelManager = new ChannelManager();
-                                TradingChannelObject tradingChannel = channelManager.getTradingChannelWithCallSignAndId(inputMsg[0].substring(0, 2), Integer.parseInt(String.valueOf(inputMsg[0].charAt(inputMsg[0].length()-1))), main);
+                                TradingChannelObject tradingChannel;
+                                if (inputMsg[0].startsWith("v")) {
+                                    tradingChannel = channelManager.getTradingChannelWithCallSignAndId(inputMsg[0].substring(0, 2), Integer.parseInt(String.valueOf(inputMsg[0].charAt(inputMsg[0].length()-1))), main);
+                                } else {
+                                    tradingChannel = channelManager.getTradingChannelWithCallSignAndId(inputMsg[0].substring(0, 1), Integer.parseInt(String.valueOf(inputMsg[0].charAt(inputMsg[0].length()-1))), main);
+                                }
+
                                 for (int i = 0; i < items.length; i++) {
                                     try {
                                         tradingChannel.addItem(items[i], amount[i]);

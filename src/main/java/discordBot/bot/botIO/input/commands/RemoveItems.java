@@ -9,6 +9,7 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 
 import java.io.File;
+import java.util.Arrays;
 
 public class RemoveItems {
     private PrintEmbed printEmbed = new PrintEmbed();
@@ -25,6 +26,8 @@ public class RemoveItems {
             if (objMsg.getContentRaw().startsWith("!wipe") && objMsg.getContentRaw().contains(" ")) {
 
                 String[] temp = objMsg.getContentRaw().substring(6).split(" ");
+                // this will filter out empty strings in the array. aka it deals with double spaces
+                temp = Arrays.stream(temp).filter(s -> !s.isEmpty()).toArray(String[]::new);
                 for (int i = 0; i < temp.length; i++) {
                     temp[i] = temp[i].toLowerCase();
 
