@@ -56,7 +56,9 @@ public class RemoveItems {
                                 tradingChannel = channelManager.getTradingChannelWithCallSignAndId(temp[0].substring(0, 2), Integer.parseInt(String.valueOf(temp[0].charAt(temp[0].length()-1))), main);
                             } else {
                                 tradingChannel = channelManager.getTradingChannelWithCallSignAndId(temp[0].substring(0, 1), Integer.parseInt(String.valueOf(temp[0].charAt(temp[0].length()-1))), main);
-                            }                            for (String item : items) {
+                            }
+
+                            for (String item : items) {
                                 tradingChannel.removeItem(item);
                             }
                             break outerLoop;
