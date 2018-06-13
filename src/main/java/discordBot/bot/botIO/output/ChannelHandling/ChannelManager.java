@@ -12,7 +12,7 @@ public class ChannelManager {
      * @param main is the Bots main and is where the tradingChannel objects are stored
      */
     public void initiateTradingChannels(Bot main) {
-        String[] channelCallSigns = new FileManager().loadStringArray(new File("Config/Variables/Channels/ChannelId.txt"),false);
+        String[] channelCallSigns = new FileManager().loadStringArray(new File("Config/Variables/Channels/ChannelCallSign.txt"),false);
         String[] channelName = new FileManager().loadStringArray(new File("Config/Variables/Channels/ChannelNames.txt"),false);
 
         for (int i = 0; i < channelName.length; i++) {
