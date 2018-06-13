@@ -69,7 +69,7 @@ public class BotTiming implements Runnable {
                         resetTime.add(resetTime.get(0).plusDays(1));
                         resetTime.remove(0);
                         resetTrading();
-                        updateGameMessage(timeUTC,resetTime.get(0));
+                        main.gameMessage = updateGameMessage(timeUTC,resetTime.get(0));
                     }
                 }
                 //System.out.println("current time " + timeUTC.getHour()+":"+timeUTC.getMinute()+":"+timeUTC.getSecond()); // hour:minute:second
@@ -77,7 +77,8 @@ public class BotTiming implements Runnable {
             if (currentTimeMillis - minutePreviousMillis >= minuteInterVal) {
                 minutePreviousMillis = currentTimeMillis;
                 userRoleRemoval(timeUTC);
-                updateGameMessage(timeUTC,resetTime.get(0));
+                main.gameMessage = updateGameMessage(timeUTC,resetTime.get(0));
+                System.out.println(main.gameMessage);
             }
         }
     }
@@ -115,10 +116,10 @@ public class BotTiming implements Runnable {
      * @param timeUTC the current time in UTC
      * @param resetTime the next reset in UTC
      */
-    private void updateGameMessage(LocalDateTime timeUTC, LocalDateTime resetTime) {
+    private String updateGameMessage(LocalDateTime timeUTC, LocalDateTime resetTime) {
 
         Duration duration = Duration.between(timeUTC, resetTime);
-
+        String returnString;
         long minutes = duration.toMinutes();
         long hrs = 0;
         while (minutes >= 60) {
@@ -126,10 +127,13 @@ public class BotTiming implements Runnable {
             hrs++;
         }
         if (hrs >= 1) {
-            jdaBot.getPresence().setGame(Game.of(Game.GameType.DEFAULT ,"next reset in "+hrs+"h "+minutes+"min"));
+            returnString = "next reset in "+hrs+"h "+minutes+"min";
+
         } else {
-            jdaBot.getPresence().setGame(Game.of(Game.GameType.DEFAULT ,"next reset in "+minutes+"min"));
+            returnString = "next reset in "+minutes+"min";
         }
+        jdaBot.getPresence().setGame(Game.of(Game.GameType.DEFAULT ,returnString));
+        return returnString;
     }
 
     /**
