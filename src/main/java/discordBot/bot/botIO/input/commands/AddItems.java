@@ -35,18 +35,18 @@ public class AddItems {
                     temp = new String[2];
                     temp[0] = "N/A";
                     temp[1] = "N/A";
-                    inputMsg[0] = objMsg.getContentRaw();
+                    inputMsg[0] = objMsg.getContentRaw().toLowerCase();
                     inputMsg[1] = "This string is useless but don't remove it";
                 } else {
                     inputMsg = objMsg.getContentRaw().split(" ");
-                    temp = objMsg.getContentRaw().substring(4).split(" ");
                 }
                 for (int i = 0; i < inputMsg.length; i++) {
                     inputMsg[i] = inputMsg[i].toLowerCase();
                 }
+
                 TradingInput tradingInput = new TradingInput();
-                String[] items = tradingInput.returnItems(temp);
-                String[] amount = tradingInput.returnAmount(temp);
+                String[] items = tradingInput.returnItems(inputMsg);
+                String[] amount = tradingInput.returnAmount(inputMsg);
                 String[] channelCommandsArray = new FileManager().loadStringArray(new File("Config/Variables/Channels/ChannelCallSign.txt"),false);
                 int[] channelNumberArray = {1, 2, 3, 4, 5, 6};
 
@@ -54,7 +54,7 @@ public class AddItems {
                 for (String channelCommand : channelCommandsArray) {
                     for (int number : channelNumberArray) {
                         //if channel limit is met it will break
-                        if (inputMsg[0].substring(0, 1).equals("ar") && number >= 2 || inputMsg[0].substring(0, 1).equals("ka") && number >= 5) {
+                        if (inputMsg[0].substring(0, 1).startsWith("ar") && number >= 2 || inputMsg[0].substring(0, 1).startsWith("ka") && number >= 5) {
                             break outerLoop;
                         } else if (inputMsg[0].startsWith(channelCommand) && inputMsg[0].endsWith(String.valueOf(number))) {
                             if (attachments.CheckForAttachments(objMsg)) {
@@ -63,7 +63,7 @@ public class AddItems {
                                 }
                             } else {
                                 ChannelManager channelManager = new ChannelManager();
-                                TradingChannelObject tradingChannel = channelManager.getTradingChannelWithCallSignAndId(inputMsg[0].substring(0, 2), Integer.parseInt(String.valueOf(inputMsg[0].charAt(2))), main);
+                                TradingChannelObject tradingChannel = channelManager.getTradingChannelWithCallSignAndId(inputMsg[0].substring(0, 2), Integer.parseInt(String.valueOf(inputMsg[0].charAt(inputMsg[0].length()-1))), main);
                                 for (int i = 0; i < items.length; i++) {
                                     try {
                                         tradingChannel.addItem(items[i], amount[i]);

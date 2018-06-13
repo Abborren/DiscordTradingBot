@@ -36,7 +36,7 @@ public class TradingChannelObject {
     }
 
     /**
-     * logic to remve a specific item, also resets its item amount
+     * logic to remove a specific item, also resets its item amount
      * @param tradingItem is the tradingItem that requests to be removed from this tradingChannel object
      */
     public void removeItem(String tradingItem) {
@@ -69,18 +69,18 @@ public class TradingChannelObject {
 
         for (int i = 0; i < itemPairs.length; i++) {
             boolean b = false;
-            if (tradingItem.equals("n")) {
+            if (tradingItem.startsWith("n")) {
                 items[i][0] = "n";
                 break;
             }
-            if (itemPairs[i][0].equalsIgnoreCase(tradingItem) || itemPairs[i][1].equalsIgnoreCase(tradingItem)) {
+            if (itemPairs[i][0].startsWith(tradingItem) || itemPairs[i][1].startsWith(tradingItem)) {
                 items[((i + 1) * 2) - 2][0] = itemPairs[i][0];
                 items[((i + 1) * 2) - 1][0] = itemPairs[i][1];
                 b = true;
            }
-           if (amount != null && itemPairs[i][0].equalsIgnoreCase(tradingItem)) {
+           if (amount != null && itemPairs[i][0].startsWith(tradingItem)) {
                 items[(i+1)*2-2][1] = amount;
-           } else if (amount != null && itemPairs[i][1].equalsIgnoreCase(tradingItem)) {
+           } else if (amount != null && itemPairs[i][1].startsWith(tradingItem)) {
                 items[(i+1)*2-1][1] = amount;
            }
            if (b) {
