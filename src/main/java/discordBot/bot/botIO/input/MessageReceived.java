@@ -4,12 +4,11 @@ import discordBot.bot.botIO.input.commands.AddItems;
 import discordBot.bot.botIO.input.commands.RemoveItems;
 import discordBot.bot.botIO.input.commands.TradingRoles;
 import discordBot.bot.botIO.input.commands.WipeChannel;
+import discordBot.bot.botIO.output.tempMessages.TempMessage;
 import discordBot.bot.fileUtil.FileManager;
 import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.MessageBuilder;
+import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.io.File;
@@ -64,6 +63,22 @@ public class MessageReceived {
             tradingRoles.giveRole(thisChannel,thisMsg,thisUser,roles, jdaBot,main);
             deleteInputMessage.deleteMessage(thisChannel);
         }
+            //for input addItems in a specific channel in this case "input-channel"
+            if (guildHandler.checkChannel(thisChannel, new FileManager().loadString(new File("Config/Variables/Channels/InputOnlyChannel.txt")))) {
+                DeleteInputMessage deleteInputMessage = new DeleteInputMessage();
+                AddItems addItems = new AddItems();
+                RemoveItems removeItems = new RemoveItems();
+                for (MessageChannel messageChannel : guildHandler.getMessageChannels(jdaBot)) {
+                    if (guildHandler.checkChannel(messageChannel, new FileManager().loadString(new File("Config/Variables/Channels/TradingChannel.txt")))) {
+                        addItems.addItems(thisMsg,messageChannel,main);
+                        removeItems.removeItems(thisMsg,messageChannel,main);
+                        deleteInputMessage.deleteMessage(thisChannel);
+                        new TempMessage().printTempMessage(thisChannel,new MessageBuilder(thisUser.getAsMention()+", Message input received!"),10000);
+                        break;
+                    }
+                }
+
+            }
         //for input addItems in a specific channel in this case "input-channel"
         if (guildHandler.checkChannel(thisChannel, new FileManager().loadString(new File("Config/Variables/Channels/TradingChannel.txt")))) {
             DeleteInputMessage deleteInputMessage = new DeleteInputMessage();
