@@ -12,7 +12,7 @@ import java.util.List;
 
 public class WipeChannel {
     /**
-     *
+     * This deletes set amount of messages from a specific channel
      * @param channel the message channel where this function was triggered from
      * @param message the specific message that triggered this function
      * @param user the user who sent the message
