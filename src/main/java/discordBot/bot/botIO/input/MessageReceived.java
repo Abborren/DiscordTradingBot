@@ -55,6 +55,9 @@ public class MessageReceived {
             WipeChannel wipeChannel = new WipeChannel();
             wipeChannel.wipeChannel(thisChannel,thisMsg,thisUser,main);
         }
+        if (guildHandler.checkRole(roles, "Moderator") || guildHandler.checkRole(roles, "Owner") || guildHandler.checkRole(roles, "Helper")) {
+            new RemoveItems().resetManualAllItems(thisMsg,thisChannel,main);
+        }
 
         //Example of Role specific role
         if (guildHandler.checkChannel(thisChannel, new FileManager().loadString(new File("Config/Variables/Channels/RolesChannel.txt")))) {
@@ -82,11 +85,8 @@ public class MessageReceived {
         //for input addItems in a specific channel in this case "input-channel"
         if (guildHandler.checkChannel(thisChannel, new FileManager().loadString(new File("Config/Variables/Channels/TradingChannel.txt")))) {
             DeleteInputMessage deleteInputMessage = new DeleteInputMessage();
-            AddItems addItems = new AddItems();
-            RemoveItems removeItems = new RemoveItems();
-
-            addItems.addItems(thisMsg, thisChannel,main);
-            removeItems.removeItems(thisMsg,thisChannel,main);
+            new AddItems().addItems(thisMsg, thisChannel,main);
+            new RemoveItems().removeItems(thisMsg,thisChannel,main);
             deleteInputMessage.deleteMessage(thisChannel);
         }
 
