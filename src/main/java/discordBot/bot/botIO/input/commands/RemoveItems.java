@@ -9,6 +9,8 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 
 import java.io.File;
+import java.time.Clock;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 public class RemoveItems {
@@ -73,6 +75,8 @@ public class RemoveItems {
     public void resetManualAllItems(Message objMsg, MessageChannel objChannel, Bot main) {
         Thread thread = new Thread(() -> {
             if (objMsg.getContentRaw().startsWith("!wipe") && objMsg.getContentRaw().contains(" ") && objMsg.getContentRaw().contains("all")) {
+                System.out.println("User "+ objMsg.getAuthor().getName() + " used manual reset at "+ LocalDate.now(Clock.systemUTC()));
+
                 String[] temp = objMsg.getContentRaw().substring(6).split(" ");
                 // this will filter out empty strings in the array. aka it deals with double spaces
                 temp = Arrays.stream(temp).filter(s -> !s.isEmpty()).toArray(String[]::new);
