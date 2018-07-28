@@ -23,7 +23,7 @@ public class RemoveItems {
         Thread thread = new Thread(() -> {
 
             boolean removeAll = true;
-            if (objMsg.getContentRaw().startsWith("!wipe") && objMsg.getContentRaw().contains(" ")) {
+            if (objMsg.getContentRaw().startsWith("!wipe") && objMsg.getContentRaw().contains(" ") && !objMsg.getContentRaw().contains("all")) {
 
                 String[] temp = objMsg.getContentRaw().substring(6).split(" ");
                 // this will filter out empty strings in the array. aka it deals with double spaces
@@ -63,6 +63,27 @@ public class RemoveItems {
                             }
                             break outerLoop;
                         }
+                    }
+                }
+                printEmbed.editEmbed(main, objChannel);
+            }
+        });
+        thread.start();
+    }
+    public void resetManualAllItems(Message objMsg, MessageChannel objChannel, Bot main) {
+        Thread thread = new Thread(() -> {
+            if (objMsg.getContentRaw().startsWith("!wipe") && objMsg.getContentRaw().contains(" ") && objMsg.getContentRaw().contains("all")) {
+                String[] temp = objMsg.getContentRaw().substring(6).split(" ");
+                // this will filter out empty strings in the array. aka it deals with double spaces
+                temp = Arrays.stream(temp).filter(s -> !s.isEmpty()).toArray(String[]::new);
+                for (int i = 0; i < temp.length; i++) {
+                    temp[i] = temp[i].toLowerCase();
+
+                }
+                for (int i = 0; i < main.tradingChannelObjects.size(); i++) {
+                    String[] items = new TradingInput().returnRemoveItems(temp, true);
+                    for (String item : items) {
+                        main.tradingChannelObjects.get(i).removeItem(item);
                     }
                 }
                 printEmbed.editEmbed(main, objChannel);
