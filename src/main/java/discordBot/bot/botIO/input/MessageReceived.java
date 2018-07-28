@@ -56,7 +56,6 @@ public class MessageReceived {
             wipeChannel.wipeChannel(thisChannel,thisMsg,thisUser,main);
         }
         if (guildHandler.checkRole(roles, "Moderator") || guildHandler.checkRole(roles, "Owner") || guildHandler.checkRole(roles, "Helper")) {
-            new RemoveItems().resetManualAllItems(thisMsg,thisChannel,main);
         }
 
         //Example of Role specific role
@@ -87,6 +86,7 @@ public class MessageReceived {
             DeleteInputMessage deleteInputMessage = new DeleteInputMessage();
             new AddItems().addItems(thisMsg, thisChannel,main);
             new RemoveItems().removeItems(thisMsg,thisChannel,main);
+            new RemoveItems().resetManualAllItems(thisMsg,thisChannel,main);
             deleteInputMessage.deleteMessage(thisChannel);
         }
 
