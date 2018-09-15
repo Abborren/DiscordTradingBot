@@ -21,6 +21,7 @@ import java.util.List;
 public class BotTiming implements Runnable {
     private Bot main;
     private JDA jdaBot;
+    private boolean reset;
     private PrintEmbed printEmbed = new PrintEmbed();
     private GuildHandler guildHandler = new GuildHandler();
     private MessageChannel[] messageChannels;
@@ -30,17 +31,18 @@ public class BotTiming implements Runnable {
      * @param main the bots main
      * @param jdaBot the bots JDA
      */
-    public BotTiming(Bot main, JDA jdaBot) {
+    public BotTiming(Bot main, JDA jdaBot, boolean reset) {
         this.main = main;
         this.jdaBot = jdaBot;
+        this.reset = reset;
     }
     @Override
     public void run() {
-        initiateOutput(jdaBot);
+        initiateOutput(jdaBot, reset);
         long secondInterval = 1000;
         long minuteInterVal = 60000;
-        long secondPreviousMillis =0;
-        long minutePreviousMillis =0;
+        long secondPreviousMillis = 0;
+        long minutePreviousMillis = 0;
         ArrayList<LocalDateTime> resetTime = new ArrayList<>();
         int[] resets = {0, 4, 8, 12, 16, 20};
         for (int reset : resets) {
@@ -163,10 +165,12 @@ public class BotTiming implements Runnable {
      * this initiates the trading channels and creates a new embed/edits it
      * @param jdaBot the Discord bots JDA
      */
-    private void initiateOutput(JDA jdaBot) {
+    private void initiateOutput(JDA jdaBot,boolean reset) {
 
-        ChannelManager channelManager = new ChannelManager();
-        channelManager.initiateTradingChannels(main);
+        if (!reset) {
+            ChannelManager channelManager = new ChannelManager();
+            channelManager.initiateTradingChannels(main);
+        }
         messageChannels = guildHandler.getMessageChannels(jdaBot);
         editEmbed();
 
