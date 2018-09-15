@@ -42,6 +42,8 @@ public class WipeChannel {
                 System.out.println(e);
             } catch(NumberFormatException f){
                 new TempMessage().printTempMessage(channel, new MessageBuilder(user.getAsMention() + " Message clearing failed, message deletion amount is not a number or something went wrong."), 20000);
+            } catch (StringIndexOutOfBoundsException g) {
+                System.out.print(g);
             }
         });
         thread.start();
