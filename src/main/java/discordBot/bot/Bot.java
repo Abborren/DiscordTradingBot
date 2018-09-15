@@ -31,6 +31,7 @@ public class Bot extends ListenerAdapter {
      * @throws InterruptedException
      */
     public static void main(String[] args) throws LoginException, InterruptedException {
+
         new Bot();
     }
 
@@ -45,13 +46,17 @@ public class Bot extends ListenerAdapter {
         //Initializes the bot
         jdaBot = new JDABuilder(AccountType.BOT).setToken(tokenUtil.loadToken()).buildBlocking();
         jdaBot.addEventListener(this);
-        BotTiming botTiming = new BotTiming(this,jdaBot);
-        Thread timeThread = new Thread(botTiming);
+        startTiming(false);
+    }
+
+    private void startTiming(boolean reset) {
+        Thread timeThread = new Thread(new BotTiming(this,jdaBot,reset));
         timeThread.start();
     }
+
     @Override
     /**
-     * this is where the message recived event is initially handled
+     * this is where the message received event is initially handled
      */
     public void onMessageReceived(MessageReceivedEvent messageEvent) {
         new MessageReceived(messageEvent,this,jdaBot).messageReceivedHandler();
