@@ -25,7 +25,7 @@ public class BotTiming implements Runnable {
     private PrintEmbed printEmbed = new PrintEmbed();
     private GuildHandler guildHandler = new GuildHandler();
     private MessageChannel[] messageChannels;
-    protected LocalDateTime timeUTC;
+    LocalDateTime timeUTC;
     /**
      * creates this timing object
      * @param main the bots main

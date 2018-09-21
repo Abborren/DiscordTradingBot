@@ -56,9 +56,11 @@ public class Bot extends ListenerAdapter {
 
     }
     public void startTiming(boolean reset) {
-        if(timeThread.isAlive() || timeThread.isInterrupted()) {
-            System.out.println("TimeThread is alive or Corrupted restarting it now");
-            timeThread.stop();
+        if (timeThread != null) {
+            if(timeThread.isAlive() || timeThread.isInterrupted()) {
+                System.out.println("TimeThread is alive or Corrupted restarting it now");
+                timeThread.stop();
+            }
         }
         botTiming = new BotTiming(this,jdaBot,reset);
         timeThread = new Thread(botTiming);
