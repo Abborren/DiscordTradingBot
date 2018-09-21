@@ -25,7 +25,7 @@ public class BotTiming implements Runnable {
     private PrintEmbed printEmbed = new PrintEmbed();
     private GuildHandler guildHandler = new GuildHandler();
     private MessageChannel[] messageChannels;
-
+    protected LocalDateTime timeUTC;
     /**
      * creates this timing object
      * @param main the bots main
@@ -61,7 +61,7 @@ public class BotTiming implements Runnable {
 
         while (main.running) {
             long currentTimeMillis = System.currentTimeMillis();
-            LocalDateTime timeUTC = LocalDateTime.now(Clock.systemUTC());
+            timeUTC = LocalDateTime.now(Clock.systemUTC());
             if (currentTimeMillis - secondPreviousMillis >= secondInterval) {
                 secondPreviousMillis = currentTimeMillis;
                 int intTemp = resetTime.size();
@@ -188,7 +188,7 @@ public class BotTiming implements Runnable {
                     printEmbed.editEmbed(main,messageChannel);
                 }
 
-                //System.out.println("channel id "+bot.botMessageId);
+                //System.out.println("channel id "+main.botMessageId);
                 break;
             }
         }
