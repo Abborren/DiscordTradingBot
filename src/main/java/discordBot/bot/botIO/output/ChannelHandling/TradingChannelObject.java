@@ -4,7 +4,6 @@ package discordBot.bot.botIO.output.ChannelHandling;
 import discordBot.bot.fileUtil.FileManager;
 
 import java.io.File;
-import java.util.Arrays;
 
 public class TradingChannelObject {
     public String name;
