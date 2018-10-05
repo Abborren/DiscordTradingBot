@@ -28,6 +28,9 @@ public class TimeChecker implements Runnable {
                 if (timeBefore.isBefore(LocalDateTime.now(Clock.systemUTC()))) {
                     System.out.println("SOMETHING IS WRONG\n Restarting time counting! and the time is "+ LocalDateTime.now(Clock.systemUTC()).toString());
                     main.startTiming(true);
+                    if (timeBefore.plusMinutes(5).isAfter(main.botTiming.getResetTime())) {
+                        main.botTiming.resetTrading();
+                    }
                 }
             }
         }
