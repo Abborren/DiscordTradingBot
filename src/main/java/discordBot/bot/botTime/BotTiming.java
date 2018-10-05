@@ -21,29 +21,30 @@ import java.util.List;
 public class BotTiming implements Runnable {
     private Bot main;
     private JDA jdaBot;
-    private boolean reset;
+    private boolean tradeChannelReset;
     private PrintEmbed printEmbed = new PrintEmbed();
     private GuildHandler guildHandler = new GuildHandler();
     private MessageChannel[] messageChannels;
     LocalDateTime timeUTC;
+    private ArrayList<LocalDateTime> resetTime = new ArrayList<>();
     /**
      * creates this timing object
      * @param main the bots main
      * @param jdaBot the bots JDA
      */
-    public BotTiming(Bot main, JDA jdaBot, boolean reset) {
+    public BotTiming(Bot main, JDA jdaBot, boolean tradeChannelReset) {
         this.main = main;
         this.jdaBot = jdaBot;
-        this.reset = reset;
+        this.tradeChannelReset = tradeChannelReset;
     }
     @Override
     public void run() {
-        initiateOutput(jdaBot, reset);
+        initiateOutput(jdaBot, tradeChannelReset);
         long secondInterval = 1000;
         long minuteInterVal = 60000;
         long secondPreviousMillis = 0;
         long minutePreviousMillis = 0;
-        ArrayList<LocalDateTime> resetTime = new ArrayList<>();
+
         int[] resets = {0, 4, 8, 12, 16, 20};
         for (int reset : resets) {
             resetTime.add(LocalDateTime.of(LocalDate.now(Clock.systemUTC()), LocalTime.of(reset, 0)));
@@ -87,6 +88,10 @@ public class BotTiming implements Runnable {
         }
     }
 
+    public LocalDateTime getResetTime() {
+        return resetTime.get(0);
+    }
+
     /**
      * this checks if 16 hrs have passed since user in DiscordUser object requested "active" role
      * @param timeUTC the current UTC time
@@ -108,7 +113,7 @@ public class BotTiming implements Runnable {
     /**
      * this check if one time is after another time
      * @param timeUTC the current time in UTC
-     * @param resetTime the reset time in UTC
+     * @param resetTime the tradeChannelReset time in UTC
      * @return if time x is after time y returns true else returns false
      */
     private boolean checkIfTimeXIsAfterTimeY(LocalDateTime timeUTC, LocalDateTime resetTime) {
@@ -116,9 +121,9 @@ public class BotTiming implements Runnable {
     }
 
     /**
-     * this updates the game message to the time until next reset
+     * this updates the game message to the time until next tradeChannelReset
      * @param timeUTC the current time in UTC
-     * @param resetTime the next reset in UTC
+     * @param resetTime the next tradeChannelReset in UTC
      */
     private String updateGameMessage(LocalDateTime timeUTC, LocalDateTime resetTime) {
 
@@ -141,9 +146,9 @@ public class BotTiming implements Runnable {
     }
 
     /**
-     * this resets trading when a reset has just triggered
+     * this resets trading when a tradeChannelReset has just triggered
      */
-    private void resetTrading() {
+    void resetTrading() {
         for (int i=0; i< main.tradingChannelObjects.size();i++) {
             for (int j=0; j < main.tradingChannelObjects.get(i).items.length; j++) {
                 String item = main.tradingChannelObjects.get(i).items[j][0];
