@@ -12,7 +12,7 @@ import java.util.List;
 
 public class WipeChannel {
     /**
-     *
+     * This deletes set amount of messages from a specific channel
      * @param channel the message channel where this function was triggered from
      * @param message the specific message that triggered this function
      * @param user the user who sent the message
@@ -42,6 +42,8 @@ public class WipeChannel {
                 System.out.println(e);
             } catch(NumberFormatException f){
                 new TempMessage().printTempMessage(channel, new MessageBuilder(user.getAsMention() + " Message clearing failed, message deletion amount is not a number or something went wrong."), 20000);
+            } catch (StringIndexOutOfBoundsException g) {
+                System.out.print(g);
             }
         });
         thread.start();

@@ -56,30 +56,41 @@ class BuildEmbed {
         StringBuilder returnS = new StringBuilder();
         String[] notItems = new FileManager().loadStringArray(new File("Config/Variables/Items/TradingNotItems.txt"),false);
         for (int i = 0; i < channelGroupAmount; i++) {
-            returnS.append("\r\n").append(tradingChannels.get(i).id).append(" ");
-            boolean[] importantItems = {false,true,false,true,true,false,false,true,false,true};
-            for (int j = 0; j < tradingChannels.get(i).items.length; j++) {
-                if (tradingChannels.get(i).items[j][0] != null) {
-                    if (tradingChannels.get(i).items[j][0].equals("n")){
-                        returnS.append("Nothing here!");
-                        break;
-                    } else if (tradingChannels.get(i).items[j][1].equalsIgnoreCase("0")) {
-                        returnS.append(" ").append(notItems[j]).append(" ");
-                    } else {
-                        if (!tradingChannels.get(i).items[j][1].equalsIgnoreCase("N/A")) {
-                            importantItems[j] = true;
-                        }
-                        if (importantItems[j]) {
-                            returnS.append(" ").append(tradingChannels.get(i).items[j][0]).append(" ");
+
+            if (channelHasItems(tradingChannels.get(i))) {
+                returnS.append("\r\n").append(tradingChannels.get(i).id).append(": ");
+                boolean[] importantItems = {false,true,false,true,true,false,false,true,false,true};
+
+                for (int j = 0; j < tradingChannels.get(i).items.length; j++) {
+                    if (tradingChannels.get(i).items[j][0] != null) {
+                        if (tradingChannels.get(i).items[j][0].equals("n")){
+                            returnS.append("Nothing here!");
+                            break;
+                        } else if (tradingChannels.get(i).items[j][1].equalsIgnoreCase("0")) {
+                            returnS.append(" ").append(notItems[j]).append(" ");
+                        } else {
                             if (!tradingChannels.get(i).items[j][1].equalsIgnoreCase("N/A")) {
-                                returnS.append(tradingChannels.get(i).items[j][1]);
+                                importantItems[j] = true;
+                            }
+                            if (importantItems[j]) {
+                                returnS.append(" ").append(tradingChannels.get(i).items[j][0]).append(" ");
+                                if (!tradingChannels.get(i).items[j][1].equalsIgnoreCase("N/A")) {
+                                    returnS.append(tradingChannels.get(i).items[j][1]);
+                                }
                             }
                         }
-
                     }
                 }
             }
         }
         return returnS.toString();
+    }
+    private boolean channelHasItems(TradingChannelObject tradingChannelObject) {
+        for (int i = 0; i < tradingChannelObject.items.length; i++) {
+            if (tradingChannelObject.items[i][0] != null) {
+                return true;
+            }
+        }
+        return false;
     }
 }
