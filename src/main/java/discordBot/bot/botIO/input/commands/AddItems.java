@@ -57,7 +57,7 @@ public class AddItems {
                 for (String channelCommand : channelCommandsArray) {
                     for (int number : channelNumberArray) {
                         //if channel limit is met it will break
-                        if (inputMsg[0].substring(0, 1).startsWith("ar") && number >= 2 || inputMsg[0].substring(0, 1).startsWith("ka") && number >= 5) {
+                        if (inputMsg[0].substring(0, 1).startsWith("ar") && number >= 2 || inputMsg[0].substring(0, 1).startsWith("ka") && number >= 5 || inputMsg[0].substring(0, 1).startsWith("dr") && number >= 5) {
                             break outerLoop;
                         } else if (inputMsg[0].startsWith(channelCommand) && inputMsg[0].endsWith(String.valueOf(number))) {
                             if (attachments.CheckForAttachments(objMsg)) {
