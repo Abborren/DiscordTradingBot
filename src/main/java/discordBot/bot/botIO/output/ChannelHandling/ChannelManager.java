@@ -17,7 +17,7 @@ public class ChannelManager {
 
         for (int i = 0; i < channelName.length; i++) {
             for (int j = 1; j <= 6; j++) {
-                if (channelName[i].equals(channelName[6]) && j >= 5 || channelName[i].equals(channelName[7]) && j >= 2) {
+                if (channelName[i].equals("Kamasylvia") && j > 4 || channelName[i].equals("Drieghan") && j > 4 || channelName[i].equals("Arsha (PVP)") && j > 1) {
                     break;
                 } else {
                     main.tradingChannelObjects.add(new TradingChannelObject(channelName[i],channelCallSigns[i],j));

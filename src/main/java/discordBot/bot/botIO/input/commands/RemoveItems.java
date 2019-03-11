@@ -48,7 +48,7 @@ public class RemoveItems {
                 for (String channelCommand : channelCommandsArray) {
                     for (int number : channelNumberArray) {
                         //if channel limit is met it will break
-                        if (channelCommand.startsWith("ka") && number >= 5 || channelCommand.startsWith("ar") && number >= 2) {
+                        if (channelCommand.startsWith("dr") && number >= 5 || channelCommand.startsWith("ka") && number >= 5 || channelCommand.startsWith("ar") && number >= 2) {
                             break outerLoop;
 
                         } else if (temp[0].startsWith(channelCommand) && temp[0].endsWith(String.valueOf(number))) {

@@ -15,13 +15,15 @@ import java.util.Arrays;
 
 public class AddItems {
     private ImageLogic imageLogic = new ImageLogic();
+
     private PrintEmbed printEmbed = new PrintEmbed();
 
     /**
      * this adds items to a specific channel object.
-     * @param objMsg the discord message in question
+     *
+     * @param objMsg     the discord message in question
      * @param objChannel the discord message channel in question
-     * @param main the main class of the bot, containing the JDA
+     * @param main       the main class of the bot, containing the JDA
      */
     public void addItems(Message objMsg, MessageChannel objChannel, Bot main) {
         Thread thread = new Thread(() -> {
@@ -50,14 +52,14 @@ public class AddItems {
                 TradingInput tradingInput = new TradingInput();
                 String[] items = tradingInput.returnItems(inputMsg);
                 String[] amount = tradingInput.returnAmount(inputMsg);
-                String[] channelCommandsArray = new FileManager().loadStringArray(new File("Config/Variables/Channels/ChannelCallSign.txt"),false);
-                int[] channelNumberArray = {1, 2, 3, 4, 5, 6};
+                String[] channelCommandsArray = new FileManager().loadStringArray(new File("Config/Variables/Channels/ChannelCallSign.txt"), false);
+                int[] channelNumberArray = { 1, 2, 3, 4, 5, 6 };
 
                 outerLoop:
                 for (String channelCommand : channelCommandsArray) {
                     for (int number : channelNumberArray) {
                         //if channel limit is met it will break
-                        if (inputMsg[0].substring(0, 1).startsWith("ar") && number >= 2 || inputMsg[0].substring(0, 1).startsWith("ka") && number >= 5) {
+                        if (inputMsg[0].substring(0, 1).startsWith("ar") && number >= 2 || inputMsg[0].substring(0, 1).startsWith("ka") && number >= 5 || inputMsg[0].substring(0, 1).startsWith("dr") && number >= 5) {
                             break outerLoop;
                         } else if (inputMsg[0].startsWith(channelCommand) && inputMsg[0].endsWith(String.valueOf(number))) {
                             if (attachments.CheckForAttachments(objMsg)) {
@@ -68,18 +70,16 @@ public class AddItems {
                                 ChannelManager channelManager = new ChannelManager();
                                 TradingChannelObject tradingChannel;
                                 if (inputMsg[0].startsWith("v")) {
-                                    tradingChannel = channelManager.getTradingChannelWithCallSignAndId(inputMsg[0].substring(0, 2), Integer.parseInt(String.valueOf(inputMsg[0].charAt(inputMsg[0].length()-1))), main);
+                                    tradingChannel = channelManager.getTradingChannelWithCallSignAndId(inputMsg[0].substring(0, 2), Integer.parseInt(String.valueOf(inputMsg[0].charAt(inputMsg[0].length() - 1))), main);
                                 } else {
-                                    tradingChannel = channelManager.getTradingChannelWithCallSignAndId(inputMsg[0].substring(0, 1), Integer.parseInt(String.valueOf(inputMsg[0].charAt(inputMsg[0].length()-1))), main);
+                                    tradingChannel = channelManager.getTradingChannelWithCallSignAndId(inputMsg[0].substring(0, 1), Integer.parseInt(String.valueOf(inputMsg[0].charAt(inputMsg[0].length() - 1))), main);
                                 }
 
                                 for (int i = 0; i < items.length; i++) {
                                     try {
                                         tradingChannel.addItem(items[i], amount[i]);
-
                                     } catch (ArrayIndexOutOfBoundsException e) {
                                         tradingChannel.addItem(items[i], null);
-
                                     }
                                 }
                                 printEmbed.editEmbed(main, objChannel);
